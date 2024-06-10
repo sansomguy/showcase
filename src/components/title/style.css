@@ -1,13 +1,14 @@
 * {
   text-transform: uppercase;
-  --initial-delay: 0.3s;
+  --base-transition-time: 0.2s;
+  --initial-delay: var(--base-transition-time);
   --initial-length: 0s;
   --open-delay: calc(var(--initial-delay) + var(--initial-length));
-  --open-length: 0.3s;
+  --open-length: var(--base-transition-time);
   --pause-delay: calc(var(--open-delay) + var(--open-length));
-  --pause-length: 0.3s;
+  --pause-length: var(--base-transition-time);
   --close-delay: calc(var(--pause-delay) + var(--pause-length));
-  --close-length: 0.3s;
+  --close-length: var(--base-transition-time);
   --length: calc(
     var(--open-length) + var(--pause-length) + var(--close-length)
   );

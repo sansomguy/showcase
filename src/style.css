@@ -9,18 +9,19 @@
   --standard-border-radius: 5px;
 
   /* Default (light) theme */
-  --bg: #FFEEDD;
-  --accent-bg: #FFD8BE;
+  --bg: #ffeedd;
+  --accent-bg: #ffd8be;
   --text: #212121;
   --text-light: #585858;
   --border: #898ea4;
-  --accent: #B8B8FF;
-  --accent-hover: #9381FF;
+  --accent: #9381ff;
+  --accent-hover: #b8b8ff;
   --accent-text: var(--bg);
   --code: #d81b60;
   --preformatted: #444;
-  --marked: #9381FF;
-  --disabled: #F8F7FF;
+  --marked: #9381ff;
+  --disabled: #f8f7ff;
+  --visited: var(--text-light);
 }
 
 /* Dark theme */
@@ -30,19 +31,140 @@
     color-scheme: dark;
     --bg: #00296b;
     --accent-bg: #003f88;
-    --disabled: #00509d;
     --border: #0d3b66;
+    --disabled: #00509d;
     --text: #dcdcdc;
     --text-light: #ababab;
     --accent: #fdc500;
-    --accent-hover: #ffd500;
+    --accent-hover: #ffe099;
     --accent-text: var(--bg);
     --code: #f06292;
     --preformatted: #ccc;
+    --visited: var(--bg);
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
   video {
     opacity: 0.8;
   }
+}
+
+/** buttons & links **/
+
+button,
+.button,
+a.button, /* extra specificity to override a */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+label[type="button"] {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    var(--accent) 0,
+    var(--accent) 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: var(--accent-text);
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+button:focus,
+a.button:focus,
+.button:focus-visible,
+button:focus-visible:where(:enabled),
+input:enabled:focus-visible:where(
+    [type="submit"],
+    [type="reset"],
+    [type="button"]
+  ) {
+  box-shadow:
+    var(--accent) 0 0 0 1.5px inset,
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    var(--accent-hover) 0 -3px 0 inset;
+}
+
+button:enabled:hover,
+.button:not([aria-disabled="true"]):hover,
+input[type="submit"]:enabled:hover,
+input[type="reset"]:enabled:hover,
+input[type="button"]:enabled:hover,
+label[type="button"]:hover {
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    var(--accent) 0,
+    var(--accent-hover) 100%
+  );
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    var(--accent) 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+button:active,
+.button:active,
+a.button:active,
+a.button:link:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+label[type="button"]:active {
+  box-shadow: var(--accent) 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+button.current,
+.button.current,
+a.button.current,
+a.button:link.current {
+    box-shadow: var(--accent) 0 3px 7px inset;
+}
+
+header > nav > a:visited, nav > a:visited {
+  color: var(--visited);
+}
+
+
+.display-flex {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+
+}
+
+.display-flex-row {
+    flex-direction: row;
+}
+
+.column-gap-xs {
+    column-gap: 0.5em;
+    row-gap: 0;
 }

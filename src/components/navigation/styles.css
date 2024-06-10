@@ -1,15 +1,26 @@
 
 
+* {
+    text-transform: uppercase;
+}
 
+.button--github {
+    top: 0.15em;
+}
 
-.icon {
-    vertical-align: sub;
-    padding-right: 0.25rem;
-    display: inline-block;
-    width: 1em;
-    height: 1.3em;
-    margin-right: 0.2rem;
+.icon { 
+    display: block;
+    position: relative;
+
+    height: 0.8em;
+    width: 0.8em;
+
     stroke-width: 0;
+    margin:0;
+    top: .15em;
+    bottom:0; 
+    padding:0;
+
     stroke: currentColor;
     fill: currentColor;
 }

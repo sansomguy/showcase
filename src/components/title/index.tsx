@@ -13,7 +13,7 @@ export default component$(({ title }: Props) => {
       {title.split("").map((letter, index) => {
         return (
             <div class="hover" key={index}>
-                <span style={`--initial-delay: ${(index * 0.3) + 1}s;`} key={index}>
+                <span style={`--initial-delay: ${(index * 0.2) + 0.5}s;`} key={index}>
                     {letter}
                 </span>
             </div>
