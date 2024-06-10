@@ -1,0 +1,94 @@
+* {
+  text-transform: uppercase;
+  --initial-delay: 0.3s;
+  --initial-length: 0s;
+  --open-delay: calc(var(--initial-delay) + var(--initial-length));
+  --open-length: 0.3s;
+  --pause-delay: calc(var(--open-delay) + var(--open-length));
+  --pause-length: 0.3s;
+  --close-delay: calc(var(--pause-delay) + var(--pause-length));
+  --close-length: 0.3s;
+  --length: calc(
+    var(--open-length) + var(--pause-length) + var(--close-length)
+  );
+}
+
+span {
+  position: relative;
+  color: #fff;
+  text-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+.hover,
+.word,
+span {
+  cursor: pointer;
+}
+
+.concept {
+  position: relative;
+  overflow: visible;
+  scroll-snap-align: center;
+}
+
+.concept::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0.3), transparent);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.concept:hover::before {
+  opacity: 0.5;
+}
+
+.concept-two {
+  display: flex;
+  flex-direction: row;
+}
+
+.concept-two .hover {
+  position: relative;
+}
+.concept-two span {
+  color: #fff;
+  text-align: 0 1px 1px;
+  -webkit-text-stroke: 2px transparent;
+  text-shadow: none;
+  transition: var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation:
+    doNothing var(--pause-length) linear var(--initial-delay) 1,
+    popCharacter var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275)
+      var(--open-delay) 2 alternate;
+
+}
+
+.concept-two .hover:hover span {
+  color: transparent;
+  animation-duration: 0s;
+  transform: scale(1.5);
+  -webkit-text-stroke: 2px #fff;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes doNothing {
+  to {
+  }
+}
+
+@keyframes popCharacter {
+  to {
+    color: transparent;
+    transform: scale(1.5);
+    -webkit-text-stroke: 2px #fff;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* .concept-two h1 span {
+  --delay-bias: 0.3s;
+  --initial-delay: var(--letter-index)s;
+} */
