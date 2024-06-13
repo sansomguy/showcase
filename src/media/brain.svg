@@ -1,0 +1,75 @@
+<xml version="1.0" encoding="utf-8">
+    <svg
+        width="200"
+        height="200"
+        viewBox="0 0 200 200"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <circle cx="100" cy="100" r="100" fill="#DEDE" height="100" width="100" />
+        <g>
+            <path
+                d="M100 20c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40z"
+                fill="url(#gradient1)"
+            />
+            <path
+                d="M80 30c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
+                fill="url(#gradient1)"
+                transform="translate(-10 10)"
+            />
+            <path
+                d="M120 30c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
+                fill="url(#gradient1)"
+                transform="translate(10 10)"
+            />
+            <path
+                d="M80 90c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
+                fill="url(#gradient1)"
+                transform="scale(.5) translate(20 60) "
+            />
+            <animateTransform
+                attributeName="transform"
+                type="translate"
+                values="0 0; 10 10; 0,0"
+                keyTimes="0; 0.5; 1"
+                keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+                calcMode="spline"
+                begin="0s"
+                dur="5s"
+                repeatCount="indefinite"
+            >
+                
+            </animateTransform>
+        </g>
+        
+        <ellipse cx="100" cy="150" rx="80" ry="20" opacity="0.1">
+            <animate
+                attributeName="rx"
+                values="80; 50; 80"
+                calcMode="spline"
+                keyTimes="0; 0.5; 1"
+                keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+                dur="5s"
+                repeatCount="indefinite">
+            </animate>
+            <animate
+                attributeName="opacity"
+                values="0.1; 0.2; 0.1"
+                calcMode="spline"
+                keyTimes="0; 0.5; 1"
+                keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+                dur="5s"
+                repeatCount="indefinite">
+            </animate>
+        </ellipse>
+
+        
+
+        
+        <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f5b5fc;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ff88e1;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+</xml>

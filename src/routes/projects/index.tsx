@@ -3,11 +3,15 @@ import { useContent } from "@builder.io/qwik-city";
 
 import styles from "./style.css?inline";
 import Title from "~/components/title";
+import WorkerSVG from "~/media/worker.svg?jsx";
 
 export default component$(() => {
   useStylesScoped$(styles);
   return (
-    <section>
+    <>
+      <div class="worker-svg-container">
+        <WorkerSVG />
+      </div>
       <Title title="Projects" />
 
       <ul>
@@ -22,10 +26,6 @@ export default component$(() => {
         </li>
         <li>Appointment / Calendar</li>
       </ul>
-      <div id="animation">
-        <div id="box"></div>
-        <div id="hill"></div>
-      </div>
-    </section>
+    </>
   );
 });
