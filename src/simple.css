@@ -89,7 +89,7 @@ body > header {
   grid-column: 1 / -1;
 }
 
-body > header > *:only-child {
+body > header > * {
   margin-block-start: 2rem;
 }
 

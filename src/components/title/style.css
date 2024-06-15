@@ -68,7 +68,7 @@ span {
 }
 
 .concept-two .hover:hover span {
-  color: transparent;
+  color: var(--text);
   animation-duration: 0s;
   transform: scale(1.5);
   -webkit-text-stroke: 2px var(--text);
@@ -82,7 +82,7 @@ span {
 
 @keyframes popCharacter {
   to {
-    color: transparent;
+    color: var(--text);
     transform: scale(1.5);
     -webkit-text-stroke: 2px var(--text);
     text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);

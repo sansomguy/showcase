@@ -1,18 +1,16 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 
-import styles from "./style.css?inline";
-import Title from "~/components/title";
 import WorkerSVG from "~/media/worker.svg?jsx";
 import PageTitle from "~/components/page-title";
+import { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  useStylesScoped$(styles);
-
   return (
-    <>
+    <section>
       <PageTitle>
-        <WorkerSVG  />
-        <Title title="Projects" />
+        <span>
+          <WorkerSVG />
+        </span>
       </PageTitle>
       <ul>
         <li>
@@ -26,6 +24,16 @@ export default component$(() => {
         </li>
         <li>Appointment / Calendar</li>
       </ul>
-    </>
+    </section>
   );
 });
+
+export const head: DocumentHead = {
+  title: "Projects",
+  meta: [
+    {
+      name: "Josh Sansom | Projects",
+      content: "What I've been working on.",
+    },
+  ],
+};

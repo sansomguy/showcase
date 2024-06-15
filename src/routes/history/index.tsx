@@ -1,14 +1,11 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import Title from "~/components/title";
+import PageTitle from "~/components/page-title";
 
 export default component$(() => {
   return (
     <section>
-      <Title title={"History"} />
-      <p>
-        
-      </p>
+      <p>Something</p>
       <aside>
         <p>
           Little bio information to tell my little story.
@@ -27,10 +24,10 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Josh Sansom | About",
+  title: "History",
   meta: [
     {
-      name: "About",
+      name: "Josh Sansom | History",
       content: "A little bit about Josh.",
     },
   ],
