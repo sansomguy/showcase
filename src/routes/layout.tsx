@@ -1,4 +1,4 @@
-import { component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { component$, Slot } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import Navigation from "~/components/navigation";
 
@@ -20,7 +20,7 @@ export default component$(() => {
         <Navigation />
       </header>
       <main>
-      <Slot />
+        <Slot />
       </main>
     </>
   );

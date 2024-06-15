@@ -16,7 +16,7 @@
 
 span {
   position: relative;
-  color: #fff;
+  color: var(--text);
   text-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   display: block;
 }
@@ -55,7 +55,7 @@ span {
   position: relative;
 }
 .concept-two span {
-  color: #fff;
+  color: var(--text);
   text-align: 0 1px 1px;
   -webkit-text-stroke: 2px transparent;
   text-shadow: none;
@@ -71,7 +71,7 @@ span {
   color: transparent;
   animation-duration: 0s;
   transform: scale(1.5);
-  -webkit-text-stroke: 2px #fff;
+  -webkit-text-stroke: 2px var(--text);
   text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -84,7 +84,7 @@ span {
   to {
     color: transparent;
     transform: scale(1.5);
-    -webkit-text-stroke: 2px #fff;
+    -webkit-text-stroke: 2px var(--text);
     text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 }

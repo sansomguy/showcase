@@ -1,22 +1,23 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
-import { useContent } from "@builder.io/qwik-city";
-import styles from "./style.css?inline"
+import styles from "./style.css?inline";
+
 import Title from "~/components/title";
-import Brain from "~/media/brain.svg?jsx";
+import BrainSVG from "~/media/brain.svg?jsx";
+import PageTitle from "~/components/page-title";
 
 export default component$(() => {
-  useStylesScoped$(styles)
+  useStylesScoped$(styles);
   return (
-    <>    
-      <div class="brain">
-        <Brain />
-      </div>
-      <Title title="Thoughts" />
-      
-      
-      
+    <>
+      <PageTitle>
+        <BrainSVG />
+        <Title title="Thoughts" />
+      </PageTitle>
 
-      <p>I swear, I have some thoughts.<br/>I just haven't written them down yet...</p>
+      <p>
+        I swear, I have some thoughts.
+        <br />I just haven't written them down yet...
+      </p>
     </>
   );
 });

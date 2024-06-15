@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
 
 import styles from "./style.css?inline";
 import dogImage from "./dog-ipad.jpg?inline";
@@ -6,7 +6,7 @@ import gooseImage from "./goose.jpg?inline";
 import { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  useStyles$(styles);
+  useStylesScoped$(styles);
   return (
     <>
       <header>

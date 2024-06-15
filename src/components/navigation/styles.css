@@ -25,3 +25,8 @@
     fill: currentColor;
 }
 
+header > nav > a:visited,
+nav > a:visited {
+  color: var(--visited);
+}
+
