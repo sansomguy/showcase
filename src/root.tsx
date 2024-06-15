@@ -9,6 +9,7 @@ import { RouterHead } from "./components/router-head/router-head";
 import simpleCss from "./simple.css?inline";
 import styles from "./style.css?inline";
 import Navigation from "./components/navigation";
+import Breadcrumbs from "./components/breadcrumbs";
 
 export default component$(() => {
   useStyles$(simpleCss);
@@ -33,6 +34,7 @@ export default component$(() => {
       <body lang="en">
         <header>
           <Navigation />
+          <Breadcrumbs />
         </header>
         <main>
           <RouterOutlet />
