@@ -1,5 +1,4 @@
 * {
-  text-transform: uppercase;
   --base-transition-time: 0.2s;
   --initial-delay: var(--base-transition-time);
   --initial-length: 0s;

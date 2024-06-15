@@ -7,28 +7,17 @@
     "Helvetica Neue", sans-serif;
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
-  --bg-gradient-top: rgb(229 68 207);
-  --bg-gradient-bottom-top: rgb(234, 120, 169);
-  --bg-gradient-bottom-bottom: rgb(107, 118, 221);
 
-  --accent-bg-image: linear-gradient(
-    to bottom left,
-    var(--bg-gradient-top),
-    var(--bg-gradient-bottom-top),
-    var(--bg-gradient-bottom-bottom)
-  );
-
-  /* --bg: rgb(150, 157, 200); */
   --bg: #F5F5F3;
   --accent-bg: rgba(255, 255, 255, 0.5);
   --text: #000;
   --text-light: #585858;
   --border: #3d3d3d;
-  --accent: #00AAFF;
+  --accent: rgb(234, 120, 169);
   --accent-text: var(--bg);
-  --code: #d81b60;
+  --code: rgb(107, 118, 221);
   --preformatted: #444;
-  --marked: #9381ff;
+  --marked: rgb(229 68 207);
   --disabled: #bbb;
   --visited: var(--text-light);
 }
