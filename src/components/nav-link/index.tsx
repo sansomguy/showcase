@@ -17,6 +17,10 @@ export const NavLink = component$(
       toPathname !== '/' && toPathname.endsWith('/')
         ? toPathname.length - 1
         : toPathname.length;
+
+
+    // is parent link
+    const isParentLink = locationPathname.startsWith(toPathname);
     const isActive =
       locationPathname === toPathname ||
       (locationPathname.endsWith(toPathname) &&
@@ -26,7 +30,7 @@ export const NavLink = component$(
     return (
       <Link
         {...props}
-        class={`${props.class || ''} ${isActive ? activeClass : ''}`}
+        class={`${props.class || ''} ${isActive || isParentLink ? activeClass : ''}`}
         
       >
         <Slot />

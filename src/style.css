@@ -28,19 +28,6 @@
   ::backdrop {
     color-scheme: dark;
 
-    /* --bg: rgb(150, 157, 184);
-    
-    --text: #212121;
-    --text-light: #585858;
-    --border: #898ea4;
-    --accent: #9381ff;
-    --accent-hover: #b8b8ff;
-    --accent-text: var(--bg);
-    --code: #d81b60;
-    --preformatted: #444;
-    --marked: #9381ff;
-    --disabled: #f8f7ff;
-    --visited: var(--text-light); */
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
