@@ -1,35 +1,23 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
+import ProfilePhoto from "~/media/profile.jpeg?inline";
+import Title from "~/components/title";
+
 export default component$(() => {
   return (
     <section>
-      <h1>History</h1>
-      <p>
-        
-      </p>
-      <aside>
-        <p>
-          Little bio information to tell my little story.
-          <br />
-          What should this story include?
-        </p>
-
-        <ul>
-          <li>Where I'm from</li>
-          <li>What I do</li>
-          <li>What I plan to do</li>
-        </ul>
-      </aside>
+      <Title title="About" />
+      <img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
     </section>
   );
 });
 
 export const head: DocumentHead = {
-  title: "Josh Sansom | About",
+  title: "About",
   meta: [
     {
-      name: "About",
+      name: "Josh Sansom | About",
       content: "A little bit about Josh.",
     },
   ],

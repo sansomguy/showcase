@@ -1,6 +1,6 @@
 # Josh's Blog
 
-- [About](/about/)
+- [About](/)
 - [Thoughts](/thoughts/)
 - [Projects](/projects/)
 
