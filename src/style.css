@@ -19,26 +19,35 @@
   --preformatted: #444;
   --marked: rgb(229 68 207);
   --disabled: #bbb;
-  --visited: var(--text-light);
+  --visited: var(--text);
+  --bg-image: url(/images/crinkly_paper.svg)
 }
+
+
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root,
   ::backdrop {
     color-scheme: dark;
-
+    --bg: #1a1a1a;
+    --accent-bg: rgba(0, 0, 0, 0.5);
+    --text: #f5f5f5;
+    --bg-image: url(/images/crinkly_paper_dark.svg)
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
   video {
     opacity: 0.8;
   }
+
+
+
 }
 
 body {
   background-color: var(--bg);
-  background-image: url(/images/crinkly_paper.svg);
+  background-image: var(--bg-image);
   background-size: cover;
   background-repeat: no-repeat;
 }

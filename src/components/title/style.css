@@ -26,13 +26,13 @@ span {
   cursor: pointer;
 }
 
-.concept {
+.title-popper-base {
   position: relative;
   overflow: visible;
   scroll-snap-align: center;
 }
 
-.concept::before {
+.title-popper-base::before {
   content: "";
   position: absolute;
   top: 0;
@@ -41,19 +41,19 @@ span {
   opacity: 0;
   transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.concept:hover::before {
+.title-popper-base:hover::before {
   opacity: 0.5;
 }
 
-.concept-two {
+.title-popper {
   display: flex;
   flex-direction: row;
 }
 
-.concept-two .hover {
+.title-popper .hover {
   position: relative;
 }
-.concept-two span {
+.title-popper span {
   color: var(--text);
   text-align: 0 1px 1px;
   -webkit-text-stroke: 2px transparent;
@@ -66,7 +66,7 @@ span {
 
 }
 
-.concept-two .hover:hover span {
+.title-popper .hover:hover span {
   color: var(--text);
   animation-duration: 0s;
   transform: scale(1.5);
@@ -87,8 +87,3 @@ span {
     text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 }
-
-/* .concept-two h1 span {
-  --delay-bias: 0.3s;
-  --initial-delay: var(--letter-index)s;
-} */

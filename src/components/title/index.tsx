@@ -9,7 +9,7 @@ export default component$(({ title }: Props) => {
   useStylesScoped$(styles);
 
   return (
-    <h1 class="concept concept-two">
+    <h1 class="title-popper-base title-popper">
       {title.split("").map((letter, index) => {
         return (
             <div class="hover" key={index}>
