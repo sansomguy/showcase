@@ -1,8 +1,7 @@
-import { JSXChildren } from "@builder.io/qwik";
+import type { JSXChildren } from "@builder.io/qwik";
 
 type Props = {
   children: JSXChildren;
-  action$?: () => Promise<void>;
 };
 export function ConfettiButton({ children }: Props) {
   return (

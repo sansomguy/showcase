@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { Link, useContent, useLocation } from "@builder.io/qwik-city";
+import { useContent } from "@builder.io/qwik-city";
 import styles from "./styles.css?inline";
 import { NavLink } from "../nav-link";
 

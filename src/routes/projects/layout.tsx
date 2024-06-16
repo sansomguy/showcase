@@ -21,15 +21,15 @@ export default component$(() => {
         </PageTitle>
       </section>
       <section>
-        {projectsMenuItems?.items?.map((item, index) => {
+        {projectsMenuItems?.items?.map((item) => {
           return (
             <>
               <NavLink href="/projects">{item.text}</NavLink>
               <ul>
-                {item.items?.map((subItem, subIndex) => {
+                {item.items?.map((subItem) => {
                   return (
-                    <li>
-                      <NavLink key={subIndex} href={subItem.href}>
+                    <li key={subItem.text}>
+                      <NavLink  href={subItem.href}>
                         {subItem.text}
                       </NavLink>
                     </li>

@@ -1,8 +1,8 @@
 import { component$ } from "@builder.io/qwik";
+import { type DocumentHead } from "@builder.io/qwik-city";
 
 import BrainSVG from "~/media/brain.svg?jsx";
 import PageTitle from "~/components/page-title";
-import { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (

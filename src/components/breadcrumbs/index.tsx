@@ -1,9 +1,7 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import {
-  ContentMenu,
-  Link,
-  MenuData,
-  RouteLocation,
+  type ContentMenu,
+  type RouteLocation,
   useContent,
   useLocation,
 } from "@builder.io/qwik-city";
@@ -25,7 +23,7 @@ const traverseMenu = (current: RouteLocation) =>
     );
     if (!nextBreadCrumb) return breadcrumbs;
 
-    return traverse(nextBreadCrumb?.items, [...breadcrumbs, nextBreadCrumb]);
+    return traverse(nextBreadCrumb.items, [...breadcrumbs, nextBreadCrumb]);
   };
 
 export default component$(() => {
