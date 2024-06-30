@@ -1,9 +1,6 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import {
-  ContentMenu,
   Link,
-  RouteLocation,
-  useContent,
   useLocation,
   type LinkProps,
 } from "@builder.io/qwik-city";

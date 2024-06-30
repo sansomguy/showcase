@@ -1,0 +1,10 @@
+<svg
+    width="200"
+    height="200"
+    viewBox="0 0 200 200"
+    xmlns="http://www.w3.org/2000/svg"
+>    
+    <rect class="line line--top" x="10" y="30" width="180" height="20" rx="5" />
+    <rect class="line line--middle" x="10" y="70" width="180" height="20" rx="5" />
+    <rect class="line line--bottom" x="10" y="110" width="180" height="20" rx="5" />
+</svg>

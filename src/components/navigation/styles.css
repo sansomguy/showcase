@@ -1,27 +1,4 @@
-
-
-.button--github {
-    top: 0.15em;
-}
-
-.icon { 
-    display: block;
-    position: relative;
-
-    height: 0.8em;
-    width: 0.8em;
-
-    stroke-width: 0;
-    margin:0;
-    top: .15em;
-    bottom:0; 
-    padding:0;
-
-    stroke: currentColor;
-    fill: currentColor;
-}
-
-header > nav > a:visited,
+nav > a:visited,
 nav > a:visited {
   color: var(--visited);
 }
@@ -39,20 +16,30 @@ header {
     );
 }
 
-header > nav > a {
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+nav > a {
     border:none;
     text-shadow: none;
+    display: block;
+    width: 100%;
+    height: 3rem;
 }
     
-header > nav > a:hover, header > nav > a:focus {
+nav > a:hover, header nav > a:focus {
     animation-name: glow;
-    animation-duration: 0.5s;
+    animation-duration: 3s;
     animation-timing-function: ease-in;
-    animation-iteration-count: 1;
+    animation-iteration-count: infinite;
 }
 
 
-header > nav > a.current {
+nav > a.current {
     background-image: var(--accent-bg-image);
 }
 
@@ -60,8 +47,29 @@ header > nav > a.current {
     0% {
         text-shadow: 0 0 20px var(--marked);
     }
-    100% {
+    50% {
         text-shadow: 0 0 60px var(--code);
     }
+    100% {
+        text-shadow: 0 0 20px var(--marked);
+    }
     
+}
+
+.link span {
+    padding-left: 1rem;
+}
+
+.link--icon {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+}
+
+.icon svg {
+    display: block;
+    width: 5rem;
+    height: 3rem;
 }

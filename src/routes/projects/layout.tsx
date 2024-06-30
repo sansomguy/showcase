@@ -15,9 +15,6 @@ export default component$(() => {
     <>
       <section>
         <PageTitle title="Projects">
-          <span>
-            <WorkerSVG />
-          </span>
         </PageTitle>
       </section>
       <section>

@@ -45,11 +45,13 @@
 
 }
 
-body {
-  background-color: var(--bg);
+/* background-color: var(--bg);
   background-image: var(--bg-image);
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
+
+body {
+  background-color: transparent;
 }
 
 
