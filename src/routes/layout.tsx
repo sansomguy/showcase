@@ -52,7 +52,7 @@ export default component$(() => {
           <Navigation />
         </div>
       </header>
-      <div>
+      <div class={styles['main-container']}>
         <MenuToggle
           open={showMobileSideNav.value}
           onClick={toggleShowMobileSideNav}

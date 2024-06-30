@@ -21,8 +21,11 @@
   box-shadow: inset -10px -10px 10px -10px var(--accent);
 }
 
+.main-container {
+ flex: 1;
+}
+
 .main {
-  flex: 1;
   padding: 16px;
   padding-top: 0px;
 }
