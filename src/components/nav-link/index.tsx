@@ -1,9 +1,5 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import {
-  Link,
-  useLocation,
-  type LinkProps,
-} from "@builder.io/qwik-city";
+import { Link, useLocation, type LinkProps } from "@builder.io/qwik-city";
 
 type NavLinkProps = LinkProps & { activeClass?: string };
 export const NavLink = component$(({ activeClass, ...props }: NavLinkProps) => {
@@ -12,7 +8,7 @@ export const NavLink = component$(({ activeClass, ...props }: NavLinkProps) => {
   const linkPathName =
     (props.href &&
       ensureConsistentStructure(
-        new URL(props.href, location.url.origin).pathname
+        new URL(props.href, location.url.origin).pathname,
       )) ||
     "";
 

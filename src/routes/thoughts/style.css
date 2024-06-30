@@ -1,16 +1,15 @@
-
 .brain {
-    /* animation: brainBounce 1s infinite alternate;
+  /* animation: brainBounce 1s infinite alternate;
     animation-timing-function: ease-in-out; */
-    width: 4em;
+  width: 4em;
 }
 
 @keyframes brainBounce {
-    from {
-        translate: 0 0;
-    }
+  from {
+    translate: 0 0;
+  }
 
-    to {
-        translate: 0.2em 0.3em;
-    }
+  to {
+    translate: 0.2em 0.3em;
+  }
 }

@@ -20,7 +20,9 @@ export default component$(() => {
             <NavLink key={item.text} href={item.href} activeClass="current">
               <span class="link link--icon">
                 <span>{item.text}</span>
-                <span class="icon"><Icon item={item} /></span>
+                <span class="icon">
+                  <Icon item={item} />
+                </span>
               </span>
             </NavLink>
           );

@@ -1,20 +1,18 @@
 .page-title {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  height: 100px;
 }
 
 .page-title span svg {
-    width: 100px !important;
-    height: 100px !important;
+  width: 100px !important;
+  height: 100px !important;
 }
 
 @media screen and (max-width: 768px) {
-    .page-title {
-        flex-direction: column-reverse;
-    }
-    
+  .page-title {
+    flex-direction: column-reverse;
+  }
 }
- 

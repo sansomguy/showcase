@@ -13,7 +13,7 @@
   --accent-bg: #f5f7ff;
   --text: #212121;
   --text-light: #585858;
-  --border: #898EA4;
+  --border: #898ea4;
   --accent: #0d47a1;
   --accent-hover: #1266e2;
   --accent-text: var(--bg);
@@ -47,7 +47,9 @@
 }
 
 /* Reset box-sizing */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -149,7 +151,13 @@ p {
 }
 
 /* Prevent long strings from overflowing container */
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -204,7 +212,7 @@ label[type="button"] {
   line-height: normal;
 }
 
-.button[aria-disabled="true"], 
+.button[aria-disabled="true"],
 input:disabled,
 textarea:disabled,
 select:disabled,
@@ -240,10 +248,10 @@ label[type="button"]:hover {
 .button:focus-visible,
 button:focus-visible:where(:enabled),
 input:enabled:focus-visible:where(
-  [type="submit"],
-  [type="reset"],
-  [type="button"]
-) {
+    [type="submit"],
+    [type="reset"],
+    [type="button"]
+  ) {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
@@ -305,7 +313,10 @@ header > nav a[aria-current="page"] {
 }
 
 /* Consolidate box styling */
-aside, details, pre, progress {
+aside,
+details,
+pre,
+progress {
   background-color: var(--accent-bg);
   border: 1px solid var(--border);
   border-radius: var(--standard-border-radius);
@@ -332,7 +343,9 @@ aside {
   }
 }
 
-article, fieldset, dialog {
+article,
+fieldset,
+dialog {
   border: 1px solid var(--border);
   padding: 1rem;
   border-radius: var(--standard-border-radius);
@@ -454,7 +467,9 @@ select:not([multiple]) {
   background-image: linear-gradient(45deg, transparent 49%, var(--text) 51%),
     linear-gradient(135deg, var(--text) 51%, transparent 49%);
   background-position: calc(100% - 15px), calc(100% - 10px);
-  background-size: 5px 5px, 5px 5px;
+  background-size:
+    5px 5px,
+    5px 5px;
   background-repeat: no-repeat;
   padding-inline-end: 25px;
 }
@@ -524,7 +539,7 @@ input[type="radio"]:checked::after {
 /* Set a height for color input */
 input[type="color"] {
   height: 2.5rem;
-  padding:  0.2rem;
+  padding: 0.2rem;
 }
 
 /* do not show border around file selector button */
@@ -594,7 +609,7 @@ cite {
 }
 
 dt {
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 /* Use mono font for code elements */
@@ -681,7 +696,8 @@ dialog::backdrop {
 
 /* Superscript & Subscript */
 /* Prevent scripts from affecting line-height. */
-sup, sub {
+sup,
+sub {
   vertical-align: baseline;
   position: relative;
 }
@@ -690,8 +706,8 @@ sup {
   top: -0.4em;
 }
 
-sub { 
-  top: 0.3em; 
+sub {
+  top: 0.3em;
 }
 
 /* Classes for notices */

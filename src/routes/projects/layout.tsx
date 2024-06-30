@@ -8,14 +8,13 @@ export default component$(() => {
   const menu = useContent();
 
   const projectsMenuItems = menu.menu?.items?.find(
-    (item) => !item.href && item.text === "Projects"
+    (item) => !item.href && item.text === "Projects",
   );
 
   return (
     <>
       <section>
-        <PageTitle title="Projects">
-        </PageTitle>
+        <PageTitle title="Projects"></PageTitle>
       </section>
       <section>
         {projectsMenuItems?.items?.map((item) => {
@@ -26,9 +25,7 @@ export default component$(() => {
                 {item.items?.map((subItem) => {
                   return (
                     <li key={subItem.text}>
-                      <NavLink  href={subItem.href}>
-                        {subItem.text}
-                      </NavLink>
+                      <NavLink href={subItem.href}>{subItem.text}</NavLink>
                     </li>
                   );
                 })}

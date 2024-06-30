@@ -1,17 +1,17 @@
 .aside {
-    position:relative;
-    background-color: transparent;
-    border:none;
+  position: relative;
+  background-color: transparent;
+  border: none;
 }
 
 .worker-svg-container #legs {
-    fill: var(--accent-bg);
+  fill: var(--accent-bg);
 }
 
 .worker-svg-container {
-    display: flex;
-    align-items: center;
-    height:240px;
+  display: flex;
+  align-items: center;
+  height: 240px;
 }
 
 #animation {

@@ -11,7 +11,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-
 .navigation--hidden .navigation {
   width: 0px;
 }
@@ -22,7 +21,7 @@
 }
 
 .main-container {
- flex: 1;
+  flex: 1;
 }
 
 .main {

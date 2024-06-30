@@ -63,7 +63,6 @@ span {
     doNothing var(--pause-length) linear var(--initial-delay) 1,
     popCharacter var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275)
       var(--open-delay) 2 alternate;
-
 }
 
 .title-popper .hover:hover span {

@@ -1,8 +1,8 @@
 .breadcrumbs {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    font-size: 1.2rem;
-    color: var(--text);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--text);
 }

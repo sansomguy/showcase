@@ -11,7 +11,7 @@ import { NavLink } from "../nav-link";
 const traverseMenu = (current: RouteLocation) =>
   function traverse(
     menuItems: ContentMenu["items"],
-    breadcrumbs: ContentMenu["items"] = []
+    breadcrumbs: ContentMenu["items"] = [],
   ) {
     if (!menuItems) return breadcrumbs;
 
@@ -19,7 +19,7 @@ const traverseMenu = (current: RouteLocation) =>
 
     const nextBreadCrumb = menuItems.find(
       (item) =>
-        item.href && current.url.href.startsWith(toAbsoluteUrl(item.href))
+        item.href && current.url.href.startsWith(toAbsoluteUrl(item.href)),
     );
     if (!nextBreadCrumb) return breadcrumbs;
 

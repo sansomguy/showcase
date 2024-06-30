@@ -5,7 +5,7 @@ import styles from "./menu-toggle.module.css";
 
 function initTransformOrigin(button: Element) {
   const lines = button.getElementsByClassName(
-    "menu_svg__line"
+    "menu_svg__line",
   ) as HTMLCollectionOf<SVGRectElement>;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -23,24 +23,27 @@ type Props = {
   disappearOnOpen?: boolean;
   disappearOnClose?: boolean;
 };
-export default component$(({ open, onClick$, disappearOnClose, disappearOnOpen }: Props) => {
-  const menuButtonRef = useSignal<Element>();
-  useOnDocument(
-    "DOMContentLoaded",
-    $(() => menuButtonRef.value && initTransformOrigin(menuButtonRef.value))
-  );
+export default component$(
+  ({ open, onClick$, disappearOnClose, disappearOnOpen }: Props) => {
+    const menuButtonRef = useSignal<Element>();
+    useOnDocument(
+      "DOMContentLoaded",
+      $(() => menuButtonRef.value && initTransformOrigin(menuButtonRef.value)),
+    );
 
-  const shouldDisappear = open && disappearOnOpen || !open && disappearOnClose;
+    const shouldDisappear =
+      (open && disappearOnOpen) || (!open && disappearOnClose);
 
-  return (
-    <div class={styles.mobileNav}>
-      <span
-        ref={menuButtonRef}
-        class={`${styles.mobileNavButton} ${open ? styles["mobileNavButton--open"] : ''} ${shouldDisappear ? styles["mobileNavButton--disappear"] : ''}`}
-        onClick$={onClick$}
-      >
-        <MenuSVG />
-      </span>
-    </div>
-  );
-});
+    return (
+      <div class={styles.mobileNav}>
+        <span
+          ref={menuButtonRef}
+          class={`${styles.mobileNavButton} ${open ? styles["mobileNavButton--open"] : ""} ${shouldDisappear ? styles["mobileNavButton--disappear"] : ""}`}
+          onClick$={onClick$}
+        >
+          <MenuSVG />
+        </span>
+      </div>
+    );
+  },
+);

@@ -8,7 +8,7 @@
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
-  --bg: #F5F5F3;
+  --bg: #f5f5f3;
   --accent-bg: rgba(255, 255, 255, 0.5);
   --text: #000;
   --text-light: #585858;
@@ -20,10 +20,8 @@
   --marked: rgb(229 68 207);
   --disabled: #bbb;
   --visited: var(--text);
-  --bg-image: url(/images/crinkly_paper.svg)
+  --bg-image: url(/images/crinkly_paper.svg);
 }
-
-
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
@@ -33,16 +31,13 @@
     --bg: #1a1a1a;
     --accent-bg: rgba(0, 0, 0, 0.5);
     --text: #f5f5f5;
-    --bg-image: url(/images/crinkly_paper_dark.svg)
+    --bg-image: url(/images/crinkly_paper_dark.svg);
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
   video {
     opacity: 0.8;
   }
-
-
-
 }
 
 /* background-color: var(--bg);
@@ -53,7 +48,6 @@
 body {
   background-color: transparent;
 }
-
 
 .display-flex {
   display: flex;
@@ -69,4 +63,3 @@ body {
   column-gap: 0.5em;
   row-gap: 0;
 }
-

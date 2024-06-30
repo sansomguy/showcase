@@ -35,7 +35,7 @@ export default component$(() => {
     $((e) => {
       const window = e.target as Window;
       window.innerWidth > 768 && (showMobileSideNav.value = false);
-    })
+    }),
   );
 
   return (
@@ -52,11 +52,11 @@ export default component$(() => {
           <Navigation />
         </div>
       </header>
-      <div class={styles['main-container']}>
+      <div class={styles["main-container"]}>
         <MenuToggle
           open={showMobileSideNav.value}
           onClick$={toggleShowMobileSideNav}
-         disappearOnOpen
+          disappearOnOpen
         />
         <main class={styles.main}>
           <Slot />

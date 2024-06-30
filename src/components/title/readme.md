@@ -1,4 +1,3 @@
-
 # animated page titles
 
 ```pug
