@@ -2,16 +2,14 @@ import {
   $,
   Slot,
   component$,
-  useComputed$,
-  useOnDocument,
   useOnWindow,
-  useSignal,
+  useSignal
 } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.module.css";
 
-import Navigation from "~/components/navigation";
 import MenuToggle from "~/components/menu-toggle";
+import Navigation from "~/components/navigation";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:

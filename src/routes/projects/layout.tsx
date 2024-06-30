@@ -2,13 +2,12 @@ import { Slot, component$ } from "@builder.io/qwik";
 import { useContent } from "@builder.io/qwik-city";
 import { NavLink } from "~/components/nav-link";
 import PageTitle from "~/components/page-title";
-import WorkerSVG from "~/media/worker.svg?jsx";
 
 export default component$(() => {
   const menu = useContent();
 
   const projectsMenuItems = menu.menu?.items?.find(
-    (item) => !item.href && item.text === "Projects",
+    (item) => !item.href && item.text === "Projects"
   );
 
   return (

@@ -1,4 +1,4 @@
-import { $, QRL, component$, useOnDocument, useSignal } from "@builder.io/qwik";
+import { $, type QRL, component$, useOnDocument, useSignal } from "@builder.io/qwik";
 
 import MenuSVG from "~/media/menu.svg?jsx";
 import styles from "./menu-toggle.module.css";
