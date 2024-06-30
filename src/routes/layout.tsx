@@ -2,6 +2,9 @@ import {
   $,
   Slot,
   component$,
+  useComputed$,
+  useOnDocument,
+  useOnWindow,
   useSignal,
 } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
@@ -21,12 +24,19 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
-
 export default component$(() => {
   const showMobileSideNav = useSignal(() => false);
   const toggleShowMobileSideNav = $(() => {
     showMobileSideNav.value = !showMobileSideNav.value;
-  })
+  });
+
+  useOnWindow(
+    "resize",
+    $((e) => {
+      const window = e.target as Window;
+      window.innerWidth > 768 && (showMobileSideNav.value = false);
+    })
+  );
 
   return (
     <div
@@ -34,14 +44,24 @@ export default component$(() => {
     >
       <header class={`${styles.navigation}`}>
         <div class={styles["navigation__inner"]}>
-          <MenuToggle open={showMobileSideNav.value} onClick={toggleShowMobileSideNav} disappearOnClose />
+          <MenuToggle
+            open={showMobileSideNav.value}
+            onClick={toggleShowMobileSideNav}
+          />
+
           <Navigation />
         </div>
       </header>
-      <MenuToggle open={showMobileSideNav.value} onClick={toggleShowMobileSideNav} disappearOnOpen />
-      <main class={styles.main}>
-        <Slot />
-      </main>
+      <div>
+        <MenuToggle
+          open={showMobileSideNav.value}
+          onClick={toggleShowMobileSideNav}
+         disappearOnOpen
+        />
+        <main class={styles.main}>
+          <Slot />
+        </main>
+      </div>
     </div>
   );
 });

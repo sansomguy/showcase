@@ -1,9 +1,11 @@
 .mobileNavButton {
-  padding: 16px;
   display: block;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  transform: scale(1);
+  transition: opacity 0.3s ease-in;
+  opacity: 1;
+  height: 30px;
+  margin-top: 16px;
+  margin-bottom: 5px;
 }
 .mobileNavButton svg {
   height: 30px;
@@ -42,5 +44,5 @@
 }
 
 .mobileNavButton--disappear {
-    transform: scale(0);
+    opacity: 0;
 }
