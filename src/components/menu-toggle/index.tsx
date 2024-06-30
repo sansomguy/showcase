@@ -1,4 +1,4 @@
-import { $, component$, useOnDocument, useSignal } from "@builder.io/qwik";
+import { $, QRL, component$, useOnDocument, useSignal } from "@builder.io/qwik";
 
 import MenuSVG from "~/media/menu.svg?jsx";
 import styles from "./menu-toggle.module.css";
@@ -19,11 +19,11 @@ function initTransformOrigin(button: Element) {
 
 type Props = {
   open: boolean;
-  onClick: () => void;
+  onClick$: QRL<() => void>;
   disappearOnOpen?: boolean;
   disappearOnClose?: boolean;
 };
-export default component$(({ open, onClick, disappearOnClose, disappearOnOpen }: Props) => {
+export default component$(({ open, onClick$, disappearOnClose, disappearOnOpen }: Props) => {
   const menuButtonRef = useSignal<Element>();
   useOnDocument(
     "DOMContentLoaded",
@@ -37,10 +37,7 @@ export default component$(({ open, onClick, disappearOnClose, disappearOnOpen }:
       <span
         ref={menuButtonRef}
         class={`${styles.mobileNavButton} ${open ? styles["mobileNavButton--open"] : ''} ${shouldDisappear ? styles["mobileNavButton--disappear"] : ''}`}
-        onClick$={() => {
-        
-          onClick();
-        }}
+        onClick$={onClick$}
       >
         <MenuSVG />
       </span>

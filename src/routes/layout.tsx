@@ -46,7 +46,7 @@ export default component$(() => {
         <div class={styles["navigation__inner"]}>
           <MenuToggle
             open={showMobileSideNav.value}
-            onClick={toggleShowMobileSideNav}
+            onClick$={toggleShowMobileSideNav}
           />
 
           <Navigation />
@@ -55,7 +55,7 @@ export default component$(() => {
       <div class={styles['main-container']}>
         <MenuToggle
           open={showMobileSideNav.value}
-          onClick={toggleShowMobileSideNav}
+          onClick$={toggleShowMobileSideNav}
          disappearOnOpen
         />
         <main class={styles.main}>
