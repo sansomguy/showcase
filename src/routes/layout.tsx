@@ -1,13 +1,4 @@
-import {
-  $,
-  Slot,
-  component$,
-  event$,
-  useOn,
-  useOnWindow,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { $, Slot, component$, useOnWindow, useSignal } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.module.css";
 

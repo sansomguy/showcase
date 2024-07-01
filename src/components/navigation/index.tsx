@@ -1,4 +1,4 @@
-import { QRL, component$, useStyles$ } from "@builder.io/qwik";
+import { type QRL, component$, useStyles$ } from "@builder.io/qwik";
 import { type ContentMenu, useContent } from "@builder.io/qwik-city";
 import styles from "./styles.css?inline";
 import { NavLink } from "../nav-link";
