@@ -2,8 +2,11 @@ import {
   $,
   Slot,
   component$,
+  event$,
+  useOn,
   useOnWindow,
-  useSignal
+  useSignal,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.module.css";
@@ -23,17 +26,42 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 export default component$(() => {
+  const firstPassCompleted = useSignal(() => false);
   const showMobileSideNav = useSignal(() => false);
+  const isDesktop = useSignal<boolean>(true);
+
   const toggleShowMobileSideNav = $(() => {
     showMobileSideNav.value = !showMobileSideNav.value;
   });
 
+  const handleNavigationClick = $(() => {
+    if (!isDesktop.value) {
+      showMobileSideNav.value = false;
+    }
+  });
+
   useOnWindow(
-    "resize",
+    ["resize", "DOMContentLoaded"],
     $((e) => {
-      const window = e.target as Window;
-      window.innerWidth > 768 && (showMobileSideNav.value = false);
-    }),
+      let window: Window;
+      if (e.target instanceof Window) {
+        window = e.target;
+      } else {
+        window = (e.target as Document).defaultView as Window;
+      }
+      const largeScreen = window.innerWidth > 768;
+
+      if (firstPassCompleted.value === false) {
+        if (largeScreen === true) {
+          showMobileSideNav.value = true;
+        }
+      } else if (largeScreen !== isDesktop.value) {
+        showMobileSideNav.value = false;
+      }
+
+      isDesktop.value = largeScreen;
+      firstPassCompleted.value = true;
+    })
   );
 
   return (
@@ -46,8 +74,7 @@ export default component$(() => {
             open={showMobileSideNav.value}
             onClick$={toggleShowMobileSideNav}
           />
-
-          <Navigation />
+          <Navigation onClick$={handleNavigationClick} />
         </div>
       </header>
       <div class={styles["main-container"]}>

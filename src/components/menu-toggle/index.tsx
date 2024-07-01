@@ -1,11 +1,17 @@
-import { $, type QRL, component$, useOnDocument, useSignal } from "@builder.io/qwik";
+import {
+  $,
+  type QRL,
+  component$,
+  useOnDocument,
+  useSignal,
+} from "@builder.io/qwik";
 
 import MenuSVG from "~/media/menu.svg?jsx";
 import styles from "./menu-toggle.module.css";
 
-function initTransformOrigin(button: Element) {
+function initTransformSVGOrigin(button: Element) {
   const lines = button.getElementsByClassName(
-    "menu_svg__line",
+    "menu_svg__line"
   ) as HTMLCollectionOf<SVGRectElement>;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -28,7 +34,9 @@ export default component$(
     const menuButtonRef = useSignal<Element>();
     useOnDocument(
       "DOMContentLoaded",
-      $(() => menuButtonRef.value && initTransformOrigin(menuButtonRef.value)),
+      $(
+        () => menuButtonRef.value && initTransformSVGOrigin(menuButtonRef.value)
+      )
     );
 
     const shouldDisappear =
@@ -45,5 +53,5 @@ export default component$(
         </span>
       </div>
     );
-  },
+  }
 );
