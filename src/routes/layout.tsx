@@ -27,6 +27,7 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 export default component$(() => {
   const firstPassCompleted = useSignal(() => false);
+  // TODO - set the default open state based on the user agent information on the server
   const showMobileSideNav = useSignal(() => false);
   const isDesktop = useSignal<boolean>(true);
 
