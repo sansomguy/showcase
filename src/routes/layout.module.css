@@ -49,7 +49,12 @@
 .navigation__inner {
   height: calc(100% + 30px);
   box-shadow: inset -10px -10px 10px -10px var(--accent);
-  padding-top: 4em;
+}
+
+@media screen and (max-width: 1024px) {
+  .navigation__inner {
+    padding-top: 4em;
+  } 
 }
 
 .main-container {
