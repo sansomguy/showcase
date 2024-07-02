@@ -40,26 +40,16 @@
   }
 }
 
-/* background-color: var(--bg);
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-repeat: no-repeat; */
 
 body {
   background-color: transparent;
+  /* Center the body content on large screens */
+  grid-template-columns: 0.5fr 2fr 0.5fr;
 }
 
-.display-flex {
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-}
-
-.display-flex-row {
-  flex-direction: row;
-}
-
-.column-gap-xs {
-  column-gap: 0.5em;
-  row-gap: 0;
+/* On smaller screens, we just let the body stretch all the way */
+@media (max-width: 1024px) {
+  body {
+    grid-template-columns: 0fr 1fr 0fr;
+  }
 }

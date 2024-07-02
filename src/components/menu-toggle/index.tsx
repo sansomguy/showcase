@@ -2,8 +2,8 @@ import {
   $,
   type QRL,
   component$,
-  useOnDocument,
   useSignal,
+  useOnWindow,
 } from "@builder.io/qwik";
 
 import MenuSVG from "~/media/menu.svg?jsx";
@@ -28,12 +28,14 @@ type Props = {
   onClick$: QRL<() => void>;
   disappearOnOpen?: boolean;
   disappearOnClose?: boolean;
+  class?: string;
 };
 export default component$(
-  ({ open, onClick$, disappearOnClose, disappearOnOpen }: Props) => {
+  (props: Props) => {
+    const { open, onClick$, disappearOnClose, disappearOnOpen } = props
     const menuButtonRef = useSignal<Element>();
-    useOnDocument(
-      "DOMContentLoaded",
+    useOnWindow(
+      ["resize", "DOMContentLoaded"],
       $(
         () => menuButtonRef.value && initTransformSVGOrigin(menuButtonRef.value)
       )
@@ -43,7 +45,7 @@ export default component$(
       (open && disappearOnOpen) || (!open && disappearOnClose);
 
     return (
-      <div class={styles.mobileNav}>
+      <div class={`${props.class ?? ''} ${styles.mobileNav}`}>
         <span
           ref={menuButtonRef}
           class={`${styles.mobileNavButton} ${open ? styles["mobileNavButton--open"] : ""} ${shouldDisappear ? styles["mobileNavButton--disappear"] : ""}`}

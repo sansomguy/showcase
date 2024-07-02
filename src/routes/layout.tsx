@@ -17,18 +17,17 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 export default component$(() => {
-  const firstPassCompleted = useSignal(() => false);
   // TODO - set the default open state based on the user agent information on the server
-  const showMobileSideNav = useSignal(() => false);
+  const showSideNav = useSignal(() => false);
   const isDesktop = useSignal<boolean>(true);
 
   const toggleShowMobileSideNav = $(() => {
-    showMobileSideNav.value = !showMobileSideNav.value;
+    showSideNav.value = !showSideNav.value;
   });
 
   const handleNavigationClick = $(() => {
     if (!isDesktop.value) {
-      showMobileSideNav.value = false;
+      showSideNav.value = false;
     }
   });
 
@@ -41,40 +40,30 @@ export default component$(() => {
       } else {
         window = (e.target as Document).defaultView as Window;
       }
-      const largeScreen = window.innerWidth > 768;
+      const isLargeScreen = window.innerWidth > 768;
 
-      if (firstPassCompleted.value === false) {
-        if (largeScreen === true) {
-          showMobileSideNav.value = true;
-        }
-      } else if (largeScreen !== isDesktop.value) {
-        showMobileSideNav.value = false;
+      if (isLargeScreen) {
+        showSideNav.value = true;
       }
-
-      isDesktop.value = largeScreen;
-      firstPassCompleted.value = true;
+      isDesktop.value = isLargeScreen
     })
   );
 
   return (
     <div
-      class={`${styles.layout} ${!showMobileSideNav.value ? styles["navigation--hidden"] : ""}`}
+      class={`${styles.layout}`}
     >
-      <header class={`${styles.navigation}`}>
+      <header class={`${styles.navigation} ${!showSideNav.value ? styles["navigation--hidden"] : ""}`}>
         <div class={styles["navigation__inner"]}>
           <MenuToggle
-            open={showMobileSideNav.value}
+            class={styles['navigation__menu-toggle']}
+            open={showSideNav.value}
             onClick$={toggleShowMobileSideNav}
           />
           <Navigation onClick$={handleNavigationClick} />
         </div>
       </header>
       <div class={styles["main-container"]}>
-        <MenuToggle
-          open={showMobileSideNav.value}
-          onClick$={toggleShowMobileSideNav}
-          disappearOnOpen
-        />
         <main class={styles.main}>
           <Slot />
         </main>
