@@ -109,7 +109,7 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-  .navigation {
+  .navigation__inner {
     padding-top: 6rem;
   }
   .navigation__menu-toggle__button {
