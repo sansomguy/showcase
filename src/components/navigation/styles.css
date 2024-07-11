@@ -18,7 +18,7 @@ header {
   min-height: calc(100vh);
   overflow: hidden;
   padding-bottom: 20px;
-  transition: all 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
 }
 
 
@@ -69,9 +69,6 @@ header {
   position:relative;
 }
 
-.navigation__icon {
-  transition: all 0.3s ease-in-out;
-}
 .navigation--closed .navigation__icon {
   position: absolute;
   right: 0;
