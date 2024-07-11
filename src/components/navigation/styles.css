@@ -115,7 +115,6 @@ header {
   .navigation__inner {
     padding-top: 6rem;
     position:relative;
-    z-index: -1;
   }
   .navigation__menu-toggle {
     z-index: 9;
