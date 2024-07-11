@@ -1,5 +1,5 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import { DocumentHead, useContent } from "@builder.io/qwik-city";
+import { useContent } from "@builder.io/qwik-city";
 import { NavLink } from "~/components/nav-link";
 
 export default component$(() => {

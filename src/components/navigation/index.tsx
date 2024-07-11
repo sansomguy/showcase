@@ -40,7 +40,7 @@ export default component$(() => {
 
   return (
     <header
-      class={`navigation ${!!navOpen.value ? "navigation--open" : "navigation--closed"}`}
+      class={`navigation ${navOpen.value ? "navigation--open" : "navigation--closed"}`}
     >
       <div class={"navigation__inner"}>
         <div class="navigation__menu-toggle">
@@ -48,7 +48,7 @@ export default component$(() => {
         </div>
         <nav>
           {menu.menu?.items
-            ?.filter((item) => !!item.href)
+            ?.filter((item) => item.href)
             .map((item) => {
               return (
                 <NavLink

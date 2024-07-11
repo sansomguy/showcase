@@ -2,7 +2,6 @@ import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 import ProfilePhoto from "~/media/profile.jpeg?inline";
-import PageTitle from "~/components/page-title";
 
 export default component$(() => {
   return (

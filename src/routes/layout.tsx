@@ -1,4 +1,4 @@
-import { $, Slot, component$, useComputed$, useOnWindow, useSignal } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.module.css";
 

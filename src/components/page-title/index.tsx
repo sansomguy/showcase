@@ -12,7 +12,7 @@ export default component$(() => {
 
   return (
     <div class="page-title">
-      <Title title={head.title ?? 'Huh? What page is this?'} />
+      <Title title={head.title} />
       <div class="page-title__icon">
         <PageIcon title={head.title} />
       </div>
