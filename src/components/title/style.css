@@ -1,6 +1,5 @@
 * {
   --base-transition-time: 0.2s;
-  --initial-delay: var(--base-transition-time);
   --initial-length: 0s;
   --open-delay: calc(var(--initial-delay) + var(--initial-length));
   --open-length: var(--base-transition-time);
@@ -53,16 +52,22 @@ span {
 .title-popper .hover {
   position: relative;
 }
-.title-popper span {
+.title-popper__letter {
   color: var(--text);
   text-align: 0 1px 1px;
   -webkit-text-stroke: 2px transparent;
   text-shadow: none;
   transition: var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation:
-    doNothing var(--pause-length) linear var(--initial-delay) 1,
-    popCharacter var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275)
-      var(--open-delay) 2 alternate;
+  
+}
+
+.title-popper__run-animation {
+  animation-name: popCharacter;
+  animation-duration: var(--open-length);
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-delay: var(--open-delay);
+  animation-iteration-count: 2;
+  animation-direction: alternate;
 }
 
 .title-popper .hover:hover span {
