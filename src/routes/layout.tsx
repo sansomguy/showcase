@@ -1,29 +1,28 @@
-import { Slot, component$ } from "@builder.io/qwik";
+import { Slot, component$, useStyles$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
-import styles from "./layout.module.css";
+import styles from "./layout.css?inline";
 
 import Navigation from "~/components/navigation";
 import PageTitle from "~/components/page-title";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.dev/docs/caching/
+  
   cacheControl({
     // Always serve a cached response by default, up to a week stale
     staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
+    // Max once every 3 minutes, revalidate on the server to get a fresh version of this page
+    maxAge: 3*60*1000,
   });
 };
 
 export default component$(() => {
-  // TODO - set the default open state based on the user agent information on the serve
+  useStyles$(styles);
 
   return (
-    <div class={`${styles.layout}`}>
+    <div class={"layout__container"}>
       <Navigation />
-      <div class={styles["main-container"]}>
-        <main class={styles.main}>
+      <div class={"layout__main__container"}>
+        <main class="layout__main__container__inner">
           <section>
             <PageTitle />
           </section>
