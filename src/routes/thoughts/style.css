@@ -3,13 +3,3 @@
     animation-timing-function: ease-in-out; */
   width: 4em;
 }
-
-@keyframes brainBounce {
-  from {
-    translate: 0 0;
-  }
-
-  to {
-    translate: 0.2em 0.3em;
-  }
-}

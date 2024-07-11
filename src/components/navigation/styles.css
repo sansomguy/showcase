@@ -1,7 +1,3 @@
-nav > a:visited,
-nav > a:visited {
-  color: var(--visited);
-}
 
 header {
   --bg-gradient-top: rgba(229, 68, 207, 0.5);
@@ -15,6 +11,128 @@ header {
     var(--bg-gradient-bottom-bottom)
   );
 }
+
+
+.navigation {
+  width: 200px;
+  min-height: calc(100vh);
+  overflow: hidden;
+  padding-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    height: 100%;
+    position: fixed;
+    background-color: var(--bg);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+  .navigation--closed {
+    width: 0px;
+  } 
+
+  .navigation--open {
+    width: 100%;
+  }
+}
+
+.navigation--closed {
+  width: 5rem;
+}
+
+.navigation--open {
+  width: 200px;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation--closed {
+    width: 0px;
+  } 
+
+  .navigation--open {
+    width: 100%;
+  }
+}
+
+.navigation__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  position:relative;
+}
+
+.navigation__icon {
+  transition: all 0.3s ease-in-out;
+}
+.navigation--closed .navigation__icon {
+  position: absolute;
+  right: 0;
+}
+.navigation__link__text {
+  transition: opacity 0.3s ease-in-out;
+  padding-left: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__link__text {
+    padding-left: 2rem;
+  }
+}
+.navigation--closed .navigation__link__text {
+  opacity: 0;
+}
+
+
+.navigation__icon svg {
+  display: block;
+  width: 5rem;
+  height: 3rem;
+}
+
+
+
+.navigation__menu-toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation__menu-toggle__button {
+  width: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    padding-top: 6rem;
+  }
+  .navigation__menu-toggle__button {
+    position: fixed;
+    transition: all 0.3s ease-in-out;
+    top: 1rem;
+    left: 1.5rem;
+  }
+}
+
+.navigation__inner {
+  height: calc(100% + 30px);
+  box-shadow: inset -10px -10px 10px -10px var(--accent);
+}
+
+nav > a:visited,
+nav > a:visited {
+  color: var(--visited);
+}
+
 
 nav {
   display: flex;
@@ -32,7 +150,7 @@ nav > a {
 }
 
 nav > a:hover,
-header nav > a:focus {
+.navigation nav > a:focus {
   animation-name: glow;
   animation-duration: 3s;
   animation-timing-function: ease-in;
@@ -55,20 +173,3 @@ nav > a.current {
   }
 }
 
-.link span {
-  padding-left: 1rem;
-}
-
-.link--icon {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 3rem;
-}
-
-.icon svg {
-  display: block;
-  width: 5rem;
-  height: 3rem;
-}

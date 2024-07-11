@@ -1,20 +1,21 @@
-import { Slot, component$, useStyles$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
 
 import Title from "../title";
 import styles from "./style.css?inline";
+import PageIcon from "../page-icon";
 
-type Props = {
-  title?: string;
-};
-export default component$(({ title }: Props) => {
+export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
 
+
   return (
     <div class="page-title">
-      <Title title={title ?? head.title} />
-      <Slot />
+      <Title title={head.title ?? 'Huh? What page is this?'} />
+      <div class="page-title__icon">
+        <PageIcon title={head.title} />
+      </div>
     </div>
   );
 });

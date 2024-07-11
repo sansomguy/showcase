@@ -1,18 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 
-import BrainSVG from "~/media/brain.svg?jsx";
-import PageTitle from "~/components/page-title";
 
 export default component$(() => {
   return (
     <section>
-      <PageTitle>
-        <span>
-          <BrainSVG />
-        </span>
-      </PageTitle>
-
       <p>
         I swear, I have some thoughts.
         <br />I just haven't written them down yet...
@@ -23,6 +15,9 @@ export default component$(() => {
 
 export const head: DocumentHead = {
   title: "Thoughts",
+  frontmatter: {
+    svg: "brain",
+  },
   meta: [
     {
       name: "Thoughts",

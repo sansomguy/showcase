@@ -2,14 +2,15 @@ import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 import ProfilePhoto from "~/media/profile.jpeg?inline";
-import Title from "~/components/title";
+import PageTitle from "~/components/page-title";
 
 export default component$(() => {
   return (
+    <>
     <section>
-      <Title title="About" />
-      <img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
+      <figure><img width={640} height={480} src={ProfilePhoto} alt="Profile photo" /></figure>
     </section>
+    </>
   );
 });
 

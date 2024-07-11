@@ -1,9 +1,9 @@
-import { $, Slot, component$, useOnWindow, useSignal } from "@builder.io/qwik";
+import { $, Slot, component$, useComputed$, useOnWindow, useSignal } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.module.css";
 
-import MenuToggle from "~/components/menu-toggle";
 import Navigation from "~/components/navigation";
+import PageTitle from "~/components/page-title";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -17,54 +17,16 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 export default component$(() => {
-  // TODO - set the default open state based on the user agent information on the server
-  const showSideNav = useSignal(() => false);
-  const isDesktop = useSignal<boolean>(true);
-
-  const toggleShowMobileSideNav = $(() => {
-    showSideNav.value = !showSideNav.value;
-  });
-
-  const handleNavigationClick = $(() => {
-    if (!isDesktop.value) {
-      showSideNav.value = false;
-    }
-  });
-
-  useOnWindow(
-    ["resize", "DOMContentLoaded"],
-    $((e) => {
-      let window: Window;
-      if (e.target instanceof Window) {
-        window = e.target;
-      } else {
-        window = (e.target as Document).defaultView as Window;
-      }
-      const isLargeScreen = window.innerWidth > 768;
-
-      if (isLargeScreen) {
-        showSideNav.value = true;
-      }
-      isDesktop.value = isLargeScreen
-    })
-  );
+  // TODO - set the default open state based on the user agent information on the serve
 
   return (
-    <div
-      class={`${styles.layout}`}
-    >
-      <header class={`${styles.navigation} ${!showSideNav.value ? styles["navigation--hidden"] : ""}`}>
-        <div class={styles["navigation__inner"]}>
-          <MenuToggle
-            class={styles['navigation__menu-toggle']}
-            open={showSideNav.value}
-            onClick$={toggleShowMobileSideNav}
-          />
-          <Navigation onClick$={handleNavigationClick} />
-        </div>
-      </header>
+    <div class={`${styles.layout}`}>
+      <Navigation />
       <div class={styles["main-container"]}>
         <main class={styles.main}>
+          <section>
+            <PageTitle />
+          </section>
           <Slot />
         </main>
       </div>

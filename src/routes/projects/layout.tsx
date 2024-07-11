@@ -1,7 +1,6 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import { useContent } from "@builder.io/qwik-city";
+import { DocumentHead, useContent } from "@builder.io/qwik-city";
 import { NavLink } from "~/components/nav-link";
-import PageTitle from "~/components/page-title";
 
 export default component$(() => {
   const menu = useContent();
@@ -12,9 +11,6 @@ export default component$(() => {
 
   return (
     <>
-      <section>
-        <PageTitle title="Projects"></PageTitle>
-      </section>
       <section>
         {projectsMenuItems?.items?.map((item) => {
           return (
