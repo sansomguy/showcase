@@ -7,14 +7,14 @@ export default component$(() => {
 
 
 export const head: DocumentHead = {
-  title: "Projects",
+  title: "Work",
   frontmatter: {
     svg: "worker",
   },
   meta: [
     {
-      name: "Josh Sansom | Projects",
-      content: "What I've been working on.",
+      name: "Work",
+      content: "What I'm working on",
     },
   ],
 }

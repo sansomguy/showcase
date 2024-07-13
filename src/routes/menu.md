@@ -2,14 +2,14 @@
 
 - [About](/)
 - [Thoughts](/thoughts/)
-- [Projects](/projects/)
+- [Work](/work/)
 
-## Projects
+## Work
 
-### Businesses
+### Projects
 
-- [Auto admin car wash](/projects/auto-admin-car-wash/)
-
-### Proof of Concept
+- [My Website](/work/projects/my-website/)
 
 ### Experiments
+
+### Proof of Concept
