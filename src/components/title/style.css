@@ -1,4 +1,4 @@
-* {
+.title-popper-base * {
   --base-transition-time: 0.2s;
   --initial-length: 0s;
   --open-delay: calc(var(--initial-delay) + var(--initial-length));
