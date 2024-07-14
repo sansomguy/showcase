@@ -1,1 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 500 500"><g clip-path="url(#a)"><circle cx="250" cy="250" r="250" fill="#fff"/><path fill="#18B6F6" d="m367.87 418.45-61.17-61.18-.94.13v-.67L175.7 227.53l32.05-31.13L188.9 87.73 99.56 199.09c-15.22 15.42-18.03 40.51-7.08 59.03l55.83 93.11a46.82 46.82 0 0 0 40.73 22.81l27.65-.27 151.18 44.68Z"/><path fill="#AC7EF4" d="m401.25 196.94-12.29-22.81-6.41-11.67-2.54-4.56-.26.26-33.66-58.63a47.07 47.07 0 0 0-41.27-23.75l-29.51.8-88.01.28a47.07 47.07 0 0 0-40.33 23.34L93.4 207l95.76-119.54L314.7 226.19l-22.3 22.67 13.35 108.54.13-.26v.26h-.26l.26.27 10.42 10.2 50.62 49.78c2.13 2 5.6-.4 4.13-2.96l-31.25-61.85 54.5-101.3 1.73-2c.67-.81 1.33-1.62 1.87-2.42a46.8 46.8 0 0 0 3.34-50.18Z"/><path fill="#fff" d="M315.1 225.65 189.18 87.6l17.9 108.14L175 227l130.5 130.27-11.75-108.14 21.37-23.48Z"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h500v500H0z"/></clipPath></defs></svg>
+<svg width="297" height="210" viewBox="0 0 297 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <mask id="mask0_9_2" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="41" y="0" width="210" height="210">
+    <circle cx="146" cy="105" r="105" fill="#DDEEDD"/>
+    </mask>
+    <g mask="url(#mask0_9_2)">
+    <rect width="297" height="210" fill="#DDEEDD"/>
+    <ellipse cx="117.5" cy="120.5" rx="51.5" ry="48.5" fill="url(#paint0_linear_9_2)"/>
+    <path d="M163 140.5C157 141.667 142.7 142 133.5 134" stroke="#ED8743" stroke-width="4"/>
+    <g filter="url(#filter0_d_9_2)">
+    <ellipse cx="125.671" cy="91.9054" rx="71.5" ry="17.5" transform="rotate(-30 125.671 91.9054)" fill="#BCBCBC"/>
+    </g>
+    <path d="M158.631 72.5C151.338 59.8674 139.325 50.6495 125.235 46.8741C111.145 43.0987 96.1327 45.0751 83.5 52.3686C70.8674 59.662 61.6495 71.6751 57.8741 85.7649C54.0987 99.8548 56.0751 114.867 63.3686 127.5L111 100L158.631 72.5Z" fill="#BCBCBC"/>
+    <path d="M157.5 74.5C157.833 80.6667 155.3 94.8 142.5 102C118.9 116.4 109.5 119.5 107.5 120.5C94.3 126.1 83.3333 129.167 79.5 130C68.3 131.6 64.8333 129.667 64.5 128.5" stroke="#827F7F" stroke-width="4"/>
+    <path d="M157.5 75C157.167 71.8333 155.2 64.6 150 61" stroke="#827F7F" stroke-width="4"/>
+    <path d="M86 53C96 54.1667 121.3 66.2 136.5 105" stroke="#827F7F" stroke-width="4"/>
+    <path d="M81 55.5C78 67.3333 74.8 99.8 88 127" stroke="#827F7F" stroke-width="4"/>
+    <ellipse cx="83.0622" cy="53.2321" rx="7" ry="2" transform="rotate(-30 83.0622 53.2321)" fill="#827F7F"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M192.06 147.023C190.83 145.668 189.661 143.741 188.792 141.478C186.862 136.45 187.143 131.665 189.419 130.792C190.925 130.214 192.926 131.491 194.667 133.878C196.814 130.838 200.725 129.113 204.841 129.765C205.888 129.931 206.875 130.239 207.783 130.665C208.779 130.541 209.813 130.553 210.861 130.719C214.118 131.234 216.793 133.126 218.314 135.655C222.021 138.872 224.037 143.625 223.26 148.529C222.05 156.171 214.504 161.369 206.208 160.425L193.555 175.76L181.214 165.95L193.246 151.367C192.618 149.997 192.211 148.534 192.06 147.023Z" fill="url(#paint1_linear_9_2)"/>
+    </g>
+    <defs>
+    <filter id="filter0_d_9_2" x="59.127" y="53.0657" width="133.088" height="85.6796" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+    <feOffset dy="4"/>
+    <feGaussianBlur stdDeviation="2"/>
+    <feComposite in2="hardAlpha" operator="out"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9_2"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_9_2" result="shape"/>
+    </filter>
+    <linearGradient id="paint0_linear_9_2" x1="156.343" y1="149.271" x2="120.42" y2="98.6969" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFCCAA"/>
+    <stop offset="1" stop-color="#FF9955"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_9_2" x1="193.427" y1="119.359" x2="198.864" y2="148.72" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFCCAA"/>
+    <stop offset="1" stop-color="#FF9955"/>
+    </linearGradient>
+    </defs>
+    </svg>
+    
