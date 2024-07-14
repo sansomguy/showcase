@@ -1,0 +1,15 @@
+.two-columns {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.two-columns .two-columns__column {
+    flex: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+    }
+}

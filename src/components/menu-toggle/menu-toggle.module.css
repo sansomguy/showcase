@@ -13,7 +13,7 @@
 
 .mobileNavButton :global .menu_svg__line {
   transform: translateY(0) rotate(0deg);
-  fill: var(--text) !important;
+  fill: var(--text);
   transition: all 0.3s ease-in-out;
   opacity: 1;
 }

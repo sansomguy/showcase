@@ -2,6 +2,7 @@
 title: "About"
 ---
 import ProfilePhoto from "~/media/profile.jpeg?inline";
+import TwoColumns from "~/components/two-columns";
 
 <section>
 <figure>
@@ -21,19 +22,9 @@ Principal Software Engineer at [Digitise.au](http://Digitise.au).
     - Release planning
     - Product design & requirements definitions
 
-### **Education**
-
-- Masters of Applied Artificial intelligence
-(High Distinction)
-Deakin University
-- Bachelor of Science in Computing
-(High Distinction)
-University of South Africa
-- Cambridge AS Levels
-(Australian HSC Equivalent)
-
+<TwoColumns>
+<div q:slot="left">
 ### **Career**
-
 - Principal Software Engineer
 Digitise
 - Senior Software Developer
@@ -47,8 +38,26 @@ Moral Revolution
 - PHP Junior Web Developer
 IT Centric
 
+</div>
+<div q:slot="right">
+### **Education**
+
+- Masters of Applied Artificial intelligence
+(High Distinction)
+Deakin University
+- Bachelor of Science in Computing
+(High Distinction)
+University of South Africa
+- Cambridge AS Levels
+(Australian HSC Equivalent)
+
+</div>
+</TwoColumns>
+
 ### **Technology Experience**
 
+<TwoColumns>
+<div q:slot="left">
 **Stacks**
 
 - React + Node.JS + SQL Server
@@ -61,14 +70,8 @@ IT Centric
 - PyTorch
 - Langchain + Huggingface
 
-**Programming Languages**
-
-- JavaScript (10 years)
-- Typescript (8 years)
-- C# (5 years)
-- Python (3 years)
-- C++ (2 years)
-- OpenGL GLSL (hobbyist)
+</div>
+<div q:slot="right">
 
 **Cloud**
 
@@ -87,6 +90,21 @@ IT Centric
     - Azure Storage
 - Vercel | 1 year
 
+</div>
+</TwoColumns>
+
+<TwoColumns>
+<div q:slot="left">
+**Programming Languages**
+
+- JavaScript (10 years)
+- Typescript (8 years)
+- C# (5 years)
+- Python (3 years)
+- C++ (2 years)
+- OpenGL GLSL (hobbyist)
+</div>
+<div q:slot="right">
 **Data Engineering**
 
 - SQL Server (8 years)
@@ -94,7 +112,8 @@ IT Centric
 - Postgres (3 years)
 - Power BI  & Dataflows (2 years)
 - Pandas (2 years)
-
+</div>
+</TwoColumns>
 ### Favourite Tools
 
 - **Notion**

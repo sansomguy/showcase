@@ -19,7 +19,7 @@
   --preformatted: #444;
   --marked: rgb(229 68 207);
   --disabled: #bbb;
-  --visited: var(--text);
+  --visited: var(--accent);
   --bg-image: url(/images/crinkly_paper.svg);
 }
 
