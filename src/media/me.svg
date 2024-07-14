@@ -1,26 +1,25 @@
 <svg width="297" height="210" viewBox="0 0 297 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle id="background-circle" cx="148" cy="105" r="105" fill="#DEDE" filter="url(#shadow)"
-    stroke-width="0" />
-<filter id="shadow">
-    <feDropShadow dx="-2" dy="-2" stdDeviation="0.5"
-        flood-color="#DEDE" flood-opacity="1" />
-</filter>
-    <ellipse cx="140.5" cy="94.5" rx="51.5" ry="48.5" fill="url(#paint0_linear_9_2)"/>
-    <path d="M186 114.5C180 115.667 165.7 116 156.5 108" stroke="#ED8743" stroke-width="2"/>
+    <mask id="mask0_9_2" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="41" y="0" width="210" height="210">
+    <circle cx="146" cy="105" r="105" fill="#DDEEDD"/>
+    </mask>
+    <g mask="url(#mask0_9_2)">
+    <rect width="297" height="210" fill="#DDEEDD"/>
+    <ellipse cx="117.5" cy="120.5" rx="51.5" ry="48.5" fill="url(#paint0_linear_9_2)"/>
+    <path d="M163 140.5C157 141.667 142.7 142 133.5 134" stroke="#ED8743" stroke-width="4"/>
     <g filter="url(#filter0_d_9_2)">
-    <ellipse cx="148.671" cy="65.9054" rx="71.5" ry="17.5" transform="rotate(-30 148.671 65.9054)" fill="#D9D9D9"/>
+    <ellipse cx="125.671" cy="91.9054" rx="71.5" ry="17.5" transform="rotate(-30 125.671 91.9054)" fill="#D9D9D9"/>
     </g>
-    <path d="M181.631 46.5C174.338 33.8674 162.325 24.6495 148.235 20.8741C134.145 17.0987 119.133 19.0751 106.5 26.3686C93.8674 33.662 84.6495 45.6751 80.8741 59.7649C77.0987 73.8548 79.0751 88.8673 86.3686 101.5L134 74L181.631 46.5Z" fill="#D9D9D9"/>
-    <path d="M86.5 102L180.5 47.5" stroke="#D9D9D9" stroke-width="2"/>
-    <path d="M180.5 48.5C180.833 54.6667 178.3 68.8 165.5 76C141.9 90.4 132.5 93.5 130.5 94.5C117.3 100.1 106.333 103.167 102.5 104C91.3 105.6 87.8333 103.667 87.5 102.5" stroke="#827F7F" stroke-width="2"/>
-    <path d="M180.5 49C180.167 45.8333 178.2 38.6 173 35" stroke="#827F7F" stroke-width="2"/>
-    <path d="M109 27C119 28.1667 144.3 40.2 159.5 79" stroke="#827F7F" stroke-width="2"/>
-    <path d="M104 29.5C101 41.3333 97.8 73.8 111 101" stroke="#827F7F" stroke-width="2"/>
-    <ellipse cx="106.062" cy="27.232" rx="7" ry="2" transform="rotate(-30 106.062 27.232)" fill="#827F7F"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M231.06 116.023C229.83 114.668 228.661 112.741 227.792 110.478C225.862 105.45 226.143 100.665 228.419 99.7916C229.925 99.2136 231.926 100.491 233.667 102.878C235.814 99.8379 239.725 98.1132 243.841 98.7651C244.888 98.931 245.875 99.2392 246.783 99.6651C247.779 99.5406 248.813 99.5526 249.861 99.7185C253.118 100.234 255.793 102.126 257.314 104.655C261.021 107.872 263.037 112.625 262.26 117.529C261.05 125.171 253.504 130.369 245.208 129.425L232.555 144.76L220.214 134.95L232.246 120.367C231.618 118.997 231.211 117.534 231.06 116.023Z" fill="url(#paint1_linear_9_2)"/>
-    <path d="M229.462 105.932C230.39 105.032 229.635 103.269 228.866 102.067C228.548 101.569 227.943 101.093 227.677 101.621C227.556 101.861 227.454 102.193 227.368 102.563C227.037 103.992 227.053 106.148 228.508 106.33C228.801 106.367 229.122 106.261 229.462 105.932Z" fill="#ED8743" stroke="#ED8743" stroke-width="0.5"/>
+    <path d="M158.631 72.5C151.338 59.8674 139.325 50.6495 125.235 46.8741C111.145 43.0987 96.1327 45.0751 83.5 52.3686C70.8674 59.662 61.6495 71.6751 57.8741 85.7649C54.0987 99.8548 56.0751 114.867 63.3686 127.5L111 100L158.631 72.5Z" fill="#D9D9D9"/>
+    <path d="M63.5 128L157.5 73.5" stroke="#D9D9D9" stroke-width="2"/>
+    <path d="M157.5 74.5C157.833 80.6667 155.3 94.8 142.5 102C118.9 116.4 109.5 119.5 107.5 120.5C94.3 126.1 83.3333 129.167 79.5 130C68.3 131.6 64.8333 129.667 64.5 128.5" stroke="#827F7F" stroke-width="4"/>
+    <path d="M157.5 75C157.167 71.8333 155.2 64.6 150 61" stroke="#827F7F" stroke-width="4"/>
+    <path d="M86 53C96 54.1667 121.3 66.2 136.5 105" stroke="#827F7F" stroke-width="4"/>
+    <path d="M81 55.5C78 67.3333 74.8 99.8 88 127" stroke="#827F7F" stroke-width="4"/>
+    <ellipse cx="83.0622" cy="53.2321" rx="7" ry="2" transform="rotate(-30 83.0622 53.2321)" fill="#827F7F"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M192.06 147.023C190.83 145.668 189.661 143.741 188.792 141.478C186.862 136.45 187.143 131.665 189.419 130.792C190.925 130.214 192.926 131.491 194.667 133.878C196.814 130.838 200.725 129.113 204.841 129.765C205.888 129.931 206.875 130.239 207.783 130.665C208.779 130.541 209.813 130.553 210.861 130.719C214.118 131.234 216.793 133.126 218.314 135.655C222.021 138.872 224.037 143.625 223.26 148.529C222.05 156.171 214.504 161.369 206.208 160.425L193.555 175.76L181.214 165.95L193.246 151.367C192.618 149.997 192.211 148.534 192.06 147.023Z" fill="url(#paint1_linear_9_2)"/>
+    </g>
     <defs>
-    <filter id="filter0_d_9_2" x="82.127" y="27.0657" width="133.088" height="85.6796" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <filter id="filter0_d_9_2" x="59.127" y="53.0657" width="133.088" height="85.6796" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
     <feFlood flood-opacity="0" result="BackgroundImageFix"/>
     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
     <feOffset dy="4"/>
@@ -30,11 +29,11 @@
     <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9_2"/>
     <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_9_2" result="shape"/>
     </filter>
-    <linearGradient id="paint0_linear_9_2" x1="179.343" y1="123.271" x2="143.42" y2="72.6969" gradientUnits="userSpaceOnUse">
+    <linearGradient id="paint0_linear_9_2" x1="156.343" y1="149.271" x2="120.42" y2="98.6969" gradientUnits="userSpaceOnUse">
     <stop stop-color="#FFCCAA"/>
     <stop offset="1" stop-color="#FF9955"/>
     </linearGradient>
-    <linearGradient id="paint1_linear_9_2" x1="232.427" y1="88.3592" x2="237.864" y2="117.72" gradientUnits="userSpaceOnUse">
+    <linearGradient id="paint1_linear_9_2" x1="193.427" y1="119.359" x2="198.864" y2="148.72" gradientUnits="userSpaceOnUse">
     <stop stop-color="#FFCCAA"/>
     <stop offset="1" stop-color="#FF9955"/>
     </linearGradient>
