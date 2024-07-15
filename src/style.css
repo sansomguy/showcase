@@ -40,7 +40,6 @@
   }
 }
 
-
 body {
   background-color: transparent;
   /* Center the body content on large screens */
@@ -52,9 +51,4 @@ body {
   body {
     grid-template-columns: 0fr 1fr 0fr;
   }
-}
-
-h2, h3 {
-  position: sticky;
-  top: 1rem;
 }
