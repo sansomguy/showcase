@@ -88,7 +88,7 @@ header {
 }
 
 
-.navigation__icon svg, .page-icon__wrapper {
+.navigation__icon svg {
   display: block;
   width: 5rem;
   height: 3rem;
