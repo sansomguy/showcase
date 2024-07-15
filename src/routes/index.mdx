@@ -1,27 +1,33 @@
 ---
-title: "About"
+title: "Josh Sansom"
 ---
 import ProfilePhoto from "~/media/profile.jpeg?inline";
 import TwoColumns from "~/components/two-columns";
 
 <section>
-<figure>
-<img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
-<figcaption>Josh (Me), Amber (Wife), Rory (Daughter) visiting Mount McKenzie.</figcaption>
-</figure>
+<TwoColumns>
+<div q:slot="left">
+    
+    <figure>
+        <img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
+        <figcaption>Josh (Me), Amber (Wife), Rory (Daughter) at Mount McKenzie.</figcaption>
+    </figure>
+    
+</div>
+
+<div q:slot="right">
 ## **Profile**
+Principal Software Engineer at [Digitise.au](http://Digitise.au).  
 
-Joshua Sansom Sherwill.
-Principal Software Engineer at [Digitise.au](http://Digitise.au).
-
-### **Key responsibilities:**
+**Key responsibilities:**
 
 - Software Engineering & Architecture
 - Project Management
     - Resource planning
     - Release planning
     - Product design & requirements definitions
-
+</div>
+</TwoColumns>
 <TwoColumns>
 <div q:slot="left">
 ### **Career**
@@ -37,7 +43,6 @@ Mudbath & Wild and Free
 Moral Revolution
 - PHP Junior Web Developer
 IT Centric
-
 </div>
 <div q:slot="right">
 ### **Education**
@@ -50,12 +55,9 @@ Deakin University
 University of South Africa
 - Cambridge AS Levels
 (Australian HSC Equivalent)
-
 </div>
 </TwoColumns>
-
 ### **Technology Experience**
-
 <TwoColumns>
 <div q:slot="left">
 **Stacks**

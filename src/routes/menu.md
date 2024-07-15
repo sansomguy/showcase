@@ -1,6 +1,6 @@
 # Josh's Blog
 
-- [About](/)
+- [Josh Sansom](/)
 - [Thoughts](/thoughts/)
 - [Work](/work/)
 
