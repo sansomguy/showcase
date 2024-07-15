@@ -11,3 +11,12 @@
   width: 100px !important;
   height: 100px !important;
 }
+
+
+@media screen and (max-width: 768px) {
+  .page-title {
+    flex-wrap: wrap-reverse;
+    height: auto;
+    justify-content: center;
+  }
+}
