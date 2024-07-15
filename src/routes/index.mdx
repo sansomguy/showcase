@@ -5,17 +5,8 @@ import ProfilePhoto from "~/media/profile.jpeg?inline";
 import TwoColumns from "~/components/two-columns";
 
 <section>
-<TwoColumns>
+<TwoColumns columnReverse>
 <div q:slot="left">
-    
-    <figure>
-        <img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
-        <figcaption>Josh (Me), Amber (Wife), Rory (Daughter) at Mount McKenzie.</figcaption>
-    </figure>
-    
-</div>
-
-<div q:slot="right">
 ## **Profile**
 Principal Software Engineer at [Digitise.au](http://Digitise.au).  
 
@@ -26,6 +17,14 @@ Principal Software Engineer at [Digitise.au](http://Digitise.au).
     - Resource planning
     - Release planning
     - Product design & requirements definitions
+</div>
+<div q:slot="right">
+    
+    <figure>
+        <img width={640} height={480} src={ProfilePhoto} alt="Profile photo" />
+        <figcaption>Josh (Me), Amber (Wife), Rory (Daughter) at Mount McKenzie.</figcaption>
+    </figure>
+    
 </div>
 </TwoColumns>
 <TwoColumns>
