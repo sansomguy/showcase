@@ -1,4 +1,4 @@
-import { component$, useContext } from "@builder.io/qwik";
+import { component$, useContext, useOnDocument } from "@builder.io/qwik";
 import { ThemeContext } from "~/root";
 
 export default component$(() => {
@@ -12,7 +12,7 @@ export default component$(() => {
           type="checkbox"
           checked={theme.value}
           onChange$={(event) => {
-            theme.value = !!(event.target as HTMLInputElement)?.checked;
+            theme.value = !!(event.target as HTMLInputElement).checked;
           }}
         />
       </label>

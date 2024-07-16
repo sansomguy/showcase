@@ -21,8 +21,7 @@ export default component$(() => {
     const doc = (e.target) as Document
     const win = doc.defaultView as Window
     documentRef.value = doc
-    // get current theme from device settings
-    darkTheme.value = window.matchMedia("(prefers-color-scheme: dark)").matches
+    darkTheme.value = win.matchMedia("(prefers-color-scheme: dark)").matches
   }))
 
   useTask$(({track}) => {
