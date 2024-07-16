@@ -156,6 +156,8 @@ nav {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  position: sticky;
+  top: 0;
 }
 
 nav > a {
