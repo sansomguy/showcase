@@ -4,12 +4,10 @@ import { type DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
-    <section>
       <p>
         I swear, I have some thoughts.
         <br />I just haven't written them down yet...
       </p>
-    </section>
   );
 });
 

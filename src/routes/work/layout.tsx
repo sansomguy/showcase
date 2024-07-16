@@ -11,10 +11,11 @@ export default component$(() => {
 
   return (
     <>
-      <section>
+      <aside>
+        <ul>
         {projectsMenuItems?.items?.map((item) => {
           return (
-            <>
+            <li key={item.text}>
               <NavLink href="/work">{item.text}</NavLink>
               <ul>
                 {item.items?.map((subItem) => {
@@ -25,11 +26,12 @@ export default component$(() => {
                   );
                 })}
               </ul>
-            </>
+            </li>
           );
         })}
-        <Slot />
-      </section>
+        </ul>
+      </aside>
+      <Slot />  
     </>
   );
 });
