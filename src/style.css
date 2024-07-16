@@ -3,6 +3,7 @@
   --theme-bg: #1a1a1a;
   --theme-accent-bg: rgba(0, 0, 0, 0.5);
   --theme-text: #f5f5f5;
+  --text-light: #rgba(255, 255, 255, 0.5);
   
 }
 
@@ -10,6 +11,7 @@
   --theme-bg: #f5f5f3;
   --theme-accent-bg: rgba(255, 255, 255, 0.5);
   --theme-text: #000;
+  --text-light: #585858;
 }
 
 :root,
@@ -26,7 +28,6 @@
   --bg: var(--theme-bg);
   --accent-bg: var(--theme-accent-bg);
   --text: var(--theme-text);
-  --text-light: #585858;
   --border: #3d3d3d;
   --accent: rgb(234, 120, 169);
   --accent-text: var(--bg);
