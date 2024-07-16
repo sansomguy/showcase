@@ -190,3 +190,15 @@ nav > a.current {
   }
 }
 
+.theme-toggle {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.theme-toggle__checkbox {
+  width: 4rem;
+}
+

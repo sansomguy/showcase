@@ -11,11 +11,13 @@ import { NavLink } from "../nav-link";
 
 import PageIcon from "../page-icon";
 import MenuToggle from "../menu-toggle";
+import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
   useStyles$(styles);
 
   const menu = useContent();
+  
 
   const navOpen = useSignal(() => false);
 
@@ -44,7 +46,11 @@ export default component$(() => {
     >
       <div class={"navigation__inner"}>
         <div class="navigation__menu-toggle">
-          <MenuToggle class="navigation__menu-toggle__button" open={navOpen.value} onClick$={toggleNavigation} />
+          <MenuToggle
+            class="navigation__menu-toggle__button"
+            open={navOpen.value}
+            onClick$={toggleNavigation}
+          />
         </div>
         <nav>
           {menu.menu?.items
@@ -67,6 +73,7 @@ export default component$(() => {
               );
             })}
         </nav>
+          <ThemeSwitcher />
       </div>
     </header>
   );

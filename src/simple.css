@@ -1,6 +1,7 @@
 /* Global variables. */
 :root,
 ::backdrop {
+  color-scheme: light dark;
   /* Set sans-serif & mono fonts */
   --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
     "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,

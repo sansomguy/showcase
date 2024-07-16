@@ -1,4 +1,17 @@
 /* Global variables. */
+.dark {
+  --theme-bg: #1a1a1a;
+  --theme-accent-bg: rgba(0, 0, 0, 0.5);
+  --theme-text: #f5f5f5;
+  
+}
+
+.light {
+  --theme-bg: #f5f5f3;
+  --theme-accent-bg: rgba(255, 255, 255, 0.5);
+  --theme-text: #000;
+}
+
 :root,
 ::backdrop {
   /* Set sans-serif & mono fonts */
@@ -8,9 +21,11 @@
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
-  --bg: #f5f5f3;
-  --accent-bg: rgba(255, 255, 255, 0.5);
-  --text: #000;
+
+   /* theme variables */
+  --bg: var(--theme-bg);
+  --accent-bg: var(--theme-accent-bg);
+  --text: var(--theme-text);
   --text-light: #585858;
   --border: #3d3d3d;
   --accent: rgb(234, 120, 169);
@@ -20,28 +35,35 @@
   --marked: rgb(229 68 207);
   --disabled: #bbb;
   --visited: var(--accent);
-  --bg-image: url(/images/crinkly_paper.svg);
+ 
 }
+
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root,
-  ::backdrop {
-    color-scheme: dark;
-    --bg: #1a1a1a;
-    --accent-bg: rgba(0, 0, 0, 0.5);
-    --text: #f5f5f5;
-    --bg-image: url(/images/crinkly_paper_dark.svg);
+  ::backdrop {    
+    --bg: var(--theme-bg);
+    --accent-bg: var(--theme-accent-bg);
+    --text: var(--theme-text);
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
   video {
     opacity: 0.8;
   }
+} 
+
+
+/* Add a bit of transparency so light media isn't so glaring in dark mode */
+.dark img,
+.dark video {
+  opacity: 0.8;
 }
 
+
+
 body {
-  background-color: transparent;
   /* Center the body content on large screens */
   grid-template-columns: 0.5fr 2fr 0.5fr;
 }
