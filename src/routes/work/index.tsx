@@ -13,7 +13,7 @@ export const head: DocumentHead = {
   },
   meta: [
     {
-      name: "Work",
+      name: "description",
       content: "What I'm working on",
     },
   ],
