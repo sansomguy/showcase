@@ -1,4 +1,4 @@
-import { $, component$, createContextId, Signal, useContextProvider, useOnDocument, useSignal, useStyles$, useTask$ } from "@builder.io/qwik";
+import { $, component$, createContextId, type Signal, useContextProvider, useOnDocument, useSignal, useStyles$, useTask$ } from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,

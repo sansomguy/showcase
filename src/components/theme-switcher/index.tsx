@@ -1,4 +1,4 @@
-import { component$, useContext, useOnDocument } from "@builder.io/qwik";
+import { component$, useContext } from "@builder.io/qwik";
 import { ThemeContext } from "~/root";
 
 export default component$(() => {
