@@ -66,7 +66,8 @@
 
 body {
   /* Center the body content on large screens */
-  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-columns: 0.5fr fit-content(1440px) 0.5fr;
+
 }
 
 /* On smaller screens, we just let the body stretch all the way */
