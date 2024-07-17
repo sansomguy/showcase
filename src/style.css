@@ -82,3 +82,7 @@ aside {
     margin-inline-start: 0;
   }
 }
+
+table {
+  width: 100%;
+}

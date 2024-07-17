@@ -1,9 +1,18 @@
 import { Slot, component$, useStyles$ } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.css?inline";
 
 import Navigation from "~/components/navigation";
 import PageTitle from "~/components/page-title";
+import GetInTouch from "~/components/get-in-touch";
+
+
+export const useSubscribe = routeAction$(async (user) => {
+  return {
+    success: true,
+    message: "All good!!",
+  };
+});
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   
@@ -20,6 +29,7 @@ export default component$(() => {
 
   return (
     <div class={"layout__container"}>
+      <GetInTouch />
       <Navigation />
       <div class={"layout__main__container"}>
         <main class="layout__main__container__inner">

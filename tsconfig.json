@@ -20,6 +20,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "files": ["./.eslintrc.cjs"],
+  "files": ["./.eslintrc.cjs", "./src/components/confetti-button/shootConfetti.tsx"],
   "include": ["src", "./*.d.ts", "./*.config.ts"]
 }
