@@ -43,5 +43,8 @@
     "vercel": "^29.1.1",
     "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.44.4"
   }
 }

@@ -5,12 +5,31 @@ import styles from "./layout.css?inline";
 import Navigation from "~/components/navigation";
 import PageTitle from "~/components/page-title";
 import GetInTouch from "~/components/get-in-touch";
+import { createSupabaseClient } from "~/supabase-client";
 
 
-export const useSubscribe = routeAction$(async (user) => {
+export const useSubscribe = routeAction$(async (form, requestEvent) => {
+
+  const supabaseClient = createSupabaseClient(requestEvent);
+
+  const email = form.email as string;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password: "^1^**ja12nd!@",
+  })
+
+  if(error) {
+    requestEvent.status(400);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+
   return {
     success: true,
-    message: "All good!!",
+    message: "OK",
   };
 });
 

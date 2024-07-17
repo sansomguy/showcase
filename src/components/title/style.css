@@ -15,7 +15,7 @@
 span {
   position: relative;
   color: var(--text);
-  text-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 10px 25px var(--text-shadow-color);
   display: block;
 }
 

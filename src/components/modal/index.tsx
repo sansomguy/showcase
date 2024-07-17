@@ -1,19 +1,17 @@
-import { $, component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { $, component$, type QRL, Slot, useStyles$ } from "@builder.io/qwik";
 
 import styles from "./index.css?inline";
 
 type Props = {
-  onRequestClose$?: () => void;
+  onRequestClose$: QRL<() => void>;
 };
-export default component$((props: Props) => {
+export default component$(({onRequestClose$}: Props) => {
   useStyles$(styles);
 
-  const handleClose = $(() => {
-    props?.onRequestClose$?.();
-  })
-  
+
+
   const handleCloseKey = $((e: KeyboardEvent) => {
-    e.key === "Escape" && handleClose()
+    e.key === "Escape" && onRequestClose$();
   });
 
   const stopPropagation = $((e: Event) => {
@@ -23,7 +21,7 @@ export default component$((props: Props) => {
   return (
     <div
       class="modal-overlay"
-      onClick$={handleClose}
+      onClick$={onRequestClose$}
       onKeyDown$={handleCloseKey}
     >
       <div class="modal" onClick$={stopPropagation} onKeyDown$={handleCloseKey}>
