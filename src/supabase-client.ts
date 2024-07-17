@@ -1,4 +1,4 @@
-import { RequestEvent, RequestEventAction } from '@builder.io/qwik-city'
+import type { RequestEventAction } from '@builder.io/qwik-city'
 import { createClient } from '@supabase/supabase-js'
 
 export function createSupabaseClient(event: RequestEventAction) {

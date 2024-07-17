@@ -38,7 +38,7 @@ export default component$(() => {
             showModal.value = true;
           })}
         >
-          <span>Get in touch</span>
+          <span>📪 Get in touch</span>
         </button>
       </div>
       {!subscribeAction.isRunning && subscribeAction.value?.success ? (
@@ -58,12 +58,12 @@ export default component$(() => {
           </section>
 
           {subscribeAction.value?.error ? (
-            <div class="notice">{subscribeAction.value?.error}</div>
+            <div class="notice">{subscribeAction.value.error}</div>
           ) : null}
           <Form action={subscribeAction}>
+            <input name="email" type="email" placeholder="Email address" />
             <label for="email">
-              I'll mail you back 👍
-              <input name="email" type="email" placeholder="email" />
+              Get <b>me</b> to email <b>you</b> 📧
             </label>
             <br />
             <button type="submit">Submit</button>

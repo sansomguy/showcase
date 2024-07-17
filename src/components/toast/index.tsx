@@ -1,4 +1,4 @@
-import { component$, QRL, Slot, useSignal, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, type QRL, Slot, useSignal, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
 
 import styles from './index.css?inline';
 
@@ -19,7 +19,7 @@ export default component$((props: Props) => {
         }, 2000)
 
         return () => {
-            animateOutTimeout && clearTimeout(animateOutTimeout);
+            clearTimeout(animateOutTimeout);
         }
         
     })
