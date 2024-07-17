@@ -1,11 +1,32 @@
+/* theme defaults */
+:root,
+::backdrop {
+  --default-bg: #f5f5f3;
+  --default-accent-bg: rgba(255, 255, 255, 0.5);
+  --default-text: #000;
+  --default-text-light: #585858;
+  --default-text-shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  ::backdrop {
+    color-scheme: dark;
+    --default-bg: #1a1a1a;
+    --default-accent-bg: rgba(0, 0, 0, 0.5);
+    --default-text: #f5f5f5;
+    --default-text-light: rgba(255, 255, 255, 0.5);
+    --default-text-shadow-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
 /* Global variables. */
 .dark {
   --theme-bg: #1a1a1a;
   --theme-accent-bg: rgba(0, 0, 0, 0.5);
   --theme-text: #f5f5f5;
-  --text-light: rgba(255, 255, 255, 0.5);
-  --text-shadow-color: rgba(255, 255, 255, 0.3);
-
+  --theme-text-light: rgba(255, 255, 255, 0.5);
+  --theme-text-shadow-color: rgba(255, 255, 255, 0.3);
   
 }
 
@@ -13,8 +34,8 @@
   --theme-bg: #f5f5f3;
   --theme-accent-bg: rgba(255, 255, 255, 0.5);
   --theme-text: #000;
-  --text-light: #585858;
-  --text-shadow-color: rgba(0, 0, 0, 0.3);
+  --theme-text-light: #585858;
+  --theme-text-shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 :root,
@@ -27,19 +48,21 @@
   --standard-border-radius: 5px;
 
 
-   /* theme variables */
-  --bg: var(--theme-bg, #f5f5f3);
-  --accent-bg: var(--theme-accent-bg, rgba(255, 255, 255, 0.5));
-  --text: var(--theme-text, #000);
+  /* theme variables */
+  --bg: var(--theme-bg, var(--default-bg));
+  --accent-bg: var(--theme-accent-bg, var(--default-accent-bg));
+  --text: var(--theme-text, var(--default-text));
+  --text-light: var(--theme-text-light, var(--default-text-light));
+  --text-shadow-color: var(--theme-text-shadow-color, var(--default-text-shadow-color));
+  --accent-text: var(--theme-bg, var(--default-bg));
   --border: #3d3d3d;
   --accent: rgb(234, 120, 169);
-  --accent-text: var(--bg);
+  --visited: var(--accent);
   --accent-hover: rgba(234, 120, 169, 0.3);
   --code: rgb(107, 118, 221);
   --preformatted: #444;
   --marked: rgb(229 68 207);
   --disabled: #bbb;
-  --visited: var(--accent);
  
 }
 

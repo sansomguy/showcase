@@ -61,7 +61,7 @@ export default component$(() => {
             <div class="notice">{subscribeAction.value.error}</div>
           ) : null}
           <Form action={subscribeAction}>
-            <input name="email" type="email" placeholder="Email address" />
+            <input name="email" type="email" placeholder="Your email address" />
             <label for="email">
               Get <b>me</b> to email <b>you</b> 📧
             </label>
