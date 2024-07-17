@@ -14,7 +14,6 @@ export default component$((props: Props) => {
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async () => {
         const animateOutTimeout = setTimeout(() => {
-            // add the animate out state
             isShowingToast.value = false;
         }, 5000)
 

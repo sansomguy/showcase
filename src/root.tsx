@@ -26,6 +26,7 @@ export default component$(() => {
 
   useTask$(({track}) => {
     track(() => darkTheme.value)
+    track(() => documentRef.value)
     if(darkTheme.value) {
       documentRef.value?.documentElement.classList.remove("light")
       documentRef.value?.documentElement.classList.add("dark")
@@ -45,7 +46,7 @@ export default component$(() => {
         <RouterHead />
         <ServiceWorkerRegister />
       </head>
-      <body lang="en" style={{colorScheme: darkTheme.value ? "light" : "dark"}}>
+      <body lang="en">
         <RouterOutlet />
       </body>
     </QwikCityProvider>
