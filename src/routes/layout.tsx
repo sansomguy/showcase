@@ -48,7 +48,6 @@ export default component$(() => {
 
   return (
     <div class={"layout__container"}>
-      <GetInTouch />
       <Navigation />
       <div class={"layout__main__container"}>
         <main class="layout__main__container__inner">
@@ -58,6 +57,7 @@ export default component$(() => {
           <Slot />
         </main>
       </div>
+      <GetInTouch />
     </div>
   );
 });

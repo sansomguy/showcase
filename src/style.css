@@ -28,12 +28,13 @@
 
 
    /* theme variables */
-  --bg: var(--theme-bg);
-  --accent-bg: var(--theme-accent-bg);
-  --text: var(--theme-text);
+  --bg: var(--theme-bg, #f5f5f3);
+  --accent-bg: var(--theme-accent-bg, rgba(255, 255, 255, 0.5));
+  --text: var(--theme-text, #000);
   --border: #3d3d3d;
   --accent: rgb(234, 120, 169);
   --accent-text: var(--bg);
+  --accent-hover: rgba(234, 120, 169, 0.3);
   --code: rgb(107, 118, 221);
   --preformatted: #444;
   --marked: rgb(229 68 207);
