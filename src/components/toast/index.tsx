@@ -16,7 +16,7 @@ export default component$((props: Props) => {
         const animateOutTimeout = setTimeout(() => {
             // add the animate out state
             isShowingToast.value = false;
-        }, 2000)
+        }, 5000)
 
         return () => {
             clearTimeout(animateOutTimeout);
