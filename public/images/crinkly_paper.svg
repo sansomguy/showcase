@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-    id="Layer_1" x="0px" y="0px" width="400px" height="400px" viewBox="0 0 400 400"
-    enable-background="new 0 0 400 400" xml:space="preserve">
-    <filter id="grainy">
-        <feTurbulence x="0" y="0" baseFrequency="8" numOctaves="1" seed="1"></feTurbulence>
-        <feDisplacementMap in="SourceGraphic" scale="10000" />
-    </filter>
-    <rect x="0" y="0" height="100%" width="100%" style="filter: url(#grainy)" fill="black" />
-</svg>

@@ -7,6 +7,7 @@
 # Development
 node_modules
 *.local
+.env
 
 # Cache
 .cache
@@ -30,6 +31,7 @@ lerna-debug.log*
 
 .idea
 .DS_Store
+
 *.suo
 *.ntvs*
 *.njsproj
@@ -40,5 +42,42 @@ lerna-debug.log*
 .yarn/*
 !.yarn/releases
 
-# Vercel
-.vercel
+# this is the same the 'build/dist' folder but for the lambda bundles
+packages/qwik-app/bundle
+# sst
+.sst
+.build
+
+# misc
+.DS_Store
+
+# local env files
+.env*.local
+
+# Build
+dist
+lib
+lib-types
+server
+
+# Development
+node_modules
+*.local
+.env
+
+# Cache
+.cache
+.mf
+.rollup.cache
+tsconfig.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+.build

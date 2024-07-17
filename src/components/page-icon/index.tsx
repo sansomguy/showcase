@@ -11,7 +11,7 @@ export default component$(({ title }: IconProps) => {
   switch (title) {
     case "Josh Sansom":
       return <MeSVG />;
-    case "Work":
+    case "Projects":
       return <WorkerSVG />;
     case "Thoughts":
       return <BrainSVG />;

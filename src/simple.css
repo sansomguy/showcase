@@ -3,9 +3,9 @@
 ::backdrop {
   color-scheme: light dark;
   /* Set sans-serif & mono fonts */
-  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
+  --body-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
     "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
-    "Helvetica Neue", sans-serif;
+    "Helvetica Neue", serif;
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
@@ -66,7 +66,7 @@ progress {
 
 html {
   /* Set the font globally */
-  font-family: var(--sans-font);
+  font-family: var(--body-font);
   scroll-behavior: smooth;
 }
 
@@ -189,9 +189,8 @@ h3 {
 }
 
 /* Format links & buttons */
-a,
-a:visited {
-  color: var(--accent);
+a {
+  color: var(--text);
 }
 
 a:hover {
@@ -636,14 +635,6 @@ pre {
   max-width: 100%;
   overflow: auto;
   color: var(--preformatted);
-}
-
-/* Fix embedded code within pre */
-pre code {
-  color: var(--preformatted);
-  background: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Progress bars */

@@ -1,0 +1,28 @@
+.side-bar-layout {
+  display: grid;
+  grid-template: "main side-bar" 1fr / 1fr auto;
+  gap: 1rem;
+}
+
+.side-bar-layout__main {
+  grid-area: main;
+}
+
+.side-bar-layout__sidebar {
+  grid-area: side-bar;
+  align-self: start;
+  position: sticky;
+  top: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .side-bar-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .side-bar-layout__sidebar {
+    width: 100%;
+    position: unset;
+  }
+}

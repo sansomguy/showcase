@@ -5,19 +5,15 @@ import {
   useSignal,
   useStyles$,
 } from "@builder.io/qwik";
-import { useContent } from "@builder.io/qwik-city";
-import styles from "./styles.css?inline";
 import { NavLink } from "../nav-link";
+import styles from "./styles.css?inline";
 
-import PageIcon from "../page-icon";
 import MenuToggle from "../menu-toggle";
+import PageIcon from "../page-icon";
 import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
   useStyles$(styles);
-
-  const menu = useContent();
-  
 
   const navOpen = useSignal(() => false);
 
@@ -53,27 +49,44 @@ export default component$(() => {
           />
         </div>
         <nav>
-          {menu.menu?.items
-            ?.filter((item) => item.href)
-            .map((item) => {
-              return (
-                <NavLink
-                  key={item.text}
-                  href={item.href}
-                  onClick$={handleNavigationClick}
-                  activeClass="current"
-                >
-                  <span class="navigation__link">
-                    <span class="navigation__link__text">{item.text}</span>
-                    <span class="navigation__icon">
-                      <PageIcon title={item.text} />
-                    </span>
-                  </span>
-                </NavLink>
-              );
-            })}
+          <NavLink
+            href={"/"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Profile</span>
+              <span class="navigation__icon">
+                <PageIcon title={"Profile"} />
+              </span>
+            </span>
+          </NavLink>
+          <NavLink
+            href={"/blog/projects"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Projects</span>
+              <span class="navigation__icon">
+                <PageIcon title={"Projects"} />
+              </span>
+            </span>
+          </NavLink>
+          <NavLink
+            href={"/blog/thoughts"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Thoughts</span>
+              <span class="navigation__icon">
+                <PageIcon title={"Thoughts"} />
+              </span>
+            </span>
+          </NavLink>
         </nav>
-          <ThemeSwitcher />
+        <ThemeSwitcher />
       </div>
     </header>
   );

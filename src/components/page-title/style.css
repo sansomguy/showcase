@@ -1,10 +1,20 @@
 .page-title {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
   flex-direction: row;
+  align-items: center;
   height: 100px;
-  width: '100%';
+  width: 100%;
+}
+
+.page-title__inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  height: auto;
+  gap: 1rem;
 }
 
 .page-title .page-title__icon svg {
@@ -12,11 +22,18 @@
   height: 100px !important;
 }
 
-
 @media screen and (max-width: 768px) {
-  .page-title {
-    flex-wrap: wrap-reverse;
-    height: auto;
+  .page-title .page-title__icon {
+    width: unset;
+    max-height: 4rem;
+    max-width: 4rem;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .page-title {
+    height: auto;
+    margin-bottom: 1rem;
   }
 }

@@ -7,14 +7,22 @@ import {
 } from "@builder.io/qwik";
 
 import { Form } from "@builder.io/qwik-city";
-import styles from "./index.css?inline";
-import Modal from "../modal";
-import { shootConfetti } from "../confetti-button/shootConfetti";
 import { useSubscribe } from "~/routes/layout";
+import { shootConfetti } from "../confetti-button/shootConfetti";
+import Modal from "../modal";
 import Toast from "../toast";
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(/*css*/ `
+    .get-in-touch  {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    .get-in-touch button {
+      color: var(--color-text);
+    }
+  `);
   const subscribeAction = useSubscribe();
 
   const showModal = useSignal(false);
@@ -38,7 +46,7 @@ export default component$(() => {
             showModal.value = true;
           })}
         >
-          <span>📪 Get in touch</span>
+          Get in touch &nbsp;📪
         </button>
       </div>
       {!subscribeAction.isRunning && subscribeAction.value?.success ? (
@@ -51,17 +59,18 @@ export default component$(() => {
           }}
         >
           <h2 style={{ width: "100%" }}>Get in touch</h2>
-          <section>
-            <a href="mailto:joshwebd@gmail.com">joshwebd@gmail.com</a>
-            <br />
-            <a href="tel:+61473407664">+61 473 407 664</a>
-          </section>
+          <hr />
+          <a href="mailto:joshwebd@gmail.com">joshwebd@gmail.com</a>
+          <br />
+          <a href="tel:+61473407664">+61 473 407 664</a>
+          <br />
+          <hr />
 
           {subscribeAction.value?.error ? (
             <div class="notice">{subscribeAction.value.error}</div>
           ) : null}
           <Form action={subscribeAction}>
-            <input name="email" type="email" placeholder="Email address" />
+            <input name="email" type="email" placeholder="Your email address" />
             <label for="email">
               Get <b>me</b> to email <b>you</b> 📧
             </label>

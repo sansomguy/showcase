@@ -1,14 +1,15 @@
 {
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "target": "ES2017",
-    "module": "ES2022",
     "lib": ["es2022", "DOM", "WebWorker", "DOM.Iterable"],
     "jsx": "react-jsx",
     "jsxImportSource": "@builder.io/qwik",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "target": "ES2018",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -20,6 +21,5 @@
       "~/*": ["./src/*"]
     }
   },
-  "files": ["./.eslintrc.cjs", "./src/components/confetti-button/shootConfetti.tsx"],
-  "include": ["src", "./*.d.ts", "./*.config.ts"]
+  "include": ["./src", "./*.d.ts", "./*.config.ts"]
 }
