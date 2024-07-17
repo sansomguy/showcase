@@ -39,27 +39,15 @@
  
 }
 
-
-/* Dark theme */
-@media (prefers-color-scheme: dark) {
-  :root,
-  ::backdrop {    
-    --bg: var(--theme-bg);
-    --accent-bg: var(--theme-accent-bg);
-    --text: var(--theme-text);
-  }
-  /* Add a bit of transparency so light media isn't so glaring in dark mode */
-  img,
-  video {
-    opacity: 0.8;
-  }
-} 
-
-
 /* Add a bit of transparency so light media isn't so glaring in dark mode */
 .dark img,
 .dark video {
   opacity: 0.8;
+}
+
+.light img,
+.light video {
+  opacity: 1;
 }
 
 
