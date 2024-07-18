@@ -5,10 +5,8 @@ import styles from "./index.css?inline";
 type Props = {
   onRequestClose$: QRL<() => void>;
 };
-export default component$(({onRequestClose$}: Props) => {
+export default component$(({ onRequestClose$ }: Props) => {
   useStyles$(styles);
-
-
 
   const handleCloseKey = $((e: KeyboardEvent) => {
     e.key === "Escape" && onRequestClose$();
@@ -25,6 +23,11 @@ export default component$(({onRequestClose$}: Props) => {
       onKeyDown$={handleCloseKey}
     >
       <div class="modal" onClick$={stopPropagation} onKeyDown$={handleCloseKey}>
+        <div class="modal__header">
+          <button class="modal__header__close" onClick$={onRequestClose$}>
+            X
+          </button>
+        </div>
         <Slot />
       </div>
     </div>
