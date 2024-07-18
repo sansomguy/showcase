@@ -51,11 +51,13 @@ export default component$(() => {
           }}
         >
           <h2 style={{ width: "100%" }}>Get in touch</h2>
-          <section>
+            <hr />
             <a href="mailto:joshwebd@gmail.com">joshwebd@gmail.com</a>
             <br />
             <a href="tel:+61473407664">+61 473 407 664</a>
-          </section>
+            <br/>
+            <hr/>
+          
 
           {subscribeAction.value?.error ? (
             <div class="notice">{subscribeAction.value.error}</div>
