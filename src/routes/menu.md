@@ -1,12 +1,8 @@
 # Josh's Blog
 
 - [Josh Sansom](/)
-- [Thoughts](/thoughts/)
 - [Work](/work/)
-
-## Thoughts
-
-- [Favourite Tools](/thoughts/favourite-tools/)
+- [Thoughts](/thoughts/)
 
 ## Work
 
@@ -14,4 +10,6 @@
 
 - [My Website](/work/projects/my-website/)
 
-### Experiments
+## Thoughts
+
+- [Favourite Tools](/thoughts/favourite-tools/)

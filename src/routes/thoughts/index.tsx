@@ -1,13 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 
-
 export default component$(() => {
   return (
+    <>
+      <p>A few things I feel like sharing.</p>
       <p>
-        I swear, I have some thoughts.
-        <br />I just haven't written them down yet...
+        You'll mostly just find content here on the way I work and interesting
+        solutions to niche problems.
       </p>
+    </>
   );
 });
 
