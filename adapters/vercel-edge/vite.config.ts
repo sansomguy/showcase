@@ -15,6 +15,7 @@ export default extendConfig(baseConfig, () => {
       ssg: {
         sitemapOutFile: "public/sitemap.xml",
         origin: "https://www.joshs.au",
+        base: "https://www.joshs.au",
         include: ['/*']
       }
     })],
