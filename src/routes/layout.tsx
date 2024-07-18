@@ -36,11 +36,13 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   
   cacheControl({
+    public: true,
     // Always serve a cached response by default, up to a week stale
     staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 3 minutes, revalidate on the server to get a fresh version of this page
-    maxAge: 3*60*1000,
-  });
+    // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
+    maxAge: 10*60*1000,
+    sMaxAge: 10*60*1000,
+  }, 'Vercel-CDN-Cache-Control');
 };
 
 export default component$(() => {
