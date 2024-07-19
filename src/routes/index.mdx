@@ -3,51 +3,60 @@ title: "Josh Sansom"
 description: "Josh Sansom's personal website, blog, and resume."
 ---
 
+import SideBarLayout from '~/components/side-bar-layout'
+
 <section>
-<aside class="mini-menu">
-    <ul>
-        <li>
-            <a href="#profile">Profile</a>
-        </li>
-        <li>
-            <a href="#career">Career</a>
-        </li>
-        <li>
-            <a href="#education">Education</a>
-        </li>
-        <li>
-            <a href="#stacks">Stacks</a>
-        </li>
-        <li>
-            <a href="#cloud-providers">Cloud Providers</a>
-        </li>
-        <li>
-            <a href="#programming-languages">Programming Languages</a>
-        </li>
-        <li>
-            <a href="#data-engineering">Data Engineering</a>
-        </li>
-    </ul>
-</aside>
+<SideBarLayout>
+<div q:slot="side-bar">
+    <div class="notice" style={{marginTop: 0, width: '100%'}}>
+        <ul>
+            <li>
+                <a href="#profile">Profile</a>
+            </li>
+            <li>
+                <a href="#career">Career</a>
+            </li>
+            <li>
+                <a href="#education">Education</a>
+            </li>
+            <li>
+                <a href="#stacks">Stacks</a>
+            </li>
+            <li>
+                <a href="#cloud-providers">Cloud Providers</a>
+            </li>
+            <li>
+                <a href="#programming-languages">Programming Languages</a>
+            </li>
+            <li>
+                <a href="#data-engineering">Data Engineering</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div q:slot="main">
 <figure>
     <img width={640} height={480} src={"/images/profile.jpeg"} alt="Profile photo" />
     <figcaption>Josh (Me), Amber (Wife), Rory (Daughter) at Mount McKenzie.</figcaption>
 </figure>
-
 ## **Profile**
-Principal Software Engineer at [Digitise.au](http://Digitise.au).  
 
-**Responsibilities**  
+**Principal Software Engineer** at [Digitise.au](http://digitise.au/).
+
+Based in Newcastle, Australia.
+
+**Key Responsibilities**
+
 - Software engineering & architecture
 - Resource planning
 - Release planning
 - Product design & requirements definitions
 
-
 ### **Career**
-| **Position** | **Company** |
+
+| Position | Company |
 | --- | --- |
-| <u>Principal Software Engineer</u> | Digitise |
+| Principal Software Engineer | Digitise |
 | Senior Software Developer | Cordel |
 | Senior Software Developer | Mudbath |
 | Mid Software Developer | Mudbath |
@@ -57,45 +66,20 @@ Principal Software Engineer at [Digitise.au](http://Digitise.au).
 
 ### **Education**
 
-| **Qualification** | **Institution** |
+| Qualification | Institution |
 | --- | --- |
-| <u>Masters of Applied Artificial Intelligence</u><br/>**High Distinction** | Deakin University |
-| Bachelor of Science in Computing<br/>**High Distinction** | University of South Africa |
-| AS Levels<br/>Australian HSC Equivalent | Cambridge (remote) |
+| Masters of Applied Artificial IntelligenceHigh Distinction | Deakin University |
+| Bachelor of Science in ComputingHigh Distinction | University of South Africa |
+| AS LevelsAustralian HSC Equivalent | Cambridge (remote) |
 
 ### **Stacks**
 
-| Stack |
-| --- |
-| React + Node.JS + SQL Server |
-| React + Supabase (Postgres) |
-| [Qwik](https://qwik.dev) + Supabase (Postgres) |
-| .Net MVC + Angular + SQL Server |
-| React Native + .Net |
-| C++ Arduino + Platform IO |
-| Scikit Learn |
-| PyTorch |
-| Langchain + Huggingface |
-
-### **Cloud Providers**
-
-| Cloud | Service | Experience |
+| Web | Machine Learning | Mobile/Embedded |
 | --- | --- | --- |
-| AWS |  | 5 years |
-|  | ECS |  |
-|  | EC2 |  |
-|  | S3 |  |
-|  | RDS |  |
-|  | VPC & Network admin |  |
-| Azure |  | 5 years |
-|  | App Services |  |
-|  | Entra ID (Active Directory) |  |
-|  | Azure AI search |  |
-|  | SQL Server |  |
-|  | Static Web Apps |  |
-|  | Azure Functions |  |
-|  | Azure Storage |  |
-| Vercel | Hosting | 1 year |
+| React + Node.JS + SQL Server | Scikit Learn | React Native |
+| React + Supabase (Postgres) | PyTorch | C++ Arduino + Platform IO |
+| https://qwik.dev/ + Supabase (Postgres) | Langchain + Huggingface |  |
+| .Net MVC + Angular + SQL Server |  |  |
 
 ### **Programming Languages**
 
@@ -118,5 +102,28 @@ Principal Software Engineer at [Digitise.au](http://Digitise.au).
 | Power BI & Dataflows | 2 years |
 | Pandas | 2 years |
 
+### **Cloud Providers**
 
+| Cloud | Service | Experience |
+| --- | --- | --- |
+| AWS |  | 5 years |
+|  | ECS |  |
+|  | EC2 |  |
+|  | S3 |  |
+|  | RDS |  |
+|  | VPC & Network admin |  |
+| Azure |  | 5 years |
+|  | App Services |  |
+|  | Entra ID (Active Directory) |  |
+|  | Azure AI search |  |
+|  | SQL Server |  |
+|  | Static Web Apps |  |
+|  | Azure Functions |  |
+|  | Azure Storage |  |
+| Vercel |  | 1 year |
+|  | Functions |  |
+|  | Static |  |
+|  | CDN |  |
+</div>
+</SideBarLayout>
 </section>
