@@ -2,8 +2,9 @@
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "joshs-showcase",
   "short_name": "Josh's Showcase",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#fff",
+  "start_url": "https://www.joshs.au",
+  "display": "browser",
+  "background_color": "#f5f5f5",
+  "categories": ["portfolio"],
   "description": "A showcase of Josh Sansom's work"
 }
