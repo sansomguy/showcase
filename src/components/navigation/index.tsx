@@ -16,9 +16,6 @@ import ThemeSwitcher from "../theme-switcher";
 export default component$(() => {
   useStyles$(styles);
 
-  const menu = useContent();
-  
-
   const navOpen = useSignal(() => false);
 
   useOnWindow(
@@ -53,25 +50,42 @@ export default component$(() => {
           />
         </div>
         <nav>
-          {menu.menu?.items
-            ?.filter((item) => item.href)
-            .map((item) => {
-              return (
-                <NavLink
-                  key={item.text}
-                  href={item.href}
-                  onClick$={handleNavigationClick}
-                  activeClass="current"
-                >
-                  <span class="navigation__link">
-                    <span class="navigation__link__text">{item.text}</span>
-                    <span class="navigation__icon">
-                      <PageIcon title={item.text} />
-                    </span>
-                  </span>
-                </NavLink>
-              );
-            })}
+            <NavLink
+              href={'/'}
+              onClick$={handleNavigationClick}
+              activeClass="current"
+            >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Josh Sansom</span>
+              <span class="navigation__icon">
+                <PageIcon title={'Josh Sansom'} />
+              </span>
+            </span>
+          </NavLink>
+          <NavLink
+              href={'/blog/projects'}
+              onClick$={handleNavigationClick}
+              activeClass="current"
+            >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Projects</span>
+              <span class="navigation__icon">
+                <PageIcon title={'Projects'} />
+              </span>
+            </span>
+          </NavLink>
+          <NavLink
+              href={'/blog/thoughts'}
+              onClick$={handleNavigationClick}
+              activeClass="current"
+            >
+            <span class="navigation__link">
+              <span class="navigation__link__text">Thoughts</span>
+              <span class="navigation__icon">
+                <PageIcon title={'Thoughts'} />
+              </span>
+            </span>
+          </NavLink>
         </nav>
           <ThemeSwitcher />
       </div>

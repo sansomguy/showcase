@@ -1,15 +1,18 @@
 # Josh Sansom
 
 - [Josh Sansom](/)
-- [Work](/work/)
-- [Thoughts](/thoughts/)
+- [Blog](/blog/)
 
-## Work
+## Blog
+
+- [Blog](/blog/)
+- [Projects](/blog/projects/)
+- [Thoughts](/blog/thoughts/)
 
 ### Projects
 
-- [My Website](/work/projects/my-website/)
+- [My Website](/blog/projects/my-website/)
 
-## Thoughts
+### Thoughts
 
-- [Favourite Tools](/thoughts/favourite-tools/)
+- [Favourite Tools](/blog/thoughts/favourite-tools/)
