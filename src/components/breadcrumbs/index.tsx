@@ -8,45 +8,64 @@ import {
 import styles from "./style.css?inline";
 import { NavLink } from "../nav-link";
 
-const traverseMenu = (current: RouteLocation) =>
-  function traverse(
-    menuItems: ContentMenu["items"],
-    breadcrumbs: ContentMenu["items"] = [],
-  ) {
-    if (!menuItems) return breadcrumbs;
 
-    const toAbsoluteUrl = (path: string) => current.url.origin + path;
+const isDivider = (item: any): item is { items: Array<ContentMenu> } => {
+  return !!item && !('href' in item)
+};
+const isCurrent = (item: ContentMenu, fullPath: string) => item.href && fullPath.includes(item.href);
 
-    const nextBreadCrumb = menuItems.find(
-      (item) =>
-        item.href && current.url.href.startsWith(toAbsoluteUrl(item.href)),
-    );
-    if (!nextBreadCrumb) return breadcrumbs;
+type MenuItem = {
+  title: string;
+  href: string;
+  children: MenuItem[];
+}
 
-    return traverse(nextBreadCrumb.items, [...breadcrumbs, nextBreadCrumb]);
-  };
+function traverseMenu(item: ContentMenu): MenuItem {
+  const parentItem: MenuItem = {
+    title: item.text,
+    href: '',
+    children: []
+  }
+
+  if(isDivider(item)) {
+    // then contains items
+    const children = item.items.map(traverseMenu)
+    
+    const href = children.find(child => child.title === parentItem.title)?.href;
+    parentItem.href = href || '';
+
+    parentItem.children = children.filter(child => child.href !== href);
+
+  }else {
+    return {
+      title: item.text,
+      href: item.href!,
+      children: item.items?.map(traverseMenu) ?? []
+    }
+  }
+
+    return parentItem;
+  
+}
 
 export default component$(() => {
   useStyles$(styles);
   const menu = useContent();
-  const loc = useLocation();
-  const breadcrumbs = traverseMenu(loc)(menu.menu?.items);
+  const menuItems = menu.menu ? traverseMenu(menu.menu) : null;
 
   return (
     <div class="breadcrumbs">
-      {breadcrumbs
-        .filter((_, index) => index > 0)
-        .map((item, index) => {
-          const isLast = index === breadcrumbs.length - 1;
-          return (
-            <>
-              <NavLink key={index} href={item.href}>
-                {item.text}
-              </NavLink>
-              {!isLast && <span class="separator">/</span>}
-            </>
-          );
-        })}
+      <div>
+      <pre>
+        {JSON.stringify(menu.menu, null, 2)}
+      </pre>
+      </div>
+      <br/>
+      <div>
+      <pre>
+        {JSON.stringify(menuItems, null, 2)}
+      </pre>
+      </div>
     </div>
   );
 });

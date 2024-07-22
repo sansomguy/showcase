@@ -1,4 +1,4 @@
-# Josh's Blog
+# Josh Sansom
 
 - [Josh Sansom](/)
 - [Work](/work/)
