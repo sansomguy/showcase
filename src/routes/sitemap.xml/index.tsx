@@ -1,5 +1,4 @@
-import { component$ } from "@builder.io/qwik";
-import { RequestHandler, useContent } from "@builder.io/qwik-city";
+import type { RequestHandler } from "@builder.io/qwik-city";
 
 export const onGet: RequestHandler  = async (event) => {
     event.headers.set('Content-Type', 'application/xml');

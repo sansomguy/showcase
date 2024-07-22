@@ -1,18 +1,15 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import {
   type ContentMenu,
-  type RouteLocation,
   useContent,
-  useLocation,
 } from "@builder.io/qwik-city";
 import styles from "./style.css?inline";
-import { NavLink } from "../nav-link";
 
 
 const isDivider = (item: any): item is { items: Array<ContentMenu> } => {
   return !!item && !('href' in item)
 };
-const isCurrent = (item: ContentMenu, fullPath: string) => item.href && fullPath.includes(item.href);
+// const isCurrent = (item: ContentMenu, fullPath: string) => item.href && fullPath.includes(item.href);
 
 type MenuItem = {
   title: string;
