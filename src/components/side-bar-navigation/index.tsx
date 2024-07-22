@@ -1,4 +1,4 @@
-import { component$, JSX, useStyles$ } from "@builder.io/qwik";
+import { component$, type JSX, useStyles$ } from "@builder.io/qwik";
 import { type ContentMenu, useContent } from "@builder.io/qwik-city";
 import styles from "./style.css?inline";
 import { NavLink } from "../nav-link";
@@ -34,9 +34,9 @@ function traverseMenu(
         if (childrenMap.has(child.title)) {
           const existing = childrenMap.get(child.title)!;
           existing.href =
-            existing.href?.length > 0 ? existing.href : child.href;
+            existing.href.length > 0 ? existing.href : child.href;
           existing.children =
-            existing.children?.length > 0 ? existing.children : child.children;
+            existing.children.length > 0 ? existing.children : child.children;
           childrenMap.set(child.title, existing);
         } else {
           childrenMap.set(child.title, child);

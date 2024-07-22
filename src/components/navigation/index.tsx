@@ -5,12 +5,11 @@ import {
   useSignal,
   useStyles$,
 } from "@builder.io/qwik";
-import { useContent } from "@builder.io/qwik-city";
-import styles from "./styles.css?inline";
 import { NavLink } from "../nav-link";
+import styles from "./styles.css?inline";
 
-import PageIcon from "../page-icon";
 import MenuToggle from "../menu-toggle";
+import PageIcon from "../page-icon";
 import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
