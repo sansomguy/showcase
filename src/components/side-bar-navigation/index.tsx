@@ -14,7 +14,12 @@ type MenuItem = {
   children: MenuItem[];
 };
 
-function traverseMenu(item: ContentMenu): MenuItem {
+function traverseMenu(
+  item: ContentMenu,
+  options?: {
+    startingWith?: string;
+  }
+): MenuItem {
   const parentItem: MenuItem = {
     title: item.text,
     href: "",
@@ -23,30 +28,39 @@ function traverseMenu(item: ContentMenu): MenuItem {
 
   if (isDivider(item)) {
     const childrenMap = new Map<string, MenuItem>();
-    item.items.map(traverseMenu).forEach((child) => {
-      if (childrenMap.has(child.title)) {
-        const existing = childrenMap.get(child.title)!;
-        existing.href = existing.href?.length > 0 ? existing.href : child.href;
-        existing.children =
-          existing.children?.length > 0 ? existing.children : child.children;
-        childrenMap.set(child.title, existing);
-      } else {
-        childrenMap.set(child.title, child);
-      }
-    });
+    item.items
+      .map((x) => traverseMenu(x, options))
+      .forEach((child) => {
+        if (childrenMap.has(child.title)) {
+          const existing = childrenMap.get(child.title)!;
+          existing.href =
+            existing.href?.length > 0 ? existing.href : child.href;
+          existing.children =
+            existing.children?.length > 0 ? existing.children : child.children;
+          childrenMap.set(child.title, existing);
+        } else {
+          childrenMap.set(child.title, child);
+        }
+      });
     const children = Array.from(childrenMap.values());
     const parentHref = children.find(
       (child) => child.title === parentItem.title
     )?.href;
     parentItem.href = parentHref ?? "";
-    parentItem.children = children.filter(
-      (child) => child.title !== parentItem.title
-    );
+    parentItem.children = children
+      .filter((child) => child.title !== parentItem.title)
+      .filter((x) =>
+        options?.startingWith
+          ? x.href.length < options.startingWith.length
+            ? options.startingWith.startsWith(x.href)
+            : x.href.startsWith(options.startingWith)
+          : true
+      );
   } else {
     return {
       title: item.text,
       href: item.href!,
-      children: item.items?.map(traverseMenu) ?? [],
+      children: [],
     };
   }
 
@@ -62,27 +76,41 @@ function renderItem(layer: number = 0, skipLayers: number = 0) {
     if (item.children.length === 0) {
       return (
         <li key={item.title}>
-          <NavLink activeClass="current" href={item.href}>{item.title}</NavLink>
+          <NavLink activeClass="current" href={item.href}>
+            {item.title}
+          </NavLink>
         </li>
       );
     }
 
     return (
       <li key={item.title}>
-        <NavLink activeClass="current" href={item.href} >{item.title}</NavLink>
+        <NavLink activeClass="current" href={item.href}>
+          {item.title}
+        </NavLink>
         <ul>{item.children.map(renderItem(layer + 1))}</ul>
       </li>
     );
   };
 }
-export default component$(() => {
+type Props = {
+  skipLayers?: number;
+  startingWith?: string;
+};
+export default component$((props: Props) => {
   useStyles$(styles);
   const menu = useContent();
-  const menuItem = menu.menu ? traverseMenu(menu.menu) : null;
+  const menuItem = menu.menu
+    ? traverseMenu(menu.menu, {
+        startingWith: props.startingWith,
+      })
+    : null;
 
   return (
     <div class="notice side-bar-nav" style={{ marginTop: 0 }}>
-      <ul>{menuItem ? renderItem(0, 1)(menuItem) : null}</ul>
+      <ul>
+        {menuItem ? renderItem(0, props.skipLayers ?? 1)(menuItem) : null}
+      </ul>
     </div>
   );
 });

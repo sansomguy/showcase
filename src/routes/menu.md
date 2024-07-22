@@ -11,8 +11,8 @@
 
 ### Projects
 
-- [My Website](/blog/projects/my-website/)
+- [My Website](/blog/projects/posts/my-website/)
 
 ### Thoughts
 
-- [Favourite Tools](/blog/thoughts/favourite-tools/)
+- [Favourite Tools](/blog/thoughts/posts/favourite-tools/)

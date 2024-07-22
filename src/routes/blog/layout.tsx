@@ -5,13 +5,6 @@ import SideBarNavigation from "~/components/side-bar-navigation";
 export default component$(() => {
 
   return (
-    <SideBarLayout>
-      <div q:slot="side-bar">
-       <SideBarNavigation />
-      </div>
-      <div q:slot="main">
-        <Slot />
-      </div>
-    </SideBarLayout>
+    <Slot/>
   );
 });
