@@ -8,6 +8,12 @@ import {
 } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
+// TODO
+// should have different shapes, 
+// should have different starting positions,
+// should all move with an arc motion instead of a straight line
+// should all move in the same direction but at different speeds based on starting z-index
+// should have different z-indexes with ones above z-index 0 using background blur effect
 type SquareState = {
   id: string;
   x: number;
