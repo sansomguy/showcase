@@ -6,6 +6,7 @@ import Navigation from "~/components/navigation";
 import PageTitle from "~/components/page-title";
 import GetInTouch from "~/components/get-in-touch";
 import { createSupabaseClient } from "~/supabase-client";
+import FlyingSquares from "~/components/flying-squares";
 
 
 export const useSubscribe = routeAction$(async (form, requestEvent) => {
@@ -50,6 +51,7 @@ export default component$(() => {
 
   return (
     <div class={"layout__container"}>
+      <FlyingSquares />
       <Navigation />
       <div class={"layout__main__container"}>
         <main class="layout__main__container__inner">
