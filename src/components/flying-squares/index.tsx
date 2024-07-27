@@ -4,74 +4,58 @@ import {
   useStore,
   useOnDocument,
   $,
-  useOnWindow,
   useSignal,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import styles from "./style.css?inline";
-
-// TODO
-// should have different shapes,
-// should have different starting positions,
-// should all move with an arc motion instead of a straight line
-// should all move in the same direction but at different speeds based on starting z-index
-// should have different z-indexes with ones above z-index 0 using background blur effect
 
 export default component$(() => {
   useStyles$(styles);
   const squares = useStore(createInitialState());
   const previousScroll = useSignal(0);
+  const scrollUpdate = useSignal(0);
+  // const mousePosition = useSignal({ x: 0, y: 0 });
+
+  // useOnDocument(
+  //   "mousemove",
+  //   $((e) => {
+  //     const xPercent = (e.clientX / window.innerWidth) * 100;
+  //     const yPercent = (e.clientY / window.innerHeight) * 100;
+  //     mousePosition.value = { x: xPercent, y: yPercent };
+  //   })
+  // );
+
+  useVisibleTask$(() => {
+    function update(timestamp: number) {
+      const timeUpdate = progressOverTime(timestamp);
+      // const latestControlPoint = controlPointFromMouse(mousePosition.value);
+      const latestDestinationPoint = destinationPointFromScroll(scrollUpdate.value);
+      const updateDelta = timeUpdate + Math.abs(scrollUpdate.value);
+      updateSquares(
+        squares,
+        updateDelta,
+        controlPoint,
+        latestDestinationPoint,
+      );
+      scrollUpdate.value = 0;
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
 
   useOnDocument(
     "scroll",
     $((e) => {
-      const document = e?.target as Document;
+      const document = e.target as Document;
       const window = document.defaultView!;
       const scrollHeight =
         document.documentElement.scrollHeight - window.innerHeight;
 
       const newScrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollDiff = Math.abs(previousScroll.value - newScrollTop);
+      const scrollDiff = previousScroll.value - newScrollTop;
       previousScroll.value = newScrollTop;
       const normalizedDiff = scrollDiff / scrollHeight;
-
-      
-      requestAnimationFrame(() => {
-        for (const squareKey in squares) {
-          const square = squares[squareKey];
-          if (square.progress >= 1) {
-            resetSquare(square);
-          }
-          square.progress = Math.min(
-            square.progress + square.progressRate * normalizedDiff,
-            1
-          );
-          const controlPoint = {
-            x: 50 + square.initial.x,
-            y: 50 - square.initial.y,
-          } as const;
-          const topRight = {
-            x: 100 + square.initial.x,
-            y: 0 - square.initial.y,
-            z: 0,
-          };
-
-          square.x = bezier(
-            square.initial.x,
-            controlPoint.x,
-            topRight.x,
-            square.progress
-          );
-          square.y = bezier(
-            square.initial.y,
-            controlPoint.y,
-            topRight.y,
-            square.progress
-          );
-          square.z =
-            ((1 - square.progress) * square.initial.z) + (topRight.z * square.progress);
-          square.opacity = square.progress;
-        }
-      });
+      scrollUpdate.value = normalizedDiff;
     })
   );
 
@@ -95,6 +79,93 @@ export default component$(() => {
   );
 });
 
+const START_MIN_X = 0;
+const START_MAX_X = 30;
+const START_MIN_Y = 0;
+const START_MAX_Y = 100;
+const START_MAX_Z = 5;
+
+const DESTINATION_X = 100;
+const DESTINATION_Y = 0;
+const DESTINATION_Z = 0;
+
+const CONTROL_POINT_X = 50;
+const CONTROL_POINT_Y = 50;
+
+const controlPoint = {
+  x: CONTROL_POINT_X,
+  y: CONTROL_POINT_Y,
+};
+
+
+// function controlPointFromMouse(mousePosition: { x: number; y: number }) {
+//   return {
+//     x: CONTROL_POINT_X - mousePosition.x,
+//     y: CONTROL_POINT_Y - mousePosition.y,
+//     z: DESTINATION_Z,
+//   };
+// }
+let currentDestinationY = DESTINATION_Y;
+function destinationPointFromScroll(scrollDelta: number) {
+  return {
+    x: DESTINATION_X,
+    y: currentDestinationY =  Math.max(0, Math.min(currentDestinationY - scrollDelta * 100, 100)),
+    z: DESTINATION_Z,
+  };
+}
+let previousTimestamp = 0;
+function progressOverTime(timestamp: number) {
+  const diff = timestamp - previousTimestamp;
+  previousTimestamp = timestamp;
+  return diff / 5000;
+}
+
+function updateSquares(
+  squares: Record<string, Square>,
+  normalizedDiff: number,
+  latestControlPoint: { x: number; y: number },
+  latestDestinationPoint: { x: number; y: number; z: number }
+) {
+  for (const squareKey in squares) {
+    const square = squares[squareKey];
+    if (square.progress >= 1) {
+      resetSquare(square);
+    }
+    square.progress = Math.min(
+      square.progress + square.progressRate * normalizedDiff,
+      1
+    );
+    const controlPoint = {
+      x: latestControlPoint.x + square.initial.x,
+      y: latestControlPoint.y - square.initial.y,
+    } as const;
+    // destination with respect to viewport
+    // measured as difference from starting  point
+    const destination = {
+      x: latestDestinationPoint.x + square.initial.x,
+      y: latestDestinationPoint.y - square.initial.y,
+      z: latestDestinationPoint.z,
+    };
+
+    square.x = bezier(
+      square.initial.x,
+      controlPoint.x,
+      destination.x,
+      square.progress
+    );
+    square.y = bezier(
+      square.initial.y,
+      controlPoint.y,
+      destination.y,
+      square.progress
+    );
+    square.z =
+      (1 - square.progress) * square.initial.z +
+      destination.z * square.progress;
+    square.opacity = square.progress;
+  }
+}
+
 type Square = {
   id: string;
   x: number;
@@ -117,7 +188,7 @@ function createInitialState() {
       (i) =>
         ({
           id: i.toString(),
-          initial: {}
+          initial: {},
         }) as any
     )
     .map(resetSquare)
@@ -131,9 +202,11 @@ function createInitialState() {
 }
 
 function resetSquare(old: Square): Square {
-  old.initial.x = Math.floor(Math.random() * 30);
-  old.initial.y = Math.floor(Math.random() * 30); // random starting Y position
-  old.initial.z = Math.random() * 5;
+  old.initial.x =
+    START_MIN_X + Math.floor(Math.random() * START_MAX_X - START_MIN_X);
+  old.initial.y =
+    START_MIN_Y + Math.floor(Math.random() * START_MAX_Y - START_MIN_Y);
+  old.initial.z = Math.random() * START_MAX_Z;
   old.progressRate = Math.random();
   old.x = 0;
   old.y = 0;
