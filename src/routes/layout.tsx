@@ -2,15 +2,12 @@ import { Slot, component$, useStyles$ } from "@builder.io/qwik";
 import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.css?inline";
 
-import Navigation from "~/components/navigation";
-import PageTitle from "~/components/page-title";
-import GetInTouch from "~/components/get-in-touch";
-import { createSupabaseClient } from "~/supabase-client";
+import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
-
+import PageTitle from "~/components/page-title";
+import { createSupabaseClient } from "~/supabase-client";
 
 export const useSubscribe = routeAction$(async (form, requestEvent) => {
-
   const supabaseClient = createSupabaseClient(requestEvent);
 
   const email = form.email as string;
@@ -18,9 +15,9 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
   const { error } = await supabaseClient.auth.signUp({
     email,
     password: "^1^**ja12nd!@",
-  })
+  });
 
-  if(error) {
+  if (error) {
     requestEvent.status(400);
     return {
       success: false,
@@ -35,15 +32,17 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
 });
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
-  
-  cacheControl({
-    public: true,
-    // Always serve a cached response by default, up to a week stale
-    staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
-    maxAge: 10*60*1000,
-    sMaxAge: 10*60*1000,
-  }, 'Vercel-CDN-Cache-Control');
+  cacheControl(
+    {
+      public: true,
+      // Always serve a cached response by default, up to a week stale
+      staleWhileRevalidate: 60 * 60 * 24 * 7,
+      // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
+      maxAge: 10 * 60 * 1000,
+      sMaxAge: 10 * 60 * 1000,
+    },
+    "Vercel-CDN-Cache-Control"
+  );
 };
 
 export default component$(() => {
@@ -52,16 +51,13 @@ export default component$(() => {
   return (
     <div class={"layout__container"}>
       <FlyingSquares />
-      <Navigation />
       <div class={"layout__main__container"}>
+        <DynamicMenu />
         <main class="layout__main__container__inner">
-          <section>
-            <PageTitle />
-          </section>
+          <PageTitle />
           <Slot />
         </main>
       </div>
-      <GetInTouch />
     </div>
   );
 });

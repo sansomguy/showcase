@@ -2,19 +2,17 @@ import {
   $,
   component$,
   useSignal,
-  useStyles$,
   useTask$,
 } from "@builder.io/qwik";
 
 import { Form } from "@builder.io/qwik-city";
-import styles from "./index.css?inline";
 import Modal from "../modal";
 import { shootConfetti } from "../confetti-button/shootConfetti";
 import { useSubscribe } from "~/routes/layout";
 import Toast from "../toast";
 
 export default component$(() => {
-  useStyles$(styles);
+
   const subscribeAction = useSubscribe();
 
   const showModal = useSignal(false);
@@ -34,12 +32,11 @@ export default component$(() => {
     <>
       <div class="get-in-touch">
         <button
+          style={{ width: '8rem' }}
           onClick$={$(() => {
             showModal.value = true;
           })}
-        >
-          <span>📪 Get in touch</span>
-        </button>
+        >📪 Contact</button>
       </div>
       {!subscribeAction.isRunning && subscribeAction.value?.success ? (
         <Toast requestRemove$={() => {}}>Thanks for getting in touch! 🎉</Toast>

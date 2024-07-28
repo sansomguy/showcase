@@ -1,38 +1,54 @@
-import { $, component$, useOnDocument, useSignal, useTask$ } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useOnDocument,
+  useSignal,
+  useStyles$,
+  useTask$,
+} from "@builder.io/qwik";
+import styles from "./styles.css?inline";
 
 export default component$(() => {
+  useStyles$(styles);
   const darkTheme = useSignal(false);
-  const documentRef = useSignal<Document | undefined>(undefined)
-  useTask$(({track}) => {
-    track(() => darkTheme.value)
-    track(() => documentRef.value)
-    if(darkTheme.value) {
-      documentRef.value?.documentElement.classList.remove("light")
-      documentRef.value?.documentElement.classList.add("dark")
+  const documentRef = useSignal<Document | undefined>(undefined);
+  useTask$(({ track }) => {
+    track(() => darkTheme.value);
+    track(() => documentRef.value);
+    if (darkTheme.value) {
+      documentRef.value?.documentElement.classList.remove("light");
+      documentRef.value?.documentElement.classList.add("dark");
     } else {
-      documentRef.value?.documentElement.classList.add("light")
-      documentRef.value?.documentElement.classList.remove("dark")
+      documentRef.value?.documentElement.classList.add("light");
+      documentRef.value?.documentElement.classList.remove("dark");
     }
-  })
+  });
 
-  useOnDocument("DOMContentLoaded", $((e) => {
-    const doc = (e.target) as Document
-    const win = doc.defaultView as Window
-    documentRef.value = doc
-    darkTheme.value = win.matchMedia("(prefers-color-scheme: dark)").matches
-  }))
+  useOnDocument(
+    "DOMContentLoaded",
+    $((e) => {
+      const doc = e.target as Document;
+      const win = doc.defaultView as Window;
+      documentRef.value = doc;
+      darkTheme.value = win.matchMedia("(prefers-color-scheme: dark)").matches;
+    })
+  );
 
   return (
     <div class="theme-toggle">
-      <label class="theme-toggle__checkbox">
-        {darkTheme.value ? "☀️" : "🌙"}
+      <span>
         <input
+          class="theme-toggle__input"
+          id="theme-toggle"
           type="checkbox"
           checked={darkTheme.value}
           onChange$={(event) => {
             darkTheme.value = !!(event.target as HTMLInputElement).checked;
           }}
         />
+      </span>
+      <label for="theme-toggle" class="theme-toggle__checkbox">
+        {"🌙"}
       </label>
     </div>
   );

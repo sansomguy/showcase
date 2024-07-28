@@ -55,9 +55,9 @@ export default component$(() => {
               activeClass="current"
             >
             <span class="navigation__link">
-              <span class="navigation__link__text">Josh Sansom</span>
+              <span class="navigation__link__text">Profile</span>
               <span class="navigation__icon">
-                <PageIcon title={'Josh Sansom'} />
+                <PageIcon title={'Profile'} />
               </span>
             </span>
           </NavLink>
