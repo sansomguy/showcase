@@ -1,6 +1,13 @@
 /* theme defaults */
 :root,
 ::backdrop {
+  --headings-font: "Inter", sans-serif;
+  --body-font: "Inter", sans-serif;
+  --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  /* --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
+    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
+    "Helvetica Neue", sans-serif; */
+
   --default-bg: #f5f5f3;
   --default-accent-bg: rgba(255, 255, 255, 0.5);
   --default-text: #000;
@@ -20,6 +27,11 @@
   }
 }
 
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--headings-font);
+}
+
+
 /* Global variables. */
 .dark {
   --theme-bg: #1a1a1a;
@@ -27,7 +39,6 @@
   --theme-text: #f5f5f5;
   --theme-text-light: rgba(255, 255, 255, 0.5);
   --theme-text-shadow-color: rgba(255, 255, 255, 0.3);
-  
 }
 
 .light {
@@ -47,23 +58,24 @@
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
-
   /* theme variables */
   --bg: var(--theme-bg, var(--default-bg));
   --accent-bg: var(--theme-accent-bg, var(--default-accent-bg));
   --text: var(--theme-text, var(--default-text));
   --text-light: var(--theme-text-light, var(--default-text-light));
-  --text-shadow-color: var(--theme-text-shadow-color, var(--default-text-shadow-color));
+  --text-shadow-color: var(
+    --theme-text-shadow-color,
+    var(--default-text-shadow-color)
+  );
   --accent-text: var(--theme-bg, var(--default-bg));
   --border: #3d3d3d;
   --accent: rgb(234, 120, 169);
-  --visited: var(--accent);
   --accent-hover: rgba(234, 120, 169, 0.3);
+  --visited: var(--accent);
   --code: rgb(107, 118, 221);
   --preformatted: #444;
   --marked: rgb(229 68 207);
   --disabled: #bbb;
- 
 }
 
 /* Add a bit of transparency so light media isn't so glaring in dark mode */
@@ -77,10 +89,8 @@
   opacity: 1;
 }
 
-
-
 body {
-/* Center the body content on large screens */
+  /* Center the body content on large screens */
   grid-template-columns: 0.5fr minmax(auto, 1280px) 0.5fr;
 }
 
@@ -102,9 +112,9 @@ aside {
 
 @media screen and (max-width: 768px) {
   aside {
-    position:unset;
+    position: unset;
     float: none;
-    width:100%;
+    width: 100%;
     margin-inline-start: 0;
   }
 }
@@ -112,7 +122,6 @@ aside {
 table {
   width: 100%;
 }
-
 
 a:focus {
   color: var(--visited);

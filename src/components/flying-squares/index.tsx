@@ -29,14 +29,11 @@ export default component$(() => {
     function update(timestamp: number) {
       const timeUpdate = progressOverTime(timestamp);
       // const latestControlPoint = controlPointFromMouse(mousePosition.value);
-      const latestDestinationPoint = destinationPointFromScroll(scrollUpdate.value);
-      const updateDelta = timeUpdate + Math.abs(scrollUpdate.value);
-      updateSquares(
-        squares,
-        updateDelta,
-        controlPoint,
-        latestDestinationPoint,
+      const latestDestinationPoint = destinationPointFromScroll(
+        scrollUpdate.value
       );
+      const updateDelta = timeUpdate + Math.abs(scrollUpdate.value);
+      updateSquares(squares, updateDelta, controlPoint, latestDestinationPoint);
       scrollUpdate.value = 0;
       requestAnimationFrame(update);
     }
@@ -84,10 +81,13 @@ const START_MAX_X = 30;
 const START_MIN_Y = 0;
 const START_MAX_Y = 100;
 const START_MAX_Z = 5;
+const START_MIN_OPACITY = 0.1;
+const START_MAX_OPACITY = 0.3;
 
 const DESTINATION_X = 100;
 const DESTINATION_Y = 0;
 const DESTINATION_Z = 0;
+const DESTINATION_OPACITY = 0;
 
 const CONTROL_POINT_X = 50;
 const CONTROL_POINT_Y = 50;
@@ -96,7 +96,6 @@ const controlPoint = {
   x: CONTROL_POINT_X,
   y: CONTROL_POINT_Y,
 };
-
 
 // function controlPointFromMouse(mousePosition: { x: number; y: number }) {
 //   return {
@@ -109,7 +108,10 @@ let currentDestinationY = DESTINATION_Y;
 function destinationPointFromScroll(scrollDelta: number) {
   return {
     x: DESTINATION_X,
-    y: currentDestinationY =  Math.max(0, Math.min(currentDestinationY - scrollDelta * 100, 100)),
+    y: (currentDestinationY = Math.max(
+      0,
+      Math.min(currentDestinationY - scrollDelta * 100, 100)
+    )),
     z: DESTINATION_Z,
   };
 }
@@ -159,10 +161,14 @@ function updateSquares(
       destination.y,
       square.progress
     );
+
     square.z =
       (1 - square.progress) * square.initial.z +
       destination.z * square.progress;
-    square.opacity = square.progress;
+
+    square.opacity =
+      (1 - square.progress) * square.initial.opacity +
+      DESTINATION_OPACITY * square.progress;
   }
 }
 
@@ -175,6 +181,7 @@ type Square = {
     x: number;
     y: number;
     z: number;
+    opacity: number;
   };
   opacity: number;
   progress: number;
@@ -201,20 +208,25 @@ function createInitialState() {
     );
 }
 
-function resetSquare(old: Square): Square {
-  old.initial.x =
+function resetSquare(square: Square): Square {
+  square.initial.x =
     START_MIN_X + Math.floor(Math.random() * START_MAX_X - START_MIN_X);
-  old.initial.y =
+  square.initial.y =
     START_MIN_Y + Math.floor(Math.random() * START_MAX_Y - START_MIN_Y);
-  old.initial.z = Math.random() * START_MAX_Z;
-  old.progressRate = Math.random();
-  old.x = 0;
-  old.y = 0;
-  old.z = 0;
-  old.opacity = 0;
-  old.progress = 0;
+  square.initial.z = Math.random() * START_MAX_Z;
+  square.initial.opacity =
+    START_MIN_OPACITY +
+    Math.floor(Math.random() * START_MAX_OPACITY - START_MIN_OPACITY);
+  
+  square.progressRate = Math.random();
+  
+  square.x = 0;
+  square.y = 0;
+  square.z = 0;
+  square.progress = 0;
+  square.opacity = 0;
 
-  return old;
+  return square;
 }
 
 function bezier(p1: number, p2: number, p3: number, t: number) {

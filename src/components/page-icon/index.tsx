@@ -8,14 +8,5 @@ type IconProps = {
 };
 
 export default component$(({ title }: IconProps) => {
-  switch (title) {
-    case "Josh Sansom":
-      return <MeSVG />;
-    case "Projects":
-      return <WorkerSVG />;
-    case "Thoughts":
-      return <BrainSVG />;
-    default:
-      return <></>;
-  }
+  return <></>
 });
