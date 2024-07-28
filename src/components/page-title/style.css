@@ -22,12 +22,11 @@
   height: 100px !important;
 }
 
-
 @media screen and (max-width: 768px) {
-
   .page-title .page-title__icon {
     width: unset;
-    height: 4rem;
+    max-height: 4rem;
+    max-width: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
