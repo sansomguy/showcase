@@ -6,6 +6,7 @@ import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
 import PageTitle from "~/components/page-title";
 import { createSupabaseClient } from "~/supabase-client";
+export { useGetNotionPostsLoader } from "~/components/posts-list";
 
 export const useSubscribe = routeAction$(async (form, requestEvent) => {
   const supabaseClient = createSupabaseClient(requestEvent);

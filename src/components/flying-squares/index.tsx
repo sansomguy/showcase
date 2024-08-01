@@ -14,21 +14,11 @@ export default component$(() => {
   const squares = useStore(createInitialState());
   const previousScroll = useSignal(0);
   const scrollUpdate = useSignal(0);
-  // const mousePosition = useSignal({ x: 0, y: 0 });
 
-  // useOnDocument(
-  //   "mousemove",
-  //   $((e) => {
-  //     const xPercent = (e.clientX / window.innerWidth) * 100;
-  //     const yPercent = (e.clientY / window.innerHeight) * 100;
-  //     mousePosition.value = { x: xPercent, y: yPercent };
-  //   })
-  // );
-
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     function update(timestamp: number) {
       const timeUpdate = progressOverTime(timestamp);
-      // const latestControlPoint = controlPointFromMouse(mousePosition.value);
       const latestDestinationPoint = destinationPointFromScroll(
         scrollUpdate.value
       );
@@ -217,9 +207,9 @@ function resetSquare(square: Square): Square {
   square.initial.opacity =
     START_MIN_OPACITY +
     Math.floor(Math.random() * START_MAX_OPACITY - START_MIN_OPACITY);
-  
+
   square.progressRate = Math.random();
-  
+
   square.x = 0;
   square.y = 0;
   square.z = 0;
