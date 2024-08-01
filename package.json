@@ -48,6 +48,7 @@
   "dependencies": {
     "@notionhq/client": "^2.2.15",
     "@supabase/supabase-js": "^2.44.4",
+    "@vercel/kv": "^2.0.0",
     "marked": "^13.0.3",
     "notion-to-md": "^3.1.1"
   }
