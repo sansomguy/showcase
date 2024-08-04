@@ -1,18 +1,12 @@
-import {
-  $,
-  component$,
-  useSignal,
-  useTask$,
-} from "@builder.io/qwik";
+import { $, component$, useSignal, useTask$ } from "@builder.io/qwik";
 
 import { Form } from "@builder.io/qwik-city";
-import Modal from "../modal";
-import { shootConfetti } from "../confetti-button/shootConfetti";
 import { useSubscribe } from "~/routes/layout";
+import { shootConfetti } from "../confetti-button/shootConfetti";
+import Modal from "../modal";
 import Toast from "../toast";
 
 export default component$(() => {
-
   const subscribeAction = useSubscribe();
 
   const showModal = useSignal(false);
@@ -32,11 +26,13 @@ export default component$(() => {
     <>
       <div class="get-in-touch">
         <button
-          style={{ width: '8rem' }}
           onClick$={$(() => {
             showModal.value = true;
           })}
-        >📪 Contact</button>
+          type="button"
+        >
+          📪
+        </button>
       </div>
       {!subscribeAction.isRunning && subscribeAction.value?.success ? (
         <Toast requestRemove$={() => {}}>Thanks for getting in touch! 🎉</Toast>
@@ -48,13 +44,12 @@ export default component$(() => {
           }}
         >
           <h2 style={{ width: "100%" }}>Get in touch</h2>
-            <hr />
-            <a href="mailto:joshwebd@gmail.com">joshwebd@gmail.com</a>
-            <br />
-            <a href="tel:+61473407664">+61 473 407 664</a>
-            <br/>
-            <hr/>
-          
+          <hr />
+          <a href="mailto:joshwebd@gmail.com">joshwebd@gmail.com</a>
+          <br />
+          <a href="tel:+61473407664">+61 473 407 664</a>
+          <br />
+          <hr />
 
           {subscribeAction.value?.error ? (
             <div class="notice">{subscribeAction.value.error}</div>

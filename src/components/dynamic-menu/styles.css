@@ -35,11 +35,17 @@ header nav a.current {
 }
 .dynamic_menu nav {
   position: fixed;
-  top: 1rem;
-  width: fit-content;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   padding: 0;
   padding-right: 1rem;
   gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   transition: all 0.1s ease-in-out;
   border-radius: var(--standard-border-radius);
   border: var(--standard-border-width) solid var(--border-color);
@@ -51,11 +57,11 @@ header nav a.current {
   box-shadow: none;
 }
 
-.dynamic_menu:hover nav {
+/* .dynamic_menu:hover nav {
   border-radius: var(--standard-border-radius);
   border: var(--standard-border-width) solid var(--border-color);
   box-shadow: 0 0.1rem 0.5rem var(--text-shadow-color);
-}
+} */
 
 .dynamic_menu__main-links {
   width: 100%;

@@ -1,22 +1,10 @@
-import {
-  Resource,
-  Slot,
-  component$,
-  useResource$,
-  useStyles$,
-} from "@builder.io/qwik";
-import {
-  routeAction$,
-  server$,
-  type RequestHandler,
-} from "@builder.io/qwik-city";
+import { Slot, component$, useStyles$ } from "@builder.io/qwik";
+import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.css?inline";
 
 import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
-import PageTitle from "~/components/page-title";
 import { createSupabaseClient } from "~/supabase-client";
-import type { NotionPageList } from "~/utils/notion";
 
 export const onGet: RequestHandler = async (props) => {
   const { cacheControl } = props;
@@ -57,31 +45,14 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
   };
 });
 
-export const fetchProjects = server$(async function () {
-  const client = createSupabaseClient(this);
-  const { data: pages } = await client
-    .from("notion_pages")
-    .select("*")
-    .throwOnError()!;
-  return { projects: pages as NotionPageList };
-});
-
 export default component$(() => {
   useStyles$(styles);
-  const result = useResource$(async function () {
-    const projects = await fetchProjects();
-    return projects;
-  });
 
   return (
     <div class={"layout__container"}>
       <div class={"layout__main__container"}>
-        <Resource
-          value={result}
-          onResolved={(result) => <DynamicMenu projects={result.projects} />}
-        />
+        <DynamicMenu />
         <main class="layout__main__container__inner">
-          <PageTitle />
           <Slot />
         </main>
       </div>

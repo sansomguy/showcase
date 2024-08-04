@@ -8,12 +8,10 @@ import {
 import { NavLink } from "../nav-link";
 import styles from "./styles.css?inline";
 
-import type { NotionPageList } from "~/utils/notion";
 import GetInTouch from "../get-in-touch";
 import ThemeSwitcher from "../theme-switcher";
-import Projects from "./projects";
 
-export default component$(({ projects }: { projects: NotionPageList }) => {
+export default component$(() => {
   useStyles$(styles);
 
   const store = useStore({
@@ -53,9 +51,9 @@ export default component$(({ projects }: { projects: NotionPageList }) => {
               <NavLink href={"/blog/projects"} activeClass="current">
                 Projects
               </NavLink>
-              <div class={`dynamic_menu__sub-links`}>
+              {/* <div class={`dynamic_menu__sub-links`}>
                 <Projects posts={projects} />
-              </div>
+              </div> */}
             </div>
             <NavLink href={"/blog/thoughts"} activeClass="current">
               Thoughts
@@ -64,10 +62,10 @@ export default component$(({ projects }: { projects: NotionPageList }) => {
               Profile
             </NavLink>
           </div>
+          <ThemeSwitcher />
+          <GetInTouch />
         </nav>
       </div>
-      <ThemeSwitcher />
-      <GetInTouch />
     </header>
   );
 });
