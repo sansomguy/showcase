@@ -8,10 +8,12 @@ import {
 import { NavLink } from "../nav-link";
 import styles from "./styles.css?inline";
 
+import type { NotionPageList } from "~/utils/notion";
 import GetInTouch from "../get-in-touch";
 import ThemeSwitcher from "../theme-switcher";
+import Projects from "./projects";
 
-export default component$(() => {
+export default component$(({ projects }: { projects: NotionPageList }) => {
   useStyles$(styles);
 
   const store = useStore({
@@ -46,15 +48,22 @@ export default component$(() => {
         class={`dynamic_menu ${store.isAtTop ? "dynamic_menu--top" : ""} ${store.isScrollingDown ? "dynamic_menu--scrolling-down" : ""}`}
       >
         <nav>
-          <NavLink href={"/blog/projects"} activeClass="current">
-            Projects
-          </NavLink>
-          <NavLink href={"/blog/thoughts"} activeClass="current">
-            Thoughts
-          </NavLink>
-          <NavLink href={"/"} activeClass="current">
-            Profile
-          </NavLink>
+          <div class="dynamic_menu__main-links">
+            <div>
+              <NavLink href={"/blog/projects"} activeClass="current">
+                Projects
+              </NavLink>
+              <div class={`dynamic_menu__sub-links`}>
+                <Projects posts={projects} />
+              </div>
+            </div>
+            <NavLink href={"/blog/thoughts"} activeClass="current">
+              Thoughts
+            </NavLink>
+            <NavLink href={"/"} activeClass="current">
+              Profile
+            </NavLink>
+          </div>
         </nav>
       </div>
       <ThemeSwitcher />

@@ -3,8 +3,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
   padding: 0;
+  height: 5rem;
 }
 
 header nav a.current {
@@ -19,32 +19,84 @@ header nav a.current {
   z-index: 100;
 }
 
+.dynamic_menu nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  --blur: 12px;
+  --saturate: 1.5;
+  z-index: -1;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
+  transition: all 0.1s ease-in-out;
+}
 .dynamic_menu nav {
   position: fixed;
   top: 1rem;
+  width: fit-content;
+  padding: 0;
+  padding-right: 1rem;
+  gap: 1rem;
   transition: all 0.1s ease-in-out;
   border-radius: var(--standard-border-radius);
   border: var(--standard-border-width) solid var(--border-color);
-  --blur: 12px;
-  --saturate: 1.5;
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
-  backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: auto;
-  padding: 1rem;
-  gap: 1rem;
   box-shadow: 0 0.1rem 0.5rem var(--text-shadow-color);
 }
 
 .dynamic_menu--top nav {
-  top: 0;
   border-radius: 0;
-  position: relative;
   box-shadow: none;
-  padding: 0;
+}
+
+.dynamic_menu:hover nav {
+  border-radius: var(--standard-border-radius);
+  border: var(--standard-border-width) solid var(--border-color);
+  box-shadow: 0 0.1rem 0.5rem var(--text-shadow-color);
+}
+
+.dynamic_menu__main-links {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+.dynamic_menu__main-links > div {
+  padding: 1rem;
+  padding-right: 0;
+}
+
+.dynamic_menu__main-links > div:hover > .dynamic_menu__sub-links {
+  display: flex;
+}
+
+.dynamic_menu__sub-links {
+  position: absolute;
+  top: 99%;
+  left: 0;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  transition: all 0.1s ease-in-out;
+  border-radius: var(--standard-border-radius);
+  border: var(--standard-border-width) solid var(--border-color);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+  --blur: 12px;
+  --saturate: 1.5;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur)) saturate(var(--saturate));
+  background-color: transparent;
+  box-shadow: 0 0.1rem 0.5rem var(--text-shadow-color);
 }
 
 @media screen and (max-width: 768px) {

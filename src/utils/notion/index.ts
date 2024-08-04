@@ -2,7 +2,7 @@ import type { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler
 import { Client as NotionClient } from "@notionhq/client";
 import * as marked from "marked";
 import { NotionToMarkdown } from "notion-to-md";
-
+export type NotionPageList = Array<{ id: string; title: string }>;
 export class NotionUtils {
   private notionClient: NotionClient;
   private notionToMarkdown: NotionToMarkdown;

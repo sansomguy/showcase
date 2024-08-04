@@ -1,4 +1,4 @@
-import { RequestHandler } from "@builder.io/qwik-city";
+import type { RequestHandler } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase-client";
 import { NotionUtils } from "~/utils/notion";
 
