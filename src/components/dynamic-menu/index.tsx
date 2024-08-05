@@ -46,24 +46,33 @@ export default component$(() => {
         class={`dynamic_menu ${store.isAtTop ? "dynamic_menu--top" : ""} ${store.isScrollingDown ? "dynamic_menu--scrolling-down" : ""}`}
       >
         <nav>
-          <div class="dynamic_menu__main-links">
-            <div>
-              <NavLink href={"/blog/projects"} activeClass="current">
-                Projects
-              </NavLink>
-              {/* <div class={`dynamic_menu__sub-links`}>
+          <div class="dynamic_menu__inner">
+            <div class="dynamic_menu__main-links">
+              <div>
+                <NavLink href={"/blog/projects"} activeClass="current">
+                  Projects
+                </NavLink>
+                {/* <div class={`dynamic_menu__sub-links`}>
                 <Projects posts={projects} />
               </div> */}
+              </div>
+              <NavLink href={"/blog/thoughts"} activeClass="current">
+                Thoughts
+              </NavLink>
+              <NavLink href={"/"} activeClass="current">
+                Profile
+              </NavLink>
             </div>
-            <NavLink href={"/blog/thoughts"} activeClass="current">
-              Thoughts
-            </NavLink>
-            <NavLink href={"/"} activeClass="current">
-              Profile
-            </NavLink>
+            <div class="dynamic_menu__secondary-links">
+              <div class="dynamic_menu__secondary-links__open">
+                <span>🔼</span>
+              </div>
+              <div class="dynamic_menu__secondary-links__container">
+                <GetInTouch />
+                <ThemeSwitcher />
+              </div>
+            </div>
           </div>
-          <ThemeSwitcher />
-          <GetInTouch />
         </nav>
       </div>
     </header>

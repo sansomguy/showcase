@@ -27,10 +27,14 @@
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--headings-font);
 }
-
 
 /* Global variables. */
 .dark {
@@ -94,14 +98,14 @@ body {
   grid-template-columns: 0.5fr minmax(auto, 1280px) 0.5fr;
 }
 
+h1 {
+  margin-block-start: 0;
+}
+
 /* On smaller screens, we just let the body stretch all the way */
 @media (max-width: 1024px) {
   body {
     grid-template-columns: 0fr 1fr 0fr;
-  }
-
-  h1 {
-    margin: 0;
   }
 }
 

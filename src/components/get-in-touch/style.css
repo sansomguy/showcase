@@ -1,0 +1,11 @@
+.get-in-touch a {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.get-in-touch a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+  cursor: pointer;
+}

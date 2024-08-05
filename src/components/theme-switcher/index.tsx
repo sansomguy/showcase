@@ -48,7 +48,7 @@ export default component$(() => {
         />
       </span>
       <label for="theme-toggle" class="theme-toggle__checkbox">
-        {"🌙"}
+        🌘
       </label>
     </div>
   );
