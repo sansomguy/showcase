@@ -6,6 +6,6 @@
 
 .get-in-touch a:hover {
   color: var(--accent-color);
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
 }

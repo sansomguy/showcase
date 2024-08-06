@@ -2,6 +2,7 @@ import { Slot, component$, useStyles$ } from "@builder.io/qwik";
 import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import styles from "./layout.css?inline";
 
+import BreadCrumbs from "~/components/bread-crumbs";
 import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
 import { createSupabaseClient } from "~/supabase-client";
@@ -52,6 +53,7 @@ export default component$(() => {
     <div class={"layout__container"}>
       <div class={"layout__main__container"}>
         <DynamicMenu />
+        <BreadCrumbs />
         <main class="layout__main__container__inner">
           <Slot />
         </main>

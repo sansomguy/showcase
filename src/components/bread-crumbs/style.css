@@ -1,0 +1,16 @@
+.bread-crumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0;
+  gap: 1rem;
+}
+
+.current {
+  color: var(--accent);
+}
+
+.parent {
+  color: var(--text);
+}

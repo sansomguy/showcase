@@ -8,7 +8,7 @@ export const fetchProjects = server$(async function () {
   const client = createSupabaseClient(this);
   const { data: pages } = await client
     .from("notion_pages")
-    .select("*")
+    .select("id, title, summary")
     .throwOnError()!;
   return pages as NotionPageList;
 });

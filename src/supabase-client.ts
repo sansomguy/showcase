@@ -6,14 +6,14 @@ export function createSupabaseClient({
   sharedMap,
 }: {
   env: EnvGetter;
-  sharedMap: Map<string, any>;
+  sharedMap?: Map<string, any>;
 }) {
-  if (sharedMap.has("supabaseClient")) {
+  if (sharedMap?.has("supabaseClient")) {
     return sharedMap.get("supabaseClient") as ReturnType<typeof createClient>;
   }
   const supabaseUrl = "https://rzoqdvamntfrabpvvnsp.supabase.co";
   const key = env.get("SUPABASE_KEY") as string;
   const client = createClient(supabaseUrl, key);
-  sharedMap.set("supabaseClient", client);
+  sharedMap?.set("supabaseClient", client);
   return client;
 }

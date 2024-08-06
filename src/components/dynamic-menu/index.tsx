@@ -48,14 +48,9 @@ export default component$(() => {
         <nav>
           <div class="dynamic_menu__inner">
             <div class="dynamic_menu__main-links">
-              <div>
-                <NavLink href={"/blog/projects"} activeClass="current">
-                  Projects
-                </NavLink>
-                {/* <div class={`dynamic_menu__sub-links`}>
-                <Projects posts={projects} />
-              </div> */}
-              </div>
+              <NavLink href={"/blog/projects"} activeClass="current">
+                Projects
+              </NavLink>
               <NavLink href={"/blog/thoughts"} activeClass="current">
                 Thoughts
               </NavLink>

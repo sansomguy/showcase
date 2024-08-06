@@ -96,6 +96,7 @@ h6 {
 body {
   /* Center the body content on large screens */
   grid-template-columns: 0.5fr minmax(auto, 1280px) 0.5fr;
+  padding-bottom: 3rem; /* accommodate height of mobile menu */
 }
 
 h1 {
