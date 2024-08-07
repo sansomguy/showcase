@@ -5,6 +5,8 @@ export type NotionPageList = Array<{
   id: string;
   title: string;
   summary: string;
+  status: "LIVE" | "DRAFT" | null;
+  category: "Projects" | "Thoughts" | null;
 }>;
 export class NotionUtils {
   private notionClient: NotionClient;
@@ -57,14 +59,24 @@ export class NotionUtils {
           id: string;
           rich_text: Array<{ type: "text"; text: { content: string } }>;
         };
+        Status: {
+          id: string;
+          status?: { name: string };
+        };
+        Select: {
+          id: string;
+          select?: { name: string };
+        };
       };
     };
 
     return {
+      category: typedPage.properties.Select.select?.name,
+      status: typedPage.properties.Status.status?.name,
       summary: typedPage.properties.Summary.rich_text
         .map((t) => t.text.content)
         .join("\n"),
-      title: (page as any).properties.Name.title
+      title: (page as any).properties.Name?.title
         .filter((t: any) => t.type === "text")
         .find((t: any) => t.text?.content)?.text?.content as string,
       id: page.id,

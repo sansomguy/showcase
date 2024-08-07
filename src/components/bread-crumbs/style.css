@@ -7,6 +7,14 @@
   gap: 1rem;
 }
 
+.bread-crumbs__crumb {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
 .current {
   color: var(--accent);
 }

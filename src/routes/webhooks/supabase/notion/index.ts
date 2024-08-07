@@ -15,6 +15,8 @@ export const onPost: RequestHandler = async (event) => {
     ).map(([info, markdown]) => ({
       id: info.id,
       title: info.title,
+      status: info.status,
+      category: info.category,
       summary: info.summary,
       content: markdown,
     }));

@@ -25,12 +25,12 @@ export default component$(() => {
   return (
     <div class="bread-crumbs">
       {breadcrumbs.map((path) => (
-        <>
+        <div class="bread-crumbs__crumb" key={path.link}>
           <NavLink href={path.link} activeClass="current">
             {toEllipse(path.name)}
           </NavLink>
           <span class="bread-crumbs__separator">/</span>
-        </>
+        </div>
       ))}
       <NavLink href={currentPath} activeClass="current">
         {toEllipse(currentName)}
