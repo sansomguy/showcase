@@ -53,6 +53,7 @@ export class NotionUtils {
     });
 
     const typedPage = page as unknown as {
+      last_edited_time: string;
       properties: {
         Name: { title: Array<{ type: "text"; text: { content: string } }> };
         Summary: {
@@ -71,6 +72,7 @@ export class NotionUtils {
     };
 
     return {
+      last_edited: typedPage.last_edited_time,
       category: typedPage.properties.Select.select?.name,
       status: typedPage.properties.Status.status?.name,
       summary: typedPage.properties.Summary.rich_text

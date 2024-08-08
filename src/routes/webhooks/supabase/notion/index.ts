@@ -13,11 +13,7 @@ export const onPost: RequestHandler = async (event) => {
         pageIds.map(async (page) => await notionUtils.getPage(page))
       )
     ).map(([info, markdown]) => ({
-      id: info.id,
-      title: info.title,
-      status: info.status,
-      category: info.category,
-      summary: info.summary,
+      ...info,
       content: markdown,
     }));
 
