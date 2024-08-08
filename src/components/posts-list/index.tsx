@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
+import { formatDate } from "~/utils/format-date";
 import type { NotionPageList } from "~/utils/notion";
 import { NavLink } from "../nav-link";
 
@@ -28,6 +29,7 @@ export default component$((props: { posts: NotionPageList }) => {
           </strong>
 
           <p>{page.summary}</p>
+          <sub>{formatDate(page.last_edited)}</sub>
         </article>
       ))}
     </articles>

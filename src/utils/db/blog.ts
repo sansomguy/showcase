@@ -12,7 +12,7 @@ export class Blog {
 
     const request = db
       .from("notion_pages")
-      .select("id, title, summary, category, status");
+      .select("id, title, last_edited, summary, category, status");
     if (category) {
       request.eq("category", category);
     }
@@ -27,7 +27,7 @@ export class Blog {
     const db = createSupabaseClient(this.context);
     const { data: page } = await db
       .from("notion_pages")
-      .select("id, title, status, category, summary, content")
+      .select("id, title, last_edited, status, category, summary, content")
       .eq("id", id)
       .eq("status", "LIVE")
       .single()

@@ -5,6 +5,7 @@ export type NotionPageList = Array<{
   id: string;
   title: string;
   summary: string;
+  last_edited: string;
   status: "LIVE" | "DRAFT" | null;
   category: "Projects" | "Thoughts" | null;
 }>;

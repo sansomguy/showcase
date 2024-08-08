@@ -6,6 +6,7 @@ import {
 } from "@builder.io/qwik-city";
 import { marked } from "marked";
 import { Blog } from "~/utils/db/blog";
+import { formatDate } from "~/utils/format-date";
 
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
@@ -32,7 +33,15 @@ export default component$(() => {
     return data.value.content;
   });
 
-  return <div dangerouslySetInnerHTML={html.value} />;
+  return (
+    <>
+      <sub>Last edit: {formatDate(data.value.last_edited)}</sub>
+      <br />
+      <br />
+      <h1>{data.value.title}</h1>
+      <div dangerouslySetInnerHTML={html.value} />
+    </>
+  );
 });
 
 export const head: DocumentHead = ({ resolveValue }) => {
