@@ -1,11 +1,13 @@
 import type { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
 import { Client as NotionClient } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
+
 export type NotionPageList = Array<{
   id: string;
   title: string;
   summary: string;
   last_edited: string;
+  created: string;
   status: "LIVE" | "DRAFT" | null;
   category: "Projects" | "Thoughts" | null;
 }>;
@@ -55,6 +57,7 @@ export class NotionUtils {
 
     const typedPage = page as unknown as {
       last_edited_time: string;
+      created_time: string;
       properties: {
         Name: { title: Array<{ type: "text"; text: { content: string } }> };
         Summary: {
@@ -74,6 +77,7 @@ export class NotionUtils {
 
     return {
       last_edited: typedPage.last_edited_time,
+      created: typedPage.created_time,
       category: typedPage.properties.Select.select?.name,
       status: typedPage.properties.Status.status?.name,
       summary: typedPage.properties.Summary.rich_text

@@ -1,44 +1,41 @@
 import { component$ } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
+import { BlogPost } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
-import type { NotionPageList } from "~/utils/notion";
 import { NavLink } from "../nav-link";
 
-export default component$((props: { posts: NotionPageList }) => {
+export default component$((props: { posts: Array<BlogPost> }) => {
   const navigate = useNavigate();
 
   return (
     <articles>
-      {props.posts.map((page) => (
+      {props.posts.map((post) => (
         <article
-          key={page.id}
+          key={post.id}
           onClick$={() => {
-            if (canNavigate(page)) {
-              navigate(getHref(page.id));
+            if (canNavigate(post)) {
+              navigate(post.href);
             }
           }}
         >
           <strong>
-            {canNavigate(page) ? (
-              <NavLink href={getHref(page.id)} activeClass="current">
-                {page.title}
+            {canNavigate(post) ? (
+              <NavLink href={post.href} activeClass="current">
+                {post.title}
               </NavLink>
             ) : (
-              page.title
+              post.title
             )}
           </strong>
 
-          <p>{page.summary}</p>
-          <sub>{formatDate(page.last_edited)}</sub>
+          <p>{post.summary}</p>
+          <sub>{formatDate(post.created)}</sub>
         </article>
       ))}
     </articles>
   );
 });
 
-function canNavigate(page: NotionPageList[number]) {
-  return page.status === "LIVE";
-}
-function getHref(pageId: string) {
-  return `/blog/posts/${pageId}`;
+function canNavigate(post: BlogPost) {
+  return post.status === "LIVE";
 }

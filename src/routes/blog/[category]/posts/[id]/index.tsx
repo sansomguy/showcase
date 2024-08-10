@@ -35,7 +35,11 @@ export default component$(() => {
 
   return (
     <>
-      <sub>Last edit: {formatDate(data.value.last_edited)}</sub>
+      <sub>{formatDate(data.value.created)}</sub>
+      <br />
+      <sub>
+        <i>Edited {formatDate(data.value.last_edited)}</i>
+      </sub>
       <br />
       <br />
       <h1>{data.value.title}</h1>
