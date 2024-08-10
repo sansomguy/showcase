@@ -1,6 +1,7 @@
 import { Slot, component$, useStyles$ } from "@builder.io/qwik";
 import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import "@fontsource-variable/inter";
+import "@fontsource/ibm-plex-mono";
 import styles from "./layout.css?inline";
 
 import BreadCrumbs from "~/components/bread-crumbs";
