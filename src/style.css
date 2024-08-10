@@ -30,6 +30,7 @@ pre span,
 kbd,
 samp {
   font-family: "IBM Plex Mono", monospace;
+  color: var(--code);
 }
 
 /* Global variables. */

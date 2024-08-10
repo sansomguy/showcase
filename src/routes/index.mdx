@@ -4,10 +4,12 @@ description: "Josh Sansom's personal website, blog, and resume."
 breadcrumbs: [{"name": '#',"link": '/'}]
 ---
 
+import GetInTouch from '~/components/get-in-touch'
 import SideBarLayout from '~/components/side-bar-layout'
 
 <SideBarLayout>
 <div q:slot="side-bar">
+    
     <div class="notice" style={{marginTop: 0, width: '100%'}}>
         <ul>
             <li>
@@ -37,6 +39,7 @@ import SideBarLayout from '~/components/side-bar-layout'
         <img width={320} height={240} src={"/images/profile.jpeg"} alt="Profile photo" />
         <figcaption>My family | Mount McKenzie.</figcaption>
     </figure>
+    <GetInTouch />
 </div>
 <div q:slot="main">
 # Josh Sansom-Sherwill

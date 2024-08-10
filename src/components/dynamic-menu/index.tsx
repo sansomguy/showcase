@@ -8,10 +8,16 @@ import {
 import { NavLink } from "../nav-link";
 import styles from "./styles.css?inline";
 
-import GetInTouch from "../get-in-touch";
+import { categories } from "~/utils/db/blog";
 import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
+  const menuItems = categories.map((category) => {
+    return {
+      title: category,
+      href: `/blog/${category.toLowerCase()}`,
+    };
+  });
   useStyles$(styles);
 
   const store = useStore({
@@ -48,24 +54,17 @@ export default component$(() => {
         <nav>
           <div class="dynamic_menu__inner">
             <div class="dynamic_menu__main-links">
-              <NavLink href={"/blog/projects"} activeClass="current">
-                Projects
-              </NavLink>
-              <NavLink href={"/blog/thoughts"} activeClass="current">
-                Thoughts
-              </NavLink>
+              {menuItems.map((item) => (
+                <NavLink href={item.href} accessKey="current" key={item.title}>
+                  {item.title}
+                </NavLink>
+              ))}
               <NavLink href={"/"} activeClass="current">
-                Profile
+                Contact
               </NavLink>
             </div>
             <div class="dynamic_menu__secondary-links">
-              <div class="dynamic_menu__secondary-links__open">
-                <span>🔼</span>
-              </div>
-              <div class="dynamic_menu__secondary-links__container">
-                <GetInTouch />
-                <ThemeSwitcher />
-              </div>
+              <ThemeSwitcher />
             </div>
           </div>
         </nav>

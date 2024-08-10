@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
 import { BlogPost } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
@@ -6,6 +6,14 @@ import { NavLink } from "../nav-link";
 
 export default component$((props: { posts: Array<BlogPost> }) => {
   const navigate = useNavigate();
+  useStyles$(/*css*/ `
+      .posts-list__title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    `);
 
   return (
     <articles>
@@ -20,9 +28,12 @@ export default component$((props: { posts: Array<BlogPost> }) => {
         >
           <strong>
             {canNavigate(post) ? (
-              <NavLink href={post.href} activeClass="current">
-                {post.title}
-              </NavLink>
+              <div class="posts-list__title">
+                <NavLink href={post.href} activeClass="current">
+                  {post.title}
+                </NavLink>
+                <kbd>{post.series}</kbd>
+              </div>
             ) : (
               post.title
             )}

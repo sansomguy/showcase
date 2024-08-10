@@ -11,10 +11,18 @@ import { useSubscribe } from "~/routes/layout";
 import { shootConfetti } from "../confetti-button/shootConfetti";
 import Modal from "../modal";
 import Toast from "../toast";
-import styles from "./style.css?inline";
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(/*css*/ `
+    .get-in-touch  {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    .get-in-touch button {
+      color: var(--color-text);
+    }
+  `);
   const subscribeAction = useSubscribe();
 
   const showModal = useSignal(false);
@@ -33,14 +41,13 @@ export default component$(() => {
   return (
     <>
       <div class="get-in-touch">
-        <a
-          href="#"
+        <button
           onClick$={$(() => {
             showModal.value = true;
           })}
         >
-          Contact&nbsp;📪
-        </a>
+          Get in touch &nbsp;📪
+        </button>
       </div>
       {!subscribeAction.isRunning && subscribeAction.value?.success ? (
         <Toast requestRemove$={() => {}}>Thanks for getting in touch! 🎉</Toast>

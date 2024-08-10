@@ -1,5 +1,6 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase-client";
+import { DBBlogPost } from "~/utils/db/blog";
 import { NotionUtils } from "~/utils/notion";
 
 export const onPost: RequestHandler = async (event) => {
@@ -12,10 +13,16 @@ export const onPost: RequestHandler = async (event) => {
       await Promise.all(
         pageIds.map(async (page) => await notionUtils.getPage(page))
       )
-    ).map(([info, markdown]) => ({
-      ...info,
-      content: markdown,
-    }));
+    ).map(
+      ([info, markdown]) =>
+        ({
+          ...info,
+          category: (info.category as DBBlogPost["category"]) ?? "Thoughts",
+          series: (info.series as DBBlogPost["series"]) ?? "",
+          status: (info.status as DBBlogPost["status"]) ?? "DRAFT",
+          content: markdown,
+        }) satisfies DBBlogPost
+    );
 
     const client = createSupabaseClient(event);
     await client.from("notion_pages").upsert(pages).throwOnError();

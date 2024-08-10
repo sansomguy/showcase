@@ -68,7 +68,11 @@ export class NotionUtils {
           id: string;
           status?: { name: string };
         };
-        Select: {
+        Category: {
+          id: string;
+          select?: { name: string };
+        };
+        Series: {
           id: string;
           select?: { name: string };
         };
@@ -78,7 +82,8 @@ export class NotionUtils {
     return {
       last_edited: typedPage.last_edited_time,
       created: typedPage.created_time,
-      category: typedPage.properties.Select.select?.name,
+      series: typedPage.properties.Series.select?.name,
+      category: typedPage.properties.Category.select?.name,
       status: typedPage.properties.Status.status?.name,
       summary: typedPage.properties.Summary.rich_text
         .map((t) => t.text.content)

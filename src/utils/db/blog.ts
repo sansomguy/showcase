@@ -1,41 +1,40 @@
 import type { RequestEvent } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase-client";
 
-type DBBlogPost = {
+export const categories = ["Projects", "Thoughts", "Tips"] as const;
+export type BlogCategory = (typeof categories)[number];
+export type BlogStatus = "LIVE" | "DRAFT";
+
+export type DBBlogPost = {
   id: string;
   title: string;
   summary: string;
   created: string;
   last_edited: string;
-  status: "LIVE" | "DRAFT" | null;
-  category: "Projects" | "Thoughts";
+  status: BlogStatus;
+  category: BlogCategory;
+  series: string;
   content: string;
 };
 export type BlogPost = {
   id: string;
   title: string;
   summary: string;
+  series: string;
   created: string;
   last_edited: string;
-  status: "LIVE" | "DRAFT" | null;
-  category: "Projects" | "Thoughts";
+  status: BlogStatus;
+  category: BlogCategory;
   href: string;
   content: string;
 };
 
-export type BlogCategory = "Projects" | "Thoughts";
 export class Blog {
   constructor(
     private readonly context: Pick<RequestEvent, "env" | "sharedMap">
   ) {}
   async getPosts(category?: BlogCategory): Promise<Array<BlogPost>> {
-    const db = createSupabaseClient(this.context);
-
-    const request = db
-      .from("notion_pages")
-      .select(
-        "id, title, created, last_edited, category, status, summary, content"
-      );
+    const request = this.fetch();
     if (category) {
       request.eq("category", category);
     }
@@ -48,11 +47,7 @@ export class Blog {
 
   async getPost(id: string): Promise<BlogPost> {
     const db = createSupabaseClient(this.context);
-    const { data: page } = await db
-      .from("notion_pages")
-      .select(
-        "id, title, last_edited, created, status, category, summary, content"
-      )
+    const { data: page } = await this.fetch()
       .eq("id", id)
       .eq("status", "LIVE")
       .single()
@@ -72,5 +67,14 @@ export class Blog {
       category: post.category!,
       href: `/blog/${post.category!.toLowerCase()}/posts/${post.id}`,
     };
+  }
+
+  private fetch() {
+    const db = createSupabaseClient(this.context);
+    return db
+      .from("notion_pages")
+      .select(
+        "id, title, created, last_edited, category, series, status, summary, content"
+      );
   }
 }
