@@ -25,9 +25,10 @@ export const usePostsLoader = routeLoader$(async (event) => {
     .filter((post) => post.status === "LIVE")
     .reduce(
       (acc, post) => {
+        const existing = acc[post.category] ?? [];
         return {
           ...acc,
-          [post.category]: [...acc[post.category], post],
+          [post.category]: [...existing, post],
         };
       },
       {} as Record<string, BlogPost[]>
