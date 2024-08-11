@@ -56,7 +56,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     description: page.summary,
     frontmatter: {
       breadcrumbs: [
-        { name: "#", link: "/" },
+        { name: "Blog", link: "/blog" },
         {
           name: page.category,
           link: `/blog/${page.category.toLowerCase()}`,

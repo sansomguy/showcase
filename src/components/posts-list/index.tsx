@@ -32,7 +32,7 @@ export default component$((props: { posts: Array<BlogPost> }) => {
                 <NavLink href={post.href} activeClass="current">
                   {post.title}
                 </NavLink>
-                <kbd>{post.series}</kbd>
+                {post.series ? <kbd>{post.series}</kbd> : null}
               </div>
             ) : (
               post.title

@@ -5,8 +5,7 @@ import {
   routeLoader$,
 } from "@builder.io/qwik-city";
 import PostsList from "~/components/posts-list";
-import { capitalize } from "~/utils/capitalize";
-import { Blog } from "~/utils/db/blog";
+import { Blog, BlogPost } from "~/utils/db/blog";
 
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
@@ -19,14 +18,21 @@ export const onStaticGenerate: StaticGenerateHandler = async (context) => {
 export const usePostsLoader = routeLoader$(async (event) => {
   const blog = new Blog(event);
 
-  const category = capitalize(event.params.category) as "Projects" | "Thoughts";
-  const posts = await blog.getPosts(category);
+  const posts = await blog.getPosts();
 
-  return {
-    posts: posts.filter((post) => post.status === "LIVE"),
-    upcoming: posts.filter((post) => post.status === "DRAFT"),
-    category,
-  };
+  const categories = posts
+    .filter((post) => post.status === "LIVE")
+    .reduce(
+      (acc, post) => {
+        return {
+          ...acc,
+          [post.category]: [...(acc[post.category] || []), post],
+        };
+      },
+      {} as Record<string, BlogPost[]>
+    );
+
+  return categories;
 });
 
 export default component$(() => {
@@ -34,10 +40,13 @@ export default component$(() => {
 
   return (
     <div>
-      <h1>{loader.value.category}</h1>
-      <PostsList posts={loader.value.posts} />
-      <h2>Upcoming</h2>
-      <PostsList posts={loader.value.upcoming} />
+      <h1>Blog</h1>
+      {Object.keys(loader.value).map((category) => (
+        <div key={category}>
+          <h2>{category}</h2>
+          <PostsList posts={loader.value[category]} />
+        </div>
+      ))}
     </div>
   );
 });
@@ -53,9 +62,9 @@ export const head: DocumentHead = ({ resolveValue, isNavigating, head }) => {
   }
   const loader = resolveValue(usePostsLoader);
   return {
-    title: loader.category,
+    title: "Blog",
     frontmatter: {
-      breadcrumbs: [{ name: "Blog", link: "/blog" }],
+      breadcrumbs: [{ name: "#", link: "/" }],
     },
   };
 };
