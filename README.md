@@ -113,3 +113,9 @@ You can [deploy your site to Vercel](https://vercel.com/docs/concepts/deployment
 ```shell
 npm run build.server
 ```
+
+## Static Site Generator (Node.js)
+
+```shell
+npm run build.server
+```
