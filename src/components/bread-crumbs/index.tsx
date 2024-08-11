@@ -14,6 +14,9 @@ function toEllipse(name: string) {
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
+
+  if (head.frontmatter.breadcrumbs === false) return null;
+
   const breadcrumbs = head.frontmatter.breadcrumbs as Array<{
     name: string;
     link: string;

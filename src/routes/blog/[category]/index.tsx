@@ -47,7 +47,7 @@ export const head: DocumentHead = ({ resolveValue, isNavigating, head }) => {
     return {
       title: head.title,
       frontmatter: {
-        breadcrumbs: [{ name: "#", link: "/" }],
+        breadcrumbs: [{ name: "Blog", link: "/blog" }],
       },
     };
   }

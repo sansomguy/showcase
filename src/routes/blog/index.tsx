@@ -1,11 +1,12 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import {
   type DocumentHead,
+  Link,
   type StaticGenerateHandler,
   routeLoader$,
 } from "@builder.io/qwik-city";
 import PostsList from "~/components/posts-list";
-import { Blog, BlogPost } from "~/utils/db/blog";
+import { Blog, type BlogPost } from "~/utils/db/blog";
 
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
@@ -37,13 +38,21 @@ export const usePostsLoader = routeLoader$(async (event) => {
 
 export default component$(() => {
   const loader = usePostsLoader();
+  useStyles$(/*css*/ `
+    accent {
+      color: var(--accent);
+    }
+    `);
 
   return (
     <div>
       <h1>Blog</h1>
       {Object.keys(loader.value).map((category) => (
         <div key={category}>
-          <h2>{category}</h2>
+          <h2>
+            <accent class="accent">#&nbsp;</accent>
+            <Link href={`/blog/${category.toLowerCase()}`}>{category}</Link>
+          </h2>
           <PostsList posts={loader.value[category]} />
         </div>
       ))}
@@ -51,20 +60,9 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue, isNavigating, head }) => {
-  if (isNavigating) {
-    return {
-      title: head.title,
-      frontmatter: {
-        breadcrumbs: [{ name: "#", link: "/" }],
-      },
-    };
-  }
-  const loader = resolveValue(usePostsLoader);
-  return {
-    title: "Blog",
-    frontmatter: {
-      breadcrumbs: [{ name: "#", link: "/" }],
-    },
-  };
+export const head: DocumentHead = {
+  title: "Blog",
+  frontmatter: {
+    breadcrumbs: false,
+  },
 };
