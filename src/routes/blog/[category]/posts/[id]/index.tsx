@@ -23,7 +23,7 @@ export const usePostLoader = routeLoader$(async function (event) {
   const page = await blog.getPost(event.params.id);
   return {
     ...page!,
-    content: page.content?.length ? await marked(page!.content) : "",
+    content: page.content.length ? await marked(page!.content) : "",
   };
 });
 
@@ -50,7 +50,6 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const page = resolveValue(usePostLoader);
-
   return {
     title: page.title,
     description: page.summary,

@@ -42,15 +42,7 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue, isNavigating, head }) => {
-  if (isNavigating) {
-    return {
-      title: head.title,
-      frontmatter: {
-        breadcrumbs: [{ name: "Blog", link: "/blog" }],
-      },
-    };
-  }
+export const head: DocumentHead = ({ resolveValue }) => {
   const loader = resolveValue(usePostsLoader);
   return {
     title: loader.category,

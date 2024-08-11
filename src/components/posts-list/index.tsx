@@ -1,6 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
-import { BlogPost } from "~/utils/db/blog";
+import type { BlogPost } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
 import { NavLink } from "../nav-link";
 
