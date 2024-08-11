@@ -12,6 +12,17 @@ import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
   useStyles$(styles);
+  useStyles$(/*css*/ `
+    .dynamic_menu__top_space {
+      height: 3rem;
+      width: 100%;
+    }
+    @media(max-width: 768px) {
+      .dynamic_menu__top_space {
+        display: none;
+      }
+    }
+  `);
 
   const store = useStore({
     previousScroll: 0,
@@ -40,7 +51,8 @@ export default component$(() => {
   );
 
   return (
-    <header>
+    <>
+      <div class="dynamic_menu__top_space"></div>
       <div
         class={`dynamic_menu ${store.isAtTop ? "dynamic_menu--top" : ""} ${store.isScrollingDown ? "dynamic_menu--scrolling-down" : ""}`}
       >
@@ -61,6 +73,6 @@ export default component$(() => {
           </div>
         </nav>
       </div>
-    </header>
+    </>
   );
 });

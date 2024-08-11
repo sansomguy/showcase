@@ -2,7 +2,6 @@ import { Slot, component$, useStyles$ } from "@builder.io/qwik";
 import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import "@fontsource-variable/inter";
 import "@fontsource/ibm-plex-mono";
-import styles from "./layout.css?inline";
 
 import BreadCrumbs from "~/components/bread-crumbs";
 import DynamicMenu from "~/components/dynamic-menu";
@@ -49,18 +48,29 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
 });
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(/*css*/ `
+    .layout__container {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .layout__container {
+      padding: 1.5rem;
+    }
+  `);
 
   return (
-    <div class={"layout__container"}>
-      <div class={"layout__main__container"}>
-        <DynamicMenu />
-        <BreadCrumbs />
+    <>
+      <div class={"layout__container"}>
+        <header>
+          <DynamicMenu />
+          <BreadCrumbs />
+        </header>
         <main class="layout__main__container__inner">
           <Slot />
         </main>
       </div>
       <FlyingSquares />
-    </div>
+    </>
   );
 });
