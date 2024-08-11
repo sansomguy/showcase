@@ -46,7 +46,6 @@ export class Blog {
   }
 
   async getPost(id: string): Promise<BlogPost> {
-    const db = createSupabaseClient(this.context);
     const { data: page } = await this.fetch()
       .eq("id", id)
       .eq("status", "LIVE")
