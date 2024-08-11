@@ -49,44 +49,44 @@ export default component$(() => {
           />
         </div>
         <nav>
-            <NavLink
-              href={'/'}
-              onClick$={handleNavigationClick}
-              activeClass="current"
-            >
+          <NavLink
+            href={"/"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
             <span class="navigation__link">
               <span class="navigation__link__text">Profile</span>
               <span class="navigation__icon">
-                <PageIcon title={'Profile'} />
+                <PageIcon title={"Profile"} />
               </span>
             </span>
           </NavLink>
           <NavLink
-              href={'/blog/projects'}
-              onClick$={handleNavigationClick}
-              activeClass="current"
-            >
+            href={"/blog/projects"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
             <span class="navigation__link">
               <span class="navigation__link__text">Projects</span>
               <span class="navigation__icon">
-                <PageIcon title={'Projects'} />
+                <PageIcon title={"Projects"} />
               </span>
             </span>
           </NavLink>
           <NavLink
-              href={'/blog/thoughts'}
-              onClick$={handleNavigationClick}
-              activeClass="current"
-            >
+            href={"/blog/thoughts"}
+            onClick$={handleNavigationClick}
+            activeClass="current"
+          >
             <span class="navigation__link">
               <span class="navigation__link__text">Thoughts</span>
               <span class="navigation__icon">
-                <PageIcon title={'Thoughts'} />
+                <PageIcon title={"Thoughts"} />
               </span>
             </span>
           </NavLink>
         </nav>
-          <ThemeSwitcher />
+        <ThemeSwitcher />
       </div>
     </header>
   );

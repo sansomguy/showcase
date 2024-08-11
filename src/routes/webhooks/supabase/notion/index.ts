@@ -17,9 +17,9 @@ export const onPost: RequestHandler = async (event) => {
       ([info, markdown]) =>
         ({
           ...info,
-          category: (info.category as DBBlogPost["category"]) ?? "Thoughts",
-          series: (info.series as DBBlogPost["series"]) ?? "",
-          status: (info.status as DBBlogPost["status"]) ?? "DRAFT",
+          category: info.category as DBBlogPost["category"],
+          series: info.series as DBBlogPost["series"],
+          status: info.status as DBBlogPost["status"],
           content: markdown,
         }) satisfies DBBlogPost
     );

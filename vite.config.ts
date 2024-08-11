@@ -22,13 +22,7 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
  */
 export default defineConfig(({ command, mode }): UserConfig => {
   return {
-    plugins: [qwikCity({
-      rewriteRoutes: [{
-        paths: {
-          'blog': ''
-        }
-      }]
-    }), qwikVite(), tsconfigPaths(),  FontaineTransform.vite({
+    plugins: [qwikCity(), qwikVite(), tsconfigPaths(),  FontaineTransform.vite({
       fallbacks: ['BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans'],
     })],
     // This tells Vite which dependencies to pre-build in dev mode.

@@ -8,16 +8,9 @@ import {
 import { NavLink } from "../nav-link";
 import styles from "./styles.css?inline";
 
-import { categories } from "~/utils/db/blog";
 import ThemeSwitcher from "../theme-switcher";
 
 export default component$(() => {
-  const menuItems = categories.map((category) => {
-    return {
-      title: category,
-      href: `/blog/${category.toLowerCase()}`,
-    };
-  });
   useStyles$(styles);
 
   const store = useStore({
@@ -54,11 +47,10 @@ export default component$(() => {
         <nav>
           <div class="dynamic_menu__inner">
             <div class="dynamic_menu__main-links">
-              {menuItems.map((item) => (
-                <NavLink href={item.href} accessKey="current" key={item.title}>
-                  {item.title}
-                </NavLink>
-              ))}
+              <NavLink href={"/"} accessKey="current">
+                Blog
+              </NavLink>
+
               <NavLink href={"/contact"} activeClass="current">
                 Contact
               </NavLink>

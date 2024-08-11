@@ -64,7 +64,7 @@ export class Blog {
       ...post!,
       content: post.content || "",
       category: post.category!,
-      href: `/blog/${post.category!.toLowerCase()}/posts/${post.id}`,
+      href: `/${post.category!.toLowerCase()}/posts/${post.id}`,
     };
   }
 

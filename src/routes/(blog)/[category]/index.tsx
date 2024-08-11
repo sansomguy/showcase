@@ -47,7 +47,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
   return {
     title: loader.category,
     frontmatter: {
-      breadcrumbs: [{ name: "Blog", link: "/blog" }],
+      breadcrumbs: [{ name: "Blog", link: "/" }],
     },
   };
 };
