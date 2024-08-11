@@ -59,7 +59,7 @@ export default component$(() => {
                   {item.title}
                 </NavLink>
               ))}
-              <NavLink href={"/"} activeClass="current">
+              <NavLink href={"/contact"} activeClass="current">
                 Contact
               </NavLink>
             </div>
