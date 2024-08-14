@@ -6,7 +6,8 @@ import {
   routeLoader$,
 } from "@builder.io/qwik-city";
 import PostsList from "~/components/posts-list";
-import { Blog, type BlogPost } from "~/utils/db/blog";
+import { Blog } from "~/utils/db/blog";
+import { groupBy } from "~/utils/groupBy";
 
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
@@ -21,20 +22,13 @@ export const usePostsLoader = routeLoader$(async (event) => {
 
   const posts = await blog.getPosts();
 
-  const categories = posts
-    .filter((post) => post.status === "LIVE")
-    .reduce(
-      (acc, post) => {
-        const existing = acc[post.category] ?? [];
-        return {
-          ...acc,
-          [post.category]: [...existing, post],
-        };
-      },
-      {} as Record<string, BlogPost[]>
-    );
+  const categories = groupBy((post) => post.category, posts);
+  const topEntries = Array.from(categories.entries()).map(
+    ([category, posts]) => [category, posts.slice(0, 3)] as const
+  );
+  const topPosts = Object.fromEntries(topEntries);
 
-  return categories;
+  return topPosts;
 });
 
 export default component$(() => {
@@ -54,7 +48,7 @@ export default component$(() => {
             <accent class="accent">#&nbsp;</accent>
             <Link href={`/${category.toLowerCase()}`}>{category}</Link>
           </h2>
-          <PostsList posts={loader.value[category]} />
+          <PostsList posts={loader.value[category]!} />
         </div>
       ))}
     </div>
