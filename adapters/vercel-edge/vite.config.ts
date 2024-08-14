@@ -13,7 +13,8 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [vercelEdgeAdapter({    
       ssg: {
-        include: ['*']
+        include: ['*'],
+        exclude: ['/experiments/ssr'],
       }  
     })],
   };
