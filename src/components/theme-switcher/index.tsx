@@ -1,6 +1,9 @@
 import {
   $,
   component$,
+  createContextId,
+  Signal,
+  useContext,
   useOnDocument,
   useSignal,
   useStyles$,
@@ -8,9 +11,10 @@ import {
 } from "@builder.io/qwik";
 import styles from "./styles.css?inline";
 
+export const DarkThemeContext = createContextId<Signal<boolean>>("theme.dark");
 export default component$(() => {
   useStyles$(styles);
-  const darkTheme = useSignal(false);
+  const darkTheme = useContext(DarkThemeContext);
   const documentRef = useSignal<Document | undefined>(undefined);
   useTask$(({ track }) => {
     track(() => darkTheme.value);

@@ -1,4 +1,10 @@
-import { Slot, component$, useStyles$ } from "@builder.io/qwik";
+import {
+  Slot,
+  component$,
+  useContextProvider,
+  useSignal,
+  useStyles$,
+} from "@builder.io/qwik";
 import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import "@fontsource-variable/inter";
 import "@fontsource/ibm-plex-mono";
@@ -6,6 +12,7 @@ import "@fontsource/ibm-plex-mono";
 import BreadCrumbs from "~/components/bread-crumbs";
 import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
+import { DarkThemeContext } from "~/components/theme-switcher";
 import { createSupabaseClient } from "~/supabase-client";
 
 export const onGet: RequestHandler = async (props) => {
@@ -46,7 +53,6 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
     message: "OK",
   };
 });
-
 export default component$(() => {
   useStyles$(/*css*/ `
     .layout__container {
@@ -58,6 +64,9 @@ export default component$(() => {
       padding: 1.5rem;
     }
   `);
+
+  const darkTheme = useSignal(false);
+  useContextProvider(DarkThemeContext, darkTheme);
 
   return (
     <>

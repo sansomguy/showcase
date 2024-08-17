@@ -1,7 +1,8 @@
 import { component$, Resource, useResource$ } from "@builder.io/qwik";
 import { type DocumentHead, Link, server$ } from "@builder.io/qwik-city";
+import CodeSnippet from "~/components/code-snippet";
 export const getServerDate = server$(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  //await new Promise((resolve) => setTimeout(resolve, 3000));
   return {
     date: new Date().toISOString(),
   };
@@ -32,13 +33,12 @@ export default component$(() => {
         </li>
       </ul>
       <h3>Code</h3>
-      <pre>
-        <code>
-          // server$ action
-          {
-            /*js*/ `
+      <CodeSnippet
+        language="javascript"
+        code={
+          /*js*/ `
 export const getServerDate = server$(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  //await new Promise((resolve) => setTimeout(resolve, 3000));
   return {
     date: new Date().toISOString(),
   };
@@ -53,9 +53,8 @@ export default component$(() => {
         onResolved={(value) => <p>Dynamic data: {value.date}</p>}
         onPending={() => <p>Loading...</p>} />)
 });`
-          }
-        </code>
-      </pre>
+        }
+      />
     </div>
   );
 });

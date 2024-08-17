@@ -33,6 +33,7 @@
     "@builder.io/qwik-city": "^1.5.5",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
+    "@types/prismjs": "^1.26.4",
     "@types/showdown": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
@@ -52,6 +53,7 @@
     "@supabase/supabase-js": "^2.44.4",
     "fontaine": "^0.5.0",
     "marked": "^13.0.3",
-    "notion-to-md": "^3.1.1"
+    "notion-to-md": "^3.1.1",
+    "prismjs": "^1.29.0"
   }
 }

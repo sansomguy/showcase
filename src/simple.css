@@ -637,14 +637,6 @@ pre {
   color: var(--preformatted);
 }
 
-/* Fix embedded code within pre */
-pre code {
-  color: var(--preformatted);
-  background: none;
-  margin: 0;
-  padding: 0;
-}
-
 /* Progress bars */
 /* Declarations are repeated because you */
 /* cannot combine vendor-specific selectors */

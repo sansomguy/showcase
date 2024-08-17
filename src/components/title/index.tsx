@@ -1,7 +1,7 @@
 import {
   component$,
   useSignal,
-  useStyles$,
+  useStylesScoped$,
   useVisibleTask$,
 } from "@builder.io/qwik";
 import styles from "./style.css?inline";
@@ -12,7 +12,7 @@ type Props = {
 
 export default component$(({ title }: Props) => {
   const runAnimation = useSignal(() => false);
-  useStyles$(styles);
+  useStylesScoped$(styles);
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async ({ track }) => {
