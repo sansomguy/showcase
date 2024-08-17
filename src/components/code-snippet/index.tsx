@@ -1,23 +1,35 @@
-import { component$, useContext } from "@builder.io/qwik";
-import { DarkThemeContext } from "../theme-switcher";
-import DarkTheme from "./dark-theme";
-import LightTheme from "./light-theme";
-import ServerRender, { type ServerRenderProps } from "./server-render";
+import { component$, Resource, useResource$ } from "@builder.io/qwik";
+import { server$ } from "@builder.io/qwik-city";
+import { codeToHtml, type BundledLanguage } from "shiki";
 
-export default component$((props: ServerRenderProps) => {
-  const darkTheme = useContext(DarkThemeContext);
+const renderCode = server$(async (code: string, language: BundledLanguage) => {
+  return codeToHtml(code, {
+    lang: language,
+    theme: "dark-plus",
+  });
+});
 
-  if (darkTheme.value) {
-    return (
-      <DarkTheme>
-        <ServerRender {...props} />
-      </DarkTheme>
-    );
-  }
+type Language = "javascript" | "python" | "html" | "css";
 
+export type ServerRenderProps = {
+  language: Language;
+  code: string;
+};
+export default component$(({ language, code }: ServerRenderProps) => {
+  const resource = useResource$(async ({ track }) => {
+    track(() => code);
+    track(() => language);
+    return await renderCode(code, language);
+  });
   return (
-    <LightTheme>
-      <ServerRender {...props} />
-    </LightTheme>
+    <Resource
+      value={resource}
+      onResolved={(value) => <div dangerouslySetInnerHTML={value} />}
+      onPending={() => (
+        <pre>
+          <code class={`language-${language}`}>{code}</code>
+        </pre>
+      )}
+    />
   );
 });

@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
 import CodeSnippet from "~/components/code-snippet";
-export const useDynamicLoader = routeLoader$(async () => {
+export const useDynamicLoader = routeLoader$(() => {
   return {
     date: new Date().toISOString(),
   };

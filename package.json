@@ -54,6 +54,7 @@
     "fontaine": "^0.5.0",
     "marked": "^13.0.3",
     "notion-to-md": "^3.1.1",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "shiki": "^1.13.0"
   }
 }

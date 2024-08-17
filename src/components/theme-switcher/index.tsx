@@ -2,7 +2,7 @@ import {
   $,
   component$,
   createContextId,
-  Signal,
+  type Signal,
   useContext,
   useOnDocument,
   useSignal,

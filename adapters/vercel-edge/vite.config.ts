@@ -14,7 +14,7 @@ export default extendConfig(baseConfig, () => {
     plugins: [vercelEdgeAdapter({    
       ssg: {
         include: ['*'],
-        exclude: ['/experiments/ssr'],
+        exclude: ['/experiments/caching/ssr', '/experiments/caching/server-provider'],
       }  
     })],
   };
