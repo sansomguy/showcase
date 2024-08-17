@@ -13,7 +13,7 @@ import BreadCrumbs from "~/components/bread-crumbs";
 import DynamicMenu from "~/components/dynamic-menu";
 import FlyingSquares from "~/components/flying-squares";
 import { DarkThemeContext } from "~/components/theme-switcher";
-import { createSupabaseClient } from "~/supabase-client";
+import { createSupabaseClient } from "~/supabase";
 
 export const onGet: RequestHandler = async (props) => {
   const { cacheControl } = props;

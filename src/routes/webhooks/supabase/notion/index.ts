@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
-import { createSupabaseClient } from "~/supabase-client";
+import { createSupabaseClient } from "~/supabase";
 import type { DBBlogPost } from "~/utils/db/blog";
 import { NotionUtils } from "~/utils/notion";
 

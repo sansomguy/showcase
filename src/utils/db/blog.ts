@@ -1,5 +1,5 @@
 import type { RequestEvent } from "@builder.io/qwik-city";
-import { createSupabaseClient } from "~/supabase-client";
+import { createSupabaseClient } from "~/supabase";
 
 export const categories = ["Projects", "Thoughts", "Tips"] as const;
 export type BlogCategory = (typeof categories)[number];

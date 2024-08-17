@@ -12,6 +12,7 @@ export default extendConfig(baseConfig, () => {
       outDir: ".vercel/output/functions/_qwik-city.func",
     },
     plugins: [vercelEdgeAdapter({    
+      target: 'node',
       ssg: {
         include: ['*'],
         exclude: ['/experiments/caching/ssr', '/experiments/caching/server-provider'],
