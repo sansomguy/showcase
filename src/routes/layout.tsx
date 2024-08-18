@@ -17,17 +17,14 @@ import { createSupabaseClient } from "~/supabase";
 
 export const onGet: RequestHandler = async (event) => {
   const { cacheControl } = event;
-  cacheControl(
-    {
-      public: true,
-      // Always serve a cached response by default, up to a week stale
-      staleWhileRevalidate: 60 * 60 * 24 * 7,
-      // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
-      maxAge: 10 * 60 * 1000,
-      sMaxAge: 10 * 60 * 1000,
-    },
-    "Vercel-CDN-Cache-Control"
-  );
+  cacheControl({
+    public: true,
+    // Always serve a cached response by default, up to a week stale
+    staleWhileRevalidate: 60 * 60 * 24 * 7,
+    // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
+    maxAge: 10 * 60 * 1000,
+    sMaxAge: 10 * 60 * 1000,
+  });
 };
 
 export const useSubscribe = routeAction$(async (form, requestEvent) => {
