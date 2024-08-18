@@ -2,16 +2,19 @@ app: qwik-lambda-app
 org: jamber
 service: qwik-lambda-app
 frameworkVersion: "3"
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-1
+  stage: dev
   memorySize: 128
   timeout: 10
-  stage: dev
   environment:
-    SUPABASE_KEY: dev
+    SUPABASE_KEY: ${param:SUPABASE_KEY}
+    NOTION_API_KEY: ${param:NOTION_API_KEY}
+    NOTION_BLOG_DATABASE: ${param:NOTION_BLOG_DATABASE}
 
 functions:
   qwik:
@@ -33,4 +36,3 @@ package:
 
 plugins:
   - serverless-offline
-  - serverless-dotenv-plugin
