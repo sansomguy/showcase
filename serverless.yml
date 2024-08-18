@@ -4,11 +4,20 @@ service: qwik-lambda-app
 frameworkVersion: "3"
 useDotenv: true
 
+stages:
+  default:
+    region: us-west-1
+    params:
+      SUPABASE_KEY: ${env:SUPABASE_KEY}
+      NOTION_API_KEY: ${env:NOTION_API_KEY}
+      NOTION_BLOG_DATABASE: ${env:NOTION_BLOG_DATABASE}
+  prod:
+    region: ap-southeast-2
+
 provider:
   name: aws
-  runtime: nodejs18.x
   region: ap-southeast-2
-  stage: dev
+  runtime: nodejs18.x
   memorySize: 512
   timeout: 10
   environment:
