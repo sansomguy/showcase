@@ -18,6 +18,7 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [nodeServerAdapter({ name: "aws-lambda", ssg:{
       include: ["*"],
+      exclude: ["/experiments/caching/ssr"]
     }})],
   };
 });
