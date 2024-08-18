@@ -11,24 +11,20 @@ export type NotionPageList = Array<{
   status: "LIVE" | "DRAFT" | null;
   category: "Projects" | "Thoughts" | null;
 }>;
-export class NotionUtils {
-  private notionClient: NotionClient;
-  private notionToMarkdown: NotionToMarkdown;
-  private env: EnvGetter;
 
-  constructor(context: { env: EnvGetter }) {
-    this.env = context.env;
-    this.notionClient = new NotionClient({
-      auth: context.env.get("NOTION_API_KEY"),
-    });
-    this.notionToMarkdown = new NotionToMarkdown({
-      notionClient: this.notionClient,
-    });
-  }
+export async function NotionUtils(context: { env: EnvGetter }) {
+  const env = context.env;
+  const notionClient = new NotionClient({
+    auth: context.env.get("NOTION_API_KEY"),
+  });
 
-  async getProjectsPosts(): Promise<string[]> {
-    const databaseResponse = await this.notionClient.databases.query({
-      database_id: this.env.get("NOTION_BLOG_DATABASE")!,
+  const notionToMarkdown: NotionToMarkdown = new NotionToMarkdown({
+    notionClient,
+  });
+
+  async function getProjectsPosts(): Promise<string[]> {
+    const databaseResponse = await notionClient.databases.query({
+      database_id: env.get("NOTION_BLOG_DATABASE")!,
       filter_properties: ["title"],
     });
 
@@ -37,21 +33,21 @@ export class NotionUtils {
     return pages;
   }
 
-  getPage(pageId: string) {
-    return Promise.all([
-      this.getNotionPageInfo(pageId),
-      this.getPageAsMarkdown(pageId),
+  async function getPage(pageId: string) {
+    return await Promise.all([
+      getNotionPageInfo(pageId),
+      getPageAsMarkdown(pageId),
     ]);
   }
 
-  async getPageAsMarkdown(pageId: string) {
-    const mdBlocks = await this.notionToMarkdown.pageToMarkdown(pageId);
-    const markdownStr = this.notionToMarkdown.toMarkdownString(mdBlocks);
+  async function getPageAsMarkdown(pageId: string) {
+    const mdBlocks = await notionToMarkdown.pageToMarkdown(pageId);
+    const markdownStr = notionToMarkdown.toMarkdownString(mdBlocks);
     return markdownStr.parent;
   }
 
-  async getNotionPageInfo(pageId: string) {
-    const page = await this.notionClient.pages.retrieve({
+  async function getNotionPageInfo(pageId: string) {
+    const page = await notionClient.pages.retrieve({
       page_id: pageId,
     });
 
@@ -94,4 +90,11 @@ export class NotionUtils {
       id: page.id,
     } as const;
   }
+
+  return {
+    getPage,
+    getProjectsPosts,
+    getNotionPageInfo,
+    getPageAsMarkdown,
+  };
 }

@@ -45,3 +45,9 @@ lerna-debug.log*
 
 # Cloudflare
 functions/**/*.js
+
+# Local Netlify folder
+.netlify
+
+# AWS-lambda
+.serverless

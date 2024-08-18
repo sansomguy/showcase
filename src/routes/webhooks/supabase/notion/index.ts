@@ -6,7 +6,7 @@ import { NotionUtils } from "~/utils/notion";
 export const onPost: RequestHandler = async (event) => {
   const { json, env } = event;
   try {
-    const notionUtils = new NotionUtils({ env });
+    const notionUtils = await NotionUtils({ env });
     const pageIds = await notionUtils.getProjectsPosts();
 
     const pages = (
