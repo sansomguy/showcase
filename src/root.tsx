@@ -1,4 +1,4 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
+import { component$, useServerData, useStyles$ } from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -13,6 +13,8 @@ export default component$(() => {
   useStyles$(simpleCss);
   useStyles$(styles);
 
+  const nonce = useServerData<string | undefined>("nonce");
+
   return (
     <QwikCityProvider>
       <head>
@@ -21,7 +23,7 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="icon" href="/favicon.svg" />
         <RouterHead />
-        <ServiceWorkerRegister />
+        <ServiceWorkerRegister nonce={nonce} />
       </head>
       <body lang="en">
         <RouterOutlet />

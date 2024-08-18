@@ -15,8 +15,8 @@ import FlyingSquares from "~/components/flying-squares";
 import { DarkThemeContext } from "~/components/theme-switcher";
 import { createSupabaseClient } from "~/supabase";
 
-export const onGet: RequestHandler = async (props) => {
-  const { cacheControl } = props;
+export const onGet: RequestHandler = async (event) => {
+  const { cacheControl } = event;
   cacheControl(
     {
       public: true,
