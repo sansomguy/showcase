@@ -1,13 +1,4 @@
 import { component$, Resource, useResource$ } from "@builder.io/qwik";
-import { server$ } from "@builder.io/qwik-city";
-import { codeToHtml, type BundledLanguage } from "shiki";
-
-const renderCode = server$(async (code: string, language: BundledLanguage) => {
-  return codeToHtml(code, {
-    lang: language,
-    theme: "dark-plus",
-  });
-});
 
 type Language = "javascript" | "python" | "html" | "css";
 
@@ -16,18 +7,23 @@ export type ServerRenderProps = {
   code: string;
 };
 export default component$(({ language, code }: ServerRenderProps) => {
-  const resource = useResource$(async ({ track }) => {
-    track(() => code);
-    track(() => language);
-    return await renderCode(code, language);
+  const styledCode = useResource$(async ({ cache }) => {
+    cache("immutable");
+    const {
+      default: { codeToHtml },
+    } = await import("shiki");
+    return await codeToHtml(code, {
+      lang: language,
+      theme: "dark-plus",
+    });
   });
   return (
     <Resource
-      value={resource}
+      value={styledCode}
       onResolved={(value) => <div dangerouslySetInnerHTML={value} />}
       onPending={() => (
         <pre>
-          <code class={`language-${language}`}>{code}</code>
+          <code>{code}</code>
         </pre>
       )}
     />
