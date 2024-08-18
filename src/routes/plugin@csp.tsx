@@ -2,7 +2,9 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 
 export const onRequest: RequestHandler = async (event) => {
   if (import.meta.env.DEV) return; // Will not return CSP headers in dev mode
-  const nonce = Date.now().toString(Math.random() * 100); // Your custom nonce logic here
+  const nonce = Date.now().toString(
+    Math.max(2, Math.min(Math.floor(38 * Math.random() - 2), 36))
+  ); // Your custom nonce logic here
   event.sharedMap.set("@nonce", nonce);
   const csp = [
     `default-src 'self' 'unsafe-inline'`,
