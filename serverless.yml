@@ -27,7 +27,7 @@ custom:
     httpPort: 4000
 
 package:
-  excludeDevDependencies: false
+  excludeDevDependencies: true
   patterns:
     - "!*"
     - "!*/**"
