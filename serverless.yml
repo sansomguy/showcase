@@ -25,6 +25,11 @@ functions:
 custom:
   serverless-offline:
     httpPort: 4000
+  customDomain:
+    domainName: ${param:DOMAIN_NAME}
+    basePath: "/"
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
 package:
   excludeDevDependencies: true
@@ -36,3 +41,4 @@ package:
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager
