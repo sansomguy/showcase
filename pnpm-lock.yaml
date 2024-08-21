@@ -72,9 +72,9 @@ importers:
       serverless:
         specifier: ^3.38.0
         version: 3.39.0
-      serverless-dotenv-plugin:
-        specifier: ^6.0.0
-        version: 6.0.0(serverless@3.39.0)
+      serverless-domain-manager:
+        specifier: ^6.4.4
+        version: 6.4.4
       serverless-http:
         specifier: ^3.2.0
         version: 3.2.0
@@ -3310,10 +3310,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  serverless-dotenv-plugin@6.0.0:
-    resolution: {integrity: sha512-8tLVNwHfDO0sBz6+m+DLTZquRk0AZq9rzqk3kphm1iIWKfan9R7RKt4hdq3eQ0kmDoqzudjPYBEXAJ5bUNKeGQ==}
-    peerDependencies:
-      serverless: 1 || 2 || pre-3 || 3
+  serverless-domain-manager@6.4.4:
+    resolution: {integrity: sha512-TrEjJgEY7sLbutWckfOAunduXUsQ/QkiGZwqfpvHttIDnkED10gQM1CJUj2K4UE+ih+QN3rKuHnc6Y6U5OnR0w==}
+    engines: {node: '>=14'}
 
   serverless-http@3.2.0:
     resolution: {integrity: sha512-QvSyZXljRLIGqwcJ4xsKJXwkZnAVkse1OajepxfjkBXV0BMvRS5R546Z4kCBI8IygDzkQY0foNPC/rnipaE9pQ==}
@@ -8474,12 +8473,9 @@ snapshots:
 
   semver@7.6.3: {}
 
-  serverless-dotenv-plugin@6.0.0(serverless@3.39.0):
+  serverless-domain-manager@6.4.4:
     dependencies:
-      chalk: 4.1.2
-      dotenv: 16.4.5
-      dotenv-expand: 10.0.0
-      serverless: 3.39.0
+      aws-sdk: 2.1677.0
 
   serverless-http@3.2.0: {}
 

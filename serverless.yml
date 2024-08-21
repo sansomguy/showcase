@@ -26,6 +26,13 @@ custom:
   serverless-offline:
     httpPort: 4000
 
+  customDomain:
+    stage: ${self:provider.stage}
+    domainName: "${param:DOMAIN_NAME}"
+    basePath: ""
+    createRouteRecord: true
+    endpointType: regional
+    apiType: http
 package:
   excludeDevDependencies: true
   patterns:
@@ -36,3 +43,4 @@ package:
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager
