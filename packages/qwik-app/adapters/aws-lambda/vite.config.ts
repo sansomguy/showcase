@@ -17,6 +17,12 @@ export default extendConfig(baseConfig, () => {
         input: ["./src/entry_aws-lambda.tsx", "@qwik-city-plan"],
       },
     },
-    plugins: [nodeServerAdapter()],
+    plugins: [
+      nodeServerAdapter({
+        ssg: {
+          include: ["*/posts/*", "/experiments/caching/ssg"],
+        },
+      }),
+    ],
   };
 });

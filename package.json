@@ -7,13 +7,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "sst dev",
-    "build": "sst build",
-    "deploy": "sst deploy",
-    "remove": "sst remove",
-    "console": "sst console",
+    "sst:dev": "sst dev",
+    "deploy:build": "sst build",
+    "deploy:dev": "sst deploy",
+    "deploy:prod": "sst deploy --stage prod",
+    "deploy:remove": "sst remove",
+    "sst:console": "sst console",
     "typecheck": "tsc --noEmit",
     "test": "sst bind -- vitest run",
+    "dev": "npm run dev --workspace=@showcase/qwik-app",
+    "build": "npm run build --workspace=@showcase/qwik-app",
     "gen": "hygen"
   },
   "devDependencies": {
@@ -24,6 +27,6 @@
     "@tsconfig/node18": "^18.2.4"
   },
   "workspaces": [
-    "packages/**/*"
+    "packages/*"
   ]
 }

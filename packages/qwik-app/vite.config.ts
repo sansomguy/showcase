@@ -26,10 +26,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
       qwikCity(),
       qwikVite({
         ssr: {
-          outDir: "../function/server",
+          outDir: "./.build/server",
         },
         client: {
-          outDir: "../function/dist",
+          outDir: "./.build/client",
         },
       }),
       tsconfigPaths(),
