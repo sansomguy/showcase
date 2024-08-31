@@ -28,7 +28,7 @@ export const onGet: RequestHandler = async (event) => {
 };
 
 export const useSubscribe = routeAction$(async (form, requestEvent) => {
-  const supabaseClient = createSupabaseClient(requestEvent);
+  const supabaseClient = createSupabaseClient();
 
   const email = form.email as string;
 

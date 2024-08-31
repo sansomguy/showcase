@@ -69,7 +69,7 @@ export class Blog {
   }
 
   private fetch() {
-    const db = createSupabaseClient(this.context);
+    const db = createSupabaseClient();
     return db
       .from("notion_pages")
       .select(

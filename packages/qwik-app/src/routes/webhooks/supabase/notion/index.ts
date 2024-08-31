@@ -4,9 +4,9 @@ import type { DBBlogPost } from "~/utils/db/blog";
 import { NotionUtils } from "~/utils/notion";
 
 export const onPost: RequestHandler = async (event) => {
-  const { json, env } = event;
+  const { json } = event;
   try {
-    const notionUtils = await NotionUtils({ env });
+    const notionUtils = NotionUtils();
     const pageIds = await notionUtils.getProjectsPosts();
 
     const pages = (
@@ -24,7 +24,7 @@ export const onPost: RequestHandler = async (event) => {
         }) satisfies DBBlogPost
     );
 
-    const client = createSupabaseClient(event);
+    const client = createSupabaseClient();
     await client.from("notion_pages").upsert(pages).throwOnError();
 
     json(200, pages);

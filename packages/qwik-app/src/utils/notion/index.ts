@@ -1,6 +1,6 @@
-import type { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
 import { Client as NotionClient } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
+import { Resource } from "sst/resource";
 
 export type NotionPageList = Array<{
   id: string;
@@ -12,10 +12,11 @@ export type NotionPageList = Array<{
   category: "Projects" | "Thoughts" | null;
 }>;
 
-export async function NotionUtils(context: { env: EnvGetter }) {
-  const env = context.env;
+const NOTION_DATABASE = "85f877be9fdd474087997f9932855145";
+
+export function NotionUtils() {
   const notionClient = new NotionClient({
-    auth: context.env.get("NOTION_API_KEY"),
+    auth: Resource.NotionApiKey.value,
   });
 
   const notionToMarkdown: NotionToMarkdown = new NotionToMarkdown({
@@ -24,7 +25,7 @@ export async function NotionUtils(context: { env: EnvGetter }) {
 
   async function getProjectsPosts(): Promise<string[]> {
     const databaseResponse = await notionClient.databases.query({
-      database_id: env.get("NOTION_BLOG_DATABASE")!,
+      database_id: NOTION_DATABASE,
       filter_properties: ["title"],
     });
 

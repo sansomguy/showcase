@@ -21,8 +21,10 @@ declare global {
   interface QwikCityPlatform extends PlatformAwsLambda {}
 }
 
-export const { handle } = createQwikCity({ render, qwikCityPlan, manifest });
+const { handle } = createQwikCity({
+  render,
+  qwikCityPlan,
+  manifest,
+});
 
-export const qwikApp = serverless({ handle }, { binary: true });
-// handler is the default export for the lambda functions
-export const handler = qwikApp;
+export const handler = serverless({ handle }, { binary: true });
