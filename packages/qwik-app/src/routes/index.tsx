@@ -46,7 +46,7 @@ export default component$(() => {
         <div key={category}>
           <h2>
             <accent class="accent">#&nbsp;</accent>
-            <Link href={`/${category.toLowerCase()}`}>{category}</Link>
+            <Link href={`/blog/${category.toLowerCase()}`}>{category}</Link>
           </h2>
           <PostsList posts={loader.value[category]!} />
         </div>

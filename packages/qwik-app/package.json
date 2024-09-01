@@ -12,6 +12,7 @@
   "trustedDependencies-annotation": "Needed for bun to allow running install scripts",
   "type": "module",
   "scripts": {
+    "prebuild": "rm -rf ./.build/ && mkdir ./.build && cp ./adapters/aws-lambda/index.js ./.build/index.js && cp ./adapters/aws-lambda/function.package.json ./.build/package.json",
     "build": "sst shell 'qwik build'",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",

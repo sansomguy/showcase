@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "sst:dev": "sst dev",
-    "deploy:build": "sst build",
+    "sst:diff": "sst diff",
     "deploy:dev": "sst deploy",
     "deploy:prod": "sst deploy --stage prod",
     "deploy:remove": "sst remove",
@@ -16,8 +16,7 @@
     "typecheck": "tsc --noEmit",
     "test": "sst bind -- vitest run",
     "dev": "npm run dev --workspace=@showcase/qwik-app",
-    "build": "npm run build --workspace=@showcase/qwik-app",
-    "gen": "hygen"
+    "build": "npm run build --workspace=@showcase/qwik-app"
   },
   "devDependencies": {
     "sst": "^3.0.42",

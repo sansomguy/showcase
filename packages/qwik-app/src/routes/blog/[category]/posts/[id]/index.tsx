@@ -58,7 +58,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
         { name: "Blog", link: "/" },
         {
           name: page.category,
-          link: `/${page.category.toLowerCase()}`,
+          link: `/blog/${page.category.toLowerCase()}`,
         },
       ],
     },
