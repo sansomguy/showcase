@@ -15,11 +15,11 @@
     "sst:console": "sst console",
     "typecheck": "tsc --noEmit",
     "test": "sst bind -- vitest run",
-    "dev": "npm run dev --workspace=@showcase/qwik-app",
-    "build": "npm run build --workspace=@showcase/qwik-app"
+    "dev": "pnpm run dev --workspace=@showcase/qwik-app",
+    "build": "pnpm run build --workspace=@showcase/qwik-app"
   },
   "devDependencies": {
-    "sst": "^3.0.42",
+    "sst": "^3.0.83",
     "aws-cdk-lib": "2.142.1",
     "constructs": "10.3.0",
     "typescript": "^5.5.4",
