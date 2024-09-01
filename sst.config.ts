@@ -18,7 +18,7 @@ export default $config({
 
     const api = new sst.aws.Function("showcaseApi", {
       link: [supabaseKey, notionApiKey],
-      bundle: "packages/qwik-app/.build",
+      bundle: "./.build",
       handler: "index.handler",
       url: true,
     });
