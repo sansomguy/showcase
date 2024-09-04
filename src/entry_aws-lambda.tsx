@@ -21,10 +21,24 @@ declare global {
   interface QwikCityPlatform extends PlatformAwsLambda {}
 }
 
-const { handle } = createQwikCity({
+const { staticFile, router, fixPath, notFound } = createQwikCity({
   render,
   qwikCityPlan,
   manifest,
 });
 
-export const handler = serverless({ handle }, { binary: true });
+export const handler = serverless(
+  {
+    handle: (req: any, res: any) => {
+      if (process.env.IS_OFFLINE) {
+        req.url = fixPath(req.url);
+      }
+      staticFile(req, res, () => {
+        router(req, res, () => {
+          notFound(req, res, () => {});
+        });
+      });
+    },
+  },
+  { binary: true }
+);

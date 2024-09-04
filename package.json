@@ -18,6 +18,7 @@
     "deploy:remove": "sst remove",
     "typecheck": "tsc --noEmit",
     "prebuild": "rm -rf ./.build/ && mkdir ./.build && cp ./adapters/aws-lambda/index.js ./.build/index.js && cp ./adapters/aws-lambda/function.package.json ./.build/package.json",
+    "postbuild": "mv ./server ./.build/server && mv ./dist ./.build/dist",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",

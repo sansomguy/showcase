@@ -24,14 +24,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
       qwikCity(),
-      qwikVite({
-        ssr: {
-          outDir: "./.build/server",
-        },
-        client: {
-          outDir: "./.build/client",
-        },
-      }),
+      qwikVite(),
       tsconfigPaths(),
       FontaineTransform.vite({
         fallbacks: [

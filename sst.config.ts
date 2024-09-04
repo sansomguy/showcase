@@ -21,6 +21,7 @@ export default $config({
       bundle: "./.build",
       handler: "index.handler",
       url: true,
+      streaming: true,
     });
 
     const router = new sst.aws.Router("showcaseRouter", {
