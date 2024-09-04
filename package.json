@@ -12,7 +12,6 @@
   "scripts": {
     "sst:dev": "sst dev -- pnpm run vite:dev",
     "sst:diff": "sst diff",
-    "sst:console": "sst console",
     "predeploy:dev": "pnpm run build",
     "deploy:dev": "sst deploy",
     "deploy:prod": "sst deploy --stage prod",

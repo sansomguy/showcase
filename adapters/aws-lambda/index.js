@@ -1,1 +1,1 @@
-export { handler } from "./server/index.js";
+export { handler } from "./server/entry_aws-lambda.js";

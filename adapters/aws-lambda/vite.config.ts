@@ -11,7 +11,6 @@ export default extendConfig(baseConfig, () => {
       noExternal: /./,
     },
     build: {
-      minify: false,
       ssr: true,
       rollupOptions: {
         input: ["./src/entry_aws-lambda.tsx", "@qwik-city-plan"],
@@ -20,7 +19,7 @@ export default extendConfig(baseConfig, () => {
     plugins: [
       nodeServerAdapter({
         ssg: {
-          include: ["*/posts/*", "/experiments/caching/ssg"],
+          include: ["/*/posts/*", "/experiments/caching/ssg"],
         },
       }),
     ],
