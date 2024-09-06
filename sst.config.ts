@@ -21,7 +21,6 @@ export default $config({
       bundle: "./.build",
       handler: "index.handler",
       url: true,
-      streaming: true,
     });
 
     const router = new sst.aws.Router("showcaseRouter", {
@@ -34,8 +33,36 @@ export default $config({
               name: "joshs.au",
               redirects: ["www.joshs.au"],
             },
+
       routes: {
         "/*": api.url,
+      },
+      transform: {
+        cdn: {
+          origins: [
+            {
+              originId: api.name,
+              domainName: api.url.apply((url) => url.replace("https://", "")),
+            },
+          ],
+          defaultCacheBehavior: {
+            targetOriginId: api.name,
+            viewerProtocolPolicy: "redirect-to-https",
+            allowedMethods: ["GET", "HEAD", "OPTIONS"],
+            cachedMethods: ["GET", "HEAD"],
+            forwardedValues: {
+              queryString: true,
+              headers: ["*"],
+              cookies: {
+                forward: "all",
+              },
+            },
+            minTtl: 0,
+            defaultTtl: 0,
+            maxTtl: 0,
+            compress: true,
+          },
+        },
       },
     });
     return {

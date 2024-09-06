@@ -10,7 +10,7 @@
     "sharp"
   ],
   "scripts": {
-    "sst:dev": "sst dev -- pnpm run vite:dev",
+    "sst:dev": "sst dev",
     "sst:diff": "sst diff",
     "predeploy:dev": "pnpm run build",
     "deploy:dev": "sst deploy",
