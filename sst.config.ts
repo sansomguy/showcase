@@ -15,13 +15,13 @@ export default $config({
   async run() {
     const supabaseKey = new sst.Secret("SupabaseKey");
     const notionApiKey = new sst.Secret("NotionApiKey");
-    const cdnAccessLogs = new sst.aws.Bucket("showcaseCdnAccessLogs");
 
     const api = new sst.aws.Function("showcaseApi", {
       link: [supabaseKey, notionApiKey],
       bundle: "./.build",
       handler: "index.handler",
       url: true,
+      live: false,
     });
 
     const router = new sst.aws.Router("showcaseRouter", {

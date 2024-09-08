@@ -16,10 +16,6 @@ declare module "sst" {
       "type": "sst.aws.Function"
       "url": string
     }
-    "showcaseCdnAccessLogs": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
     "showcaseRouter": {
       "type": "sst.aws.Router"
       "url": string
