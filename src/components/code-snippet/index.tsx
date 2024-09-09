@@ -1,4 +1,9 @@
-import { component$, Resource, useResource$ } from "@builder.io/qwik";
+import {
+  component$,
+  Resource,
+  useResource$,
+  useStyles$,
+} from "@builder.io/qwik";
 import { server$ } from "@builder.io/qwik-city";
 import { codeToHtml } from "shiki";
 import theme from "shiki/themes/dark-plus.mjs";
@@ -16,23 +21,37 @@ export const renderCode = server$(async function (props: ServerRenderProps) {
   });
 });
 export default component$(({ language, code }: ServerRenderProps) => {
+  // responsive styles so that the pre tag has inner scroll when the code is too long
+  // can't use max-width: 100% for some reason, has to be pixel value
+  useStyles$(/*css*/ `
+    .code-snippet__container {
+      position: relative;
+      max-width: calc(100vw - 2*var(--layout-padding));
+      margin: auto;
+      overflow-x: scroll;
+    }`);
+
   const styledCode = useResource$(async ({ cache, track }) => {
     cache("immutable");
     track(() => language);
     track(() => code);
-    return await codeToHtml(code, {
-      lang: language,
-      theme,
+    return await renderCode({
+      code,
+      language,
     });
   });
   return (
     <Resource
       value={styledCode}
-      onResolved={(value) => <div dangerouslySetInnerHTML={value} />}
+      onResolved={(value) => (
+        <div class="code-snippet__container" dangerouslySetInnerHTML={value} />
+      )}
       onPending={() => (
-        <pre>
-          <code>{code}</code>
-        </pre>
+        <div class="code-snippet__container">
+          <pre>
+            <code>{code}</code>
+          </pre>
+        </div>
       )}
     />
   );

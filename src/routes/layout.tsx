@@ -53,12 +53,11 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
 export default component$(() => {
   useStyles$(/*css*/ `
     .layout__container {
+      --layout-padding: 1.5rem;  
       display: flex;
       flex-direction: column;
       position: relative;
-    }
-    .layout__container {
-      padding: 1.5rem;
+      padding: var(--layout-padding);
     }
   `);
 

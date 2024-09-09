@@ -43,10 +43,12 @@ export default component$(() => {
         </li>
       </ul>
       <h3>Code</h3>
-      <CodeSnippet
-        language="javascript"
-        code={
-          /*js*/ `// loader
+      <CodeSnippet language="javascript" code={snippet} />
+    </div>
+  );
+});
+
+const snippet = /*ts*/ `// loader
 export const useDynamicLoader = routeLoader$(async () => {
   return {
     date: new Date().toISOString(),
@@ -60,12 +62,7 @@ return (
     <p>Dynamic data: {loader.value.date}</p>
   )
 })
-`
-        }
-      />
-    </div>
-  );
-});
+`;
 
 export const head: DocumentHead = {
   frontmatter: {
