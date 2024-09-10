@@ -5,6 +5,7 @@ import {
   type StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 import { marked } from "marked";
+import { renderToHtml } from "~/components/markdown/renderer";
 import { Blog } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
 
@@ -23,7 +24,7 @@ export const usePostLoader = routeLoader$(async function (event) {
   const page = await blog.getPost(event.params.id);
   return {
     ...page!,
-    content: page.content.length ? await marked(page!.content) : "",
+    content: page.content.length ? await renderToHtml(page.content) : "",
   };
 });
 

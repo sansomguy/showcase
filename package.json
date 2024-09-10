@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "prebuild": "rm -rf ./.build/ && mkdir ./.build && cp ./adapters/aws-lambda/index.js ./.build/index.js && cp ./adapters/aws-lambda/function.package.json ./.build/package.json",
     "postbuild": "mv ./server ./.build/server && mv ./dist ./.build/dist",
+    "sst:shell": "sst shell",
     "sst:diff": "sst diff",
     "sst:dev": "sst dev --mode=basic",
     "fmt": "prettier --write .",
