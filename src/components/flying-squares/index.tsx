@@ -33,6 +33,11 @@ export default component$(() => {
   useOnDocument(
     "scroll",
     $((e) => {
+      // check if the document is the target
+      if ((e.target as HTMLElement).nodeType !== Node.DOCUMENT_NODE) {
+        return;
+      }
+
       const document = e.target as Document;
       const window = document.defaultView!;
       const scrollHeight =
