@@ -21,7 +21,7 @@ export async function renderToHtml(markdown: string) {
         position: relative;
         max-width: calc(100vw - 2*var(--layout-padding));
         margin: auto;
-        overflow-x: scroll;">${shikiCode}</div>`;
+        overflow-x: auto;">${shikiCode}</div>`;
       },
     },
     async: true,

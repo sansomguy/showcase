@@ -28,7 +28,7 @@ export default component$(({ language, code }: ServerRenderProps) => {
       position: relative;
       max-width: calc(100vw - 2*var(--layout-padding));
       margin: auto;
-      overflow-x: scroll;
+      overflow-x: auto;
     }`);
 
   const styledCode = useResource$(async ({ cache, track }) => {
