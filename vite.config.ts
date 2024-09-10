@@ -6,6 +6,7 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
 import { FontaineTransform } from "fontaine";
 import { defineConfig, type UserConfig } from "vite";
+import {imagetools} from "vite-imagetools";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 
@@ -26,6 +27,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
       qwikCity(),
       qwikVite(),
       tsconfigPaths(),
+      imagetools(),
       FontaineTransform.vite({
         fallbacks: [
           "BlinkMacSystemFont",

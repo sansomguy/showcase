@@ -6,6 +6,8 @@ breadcrumbs: false
 
 import GetInTouch from '~/components/get-in-touch'
 import SideBarLayout from '~/components/side-bar-layout'
+import ProfilePhoto from '~/media/profile.jpeg?jsx&w=320&h=240&format=webp'
+
 
 <SideBarLayout>
 <div q:slot="side-bar">
@@ -36,7 +38,7 @@ import SideBarLayout from '~/components/side-bar-layout'
         </ul>
     </div>
     <figure>
-        <img width={320} height={240} src={"/images/profile.jpeg"} alt="Profile photo" />
+        <ProfilePhoto />
         <figcaption>My family | Mount McKenzie.</figcaption>
     </figure>
     <GetInTouch />
