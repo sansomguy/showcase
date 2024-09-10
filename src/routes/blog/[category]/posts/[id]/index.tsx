@@ -4,7 +4,6 @@ import {
   type DocumentHead,
   type StaticGenerateHandler,
 } from "@builder.io/qwik-city";
-import { marked } from "marked";
 import { renderToHtml } from "~/components/markdown/renderer";
 import { Blog } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
