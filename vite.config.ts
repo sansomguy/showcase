@@ -4,6 +4,7 @@
  */
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
+import { qwikReact } from "@builder.io/qwik-react/vite";
 import { FontaineTransform } from "fontaine";
 import { defineConfig, type UserConfig } from "vite";
 import {imagetools} from "vite-imagetools";
@@ -37,6 +38,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
           "Noto Sans",
         ],
       }),
+      qwikReact(),
     ],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
