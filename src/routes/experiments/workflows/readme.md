@@ -1,7 +1,5 @@
 # Workflows
 
-### Workflows
-
 A workflow is a directed graph of actions and conditions that are executed in a specific order.
 | id | name | Description |
 
