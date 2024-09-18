@@ -180,9 +180,9 @@ export type Database = {
           finished_at: string | null
           id: number
           input: Json | null
-          name: string
           output: Json | null
           status: string
+          workflow_action_id: number
           workflow_run_id: number
         }
         Insert: {
@@ -190,9 +190,9 @@ export type Database = {
           finished_at?: string | null
           id?: number
           input?: Json | null
-          name: string
           output?: Json | null
           status?: string
+          workflow_action_id: number
           workflow_run_id: number
         }
         Update: {
@@ -200,12 +200,19 @@ export type Database = {
           finished_at?: string | null
           id?: number
           input?: Json | null
-          name?: string
           output?: Json | null
           status?: string
+          workflow_action_id?: number
           workflow_run_id?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "workflow_runs_actions_workflow_action_id_fkey"
+            columns: ["workflow_action_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_actions"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "workflow_runs_actions_workflow_run_id_fkey"
             columns: ["workflow_run_id"]

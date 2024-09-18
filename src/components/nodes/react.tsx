@@ -4,22 +4,18 @@ import { qwikify$ } from "@builder.io/qwik-react";
 import {
   Background,
   BackgroundVariant,
+  Edge,
   MiniMap,
+  Node,
   ReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
 
-const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-
-function Demo() {
+function WorkflowRun({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) {
   return (
     <div style={{ width: "100%", height: "100vh" }}>
-      <ReactFlow nodes={initialNodes} edges={initialEdges}>
+      <ReactFlow nodes={nodes} edges={edges}>
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
         <MiniMap />
       </ReactFlow>
@@ -27,4 +23,4 @@ function Demo() {
   );
 }
 
-export const QGreetings = qwikify$(Demo, { eagerness: "idle" });
+export const QGreetings = qwikify$(WorkflowRun, { eagerness: "idle" });
