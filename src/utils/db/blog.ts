@@ -1,5 +1,6 @@
 import type { RequestEvent } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
+import { Database } from "~/supabase/types";
 
 export const categories = ["Projects", "Thoughts", "Tips"] as const;
 export type BlogCategory = (typeof categories)[number];
@@ -59,21 +60,23 @@ export class Blog {
     return Promise.resolve(["Projects", "Thoughts"]);
   }
 
-  private mapToBlogPost(post: DBBlogPost): BlogPost {
+  private mapToBlogPost(
+    post: Database["public"]["Tables"]["notion_pages"]["Row"]
+  ): BlogPost {
     return {
       ...post!,
+      status: post.status as BlogStatus,
+      last_edited: post.last_edited || post.created,
+      series: post.series || "",
+      summary: post.summary || "",
       content: post.content || "",
-      category: post.category!,
+      category: post.category! as BlogCategory,
       href: `/blog/${post.category!.toLowerCase()}/posts/${post.id}`,
     };
   }
 
   private fetch() {
     const db = createSupabaseClient();
-    return db
-      .from("notion_pages")
-      .select(
-        "id, title, created, last_edited, category, series, status, summary, content"
-      );
+    return db.from("notion_pages").select("*").throwOnError();
   }
 }

@@ -14,6 +14,7 @@
     "deploy:prod": "sst deploy --stage prod",
     "deploy:remove": "sst remove",
     "typecheck": "tsc --noEmit",
+    "supabase:types": "supabase gen types --lang=typescript --project-id \"rzoqdvamntfrabpvvnsp\" --schema public > src/supabase/types.d.ts",
     "prebuild": "rm -rf ./.build/ && mkdir ./.build && cp ./adapters/aws-lambda/index.js ./.build/index.js && cp ./adapters/aws-lambda/function.package.json ./.build/package.json",
     "postbuild": "mv ./server ./.build/server && mv ./dist ./.build/dist",
     "sst:shell": "sst shell",
@@ -37,7 +38,8 @@
   },
   "dependencies": {
     "@xyflow/react": "^12.3.0",
-    "sst": "^3.0.97"
+    "sst": "^3.0.97",
+    "supabase": "^1.192.5"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.8.0",
