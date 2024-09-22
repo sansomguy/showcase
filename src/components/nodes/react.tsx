@@ -15,8 +15,9 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { createSupabaseClient } from "~/supabase";
+import Start from "./Start";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -37,11 +38,16 @@ export const useWorkflowLoader = routeLoader$(async () => {
     .throwOnError();
 
   const actionNodes =
-    runs.data?.workflow?.actions.map((action, i) => ({
-      id: `${action.id}`,
-      position: { x: 200, y: 100 + i * 100 },
-      data: { label: action.name },
-    })) ?? [];
+    runs.data?.workflow?.actions.map((action, i) => {
+      const type = action.name === "start" ? "qwikComponent" : "default";
+
+      return {
+        id: `${action.id}`,
+        type,
+        position: { x: 200, y: 100 + i * 100 },
+        data: { label: action.name },
+      };
+    }) ?? [];
 
   const conditionNodes =
     runs.data?.workflow?.conditions.map((condition, i) => ({
@@ -119,6 +125,11 @@ function WorkflowRun({
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const nodeTypes = useMemo(() => {
+    return {
+      qwikComponent: Start,
+    };
+  }, []);
 
   const onLayout = useCallback(
     ({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) => {
@@ -146,6 +157,7 @@ function WorkflowRun({
         colorMode="dark"
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
       >
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
         <MiniMap />
