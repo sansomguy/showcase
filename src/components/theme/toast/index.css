@@ -1,0 +1,63 @@
+.toast {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -300%);
+  padding: 10px 20px;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(12px) saturate(2.5);
+  backdrop-filter: blur(12px) saturate(2.5);
+  color: var(--text);
+  border-radius: var(--standard-border-radius);
+  box-shadow: 0 0.2rem 0.5rem var(--text-shadow-color);
+  z-index: 9999;
+}
+
+.toast--reveal {
+    display:block;
+    animation: toastBounceIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation-play-state: running;
+}
+
+.toast--hide {
+    display: block;
+    transform: translate(-50%, 100%);
+    animation: toastBounceOut 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation-play-state: running;
+}
+
+.toast--hidden {
+    display: none !important;
+}
+
+@keyframes toastBounceIn {
+  0% {
+    transform: translate(-50%, 100%);
+  }
+  60% {
+    transform: translate(-50%, -300%);
+  }
+  80% {
+    transform: translate(-50%, -320%);
+  }
+  100% {
+    transform: translate(-50%, -300%);
+  }
+}
+
+@keyframes toastBounceOut {
+    100% {
+      transform: translate(-50%, 100%);
+    }
+    40% {
+      transform: translate(-50%, -300%);
+    }
+    20% {
+      transform: translate(-50%, -320%);
+    }
+    0% {
+      transform: translate(-50%, -300%);
+    }
+  }
+

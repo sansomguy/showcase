@@ -1,0 +1,92 @@
+.title-popper-base * {
+  --base-transition-time: 0.2s;
+  --initial-length: 0s;
+  --open-delay: calc(var(--initial-delay) + var(--initial-length));
+  --open-length: var(--base-transition-time);
+  --pause-delay: calc(var(--open-delay) + var(--open-length));
+  --pause-length: var(--base-transition-time);
+  --close-delay: calc(var(--pause-delay) + var(--pause-length));
+  --close-length: var(--base-transition-time);
+  --length: calc(
+    var(--open-length) + var(--pause-length) + var(--close-length)
+  );
+}
+
+span {
+  position: relative;
+  color: var(--text);
+  text-shadow: 0 10px 25px var(--text-shadow-color);
+  display: block;
+}
+
+.hover,
+.word,
+span {
+  cursor: pointer;
+}
+
+.title-popper-base {
+  position: relative;
+  overflow: visible;
+  scroll-snap-align: center;
+}
+
+.title-popper-base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0.3), transparent);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.title-popper-base:hover::before {
+  opacity: 0.5;
+}
+
+.title-popper {
+  display: flex;
+  flex-direction: row;
+}
+
+.title-popper .hover {
+  position: relative;
+}
+.title-popper__letter {
+  color: var(--text);
+  text-align: 0 1px 1px;
+  -webkit-text-stroke: 2px transparent;
+  text-shadow: none;
+  transition: var(--open-length) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.title-popper__run-animation {
+  animation-name: popCharacter;
+  animation-duration: var(--open-length);
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-delay: var(--open-delay);
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+.title-popper .hover:hover span {
+  color: var(--text);
+  animation-duration: 0s;
+  transform: scale(1.5);
+  -webkit-text-stroke: 2px var(--text);
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes doNothing {
+  to {
+  }
+}
+
+@keyframes popCharacter {
+  to {
+    color: var(--text);
+    transform: scale(1.5);
+    -webkit-text-stroke: 2px var(--text);
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+}

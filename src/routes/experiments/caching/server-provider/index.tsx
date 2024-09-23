@@ -1,6 +1,6 @@
 import { component$, Resource, useResource$ } from "@builder.io/qwik";
 import { type DocumentHead, Link, server$ } from "@builder.io/qwik-city";
-import CodeSnippet from "~/components/code-snippet";
+import CodeSnippet from "~/components/theme/code-snippet";
 
 export const getServerDate = server$(async () => {
   await new Promise((resolve) => setTimeout(resolve, 3000));

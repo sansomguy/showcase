@@ -4,14 +4,14 @@ import {
   type DocumentHead,
   type StaticGenerateHandler,
 } from "@builder.io/qwik-city";
-import { renderToHtml } from "~/components/markdown/renderer";
+import { renderToHtml } from "~/components/theme/markdown/renderer";
 import { Blog } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
 
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
   const projects = (await blog.getPosts()).filter(
-    (post) => post.status === "LIVE"
+    (post) => post.status === "LIVE",
   );
   return {
     params: projects.map((page) => ({ id: page.id })),

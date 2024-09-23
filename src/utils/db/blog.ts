@@ -1,8 +1,13 @@
+import type { Database } from "~/supabase/types";
 import type { RequestEvent } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
-import { Database } from "~/supabase/types";
 
-export const categories = ["Projects", "Thoughts", "Tips"] as const;
+export const categories = [
+  "Projects",
+  "Thoughts",
+  "Tips",
+  "Experiments",
+] as const;
 export type BlogCategory = (typeof categories)[number];
 export type BlogStatus = "LIVE" | "DRAFT";
 
@@ -32,7 +37,7 @@ export type BlogPost = {
 
 export class Blog {
   constructor(
-    private readonly context: Pick<RequestEvent, "env" | "sharedMap">
+    private readonly context: Pick<RequestEvent, "env" | "sharedMap">,
   ) {}
   async getPosts(category?: BlogCategory): Promise<Array<BlogPost>> {
     const request = this.fetch();
@@ -61,7 +66,7 @@ export class Blog {
   }
 
   private mapToBlogPost(
-    post: Database["public"]["Tables"]["notion_pages"]["Row"]
+    post: Database["public"]["Tables"]["notion_pages"]["Row"],
   ): BlogPost {
     return {
       ...post!,

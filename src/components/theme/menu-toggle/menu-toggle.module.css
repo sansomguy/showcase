@@ -1,0 +1,50 @@
+.mobileNavButton {
+  cursor: pointer;
+  transition: opacity 0.3s ease-in;
+  opacity: 1;
+  display: block;
+  padding: 0.5em;
+  padding-top: 1em;
+}
+.mobileNavButton svg {
+  height: 30px;
+  width: auto;
+}
+
+.mobileNavButton :global .menu_svg__line {
+  transform: translateY(0) rotate(0deg);
+  fill: var(--text);
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.mobileNavButton :global .menu_svg__line--top {
+  --menu-button-line-y: 30;
+}
+.mobileNavButton :global .menu_svg__line--middle {
+  --menu-button-line-y: 70;
+}
+
+.mobileNavButton :global .menu_svg__line--bottom {
+  --menu-button-line-y: 110;
+}
+
+.mobileNavButton--open :global .menu_svg__line--top {
+  transform: translateY(65px) rotate(45deg);
+  fill: var(--accent);
+}
+.mobileNavButton--open :global .menu_svg__line--middle {
+  fill: var(--accent);
+  opacity: 0;
+}
+.mobileNavButton--open :global .menu_svg__line--bottom {
+  transform: translateY(-15px) rotate(-45deg);
+  fill: var(--accent);
+}
+
+.mobileNavButton--disappear {
+  opacity: 0;
+}
+
+
+

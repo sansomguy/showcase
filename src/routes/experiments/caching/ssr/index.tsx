@@ -5,7 +5,7 @@ import {
   Link,
   routeLoader$,
 } from "@builder.io/qwik-city";
-import CodeSnippet from "~/components/code-snippet";
+import CodeSnippet from "~/components/theme/code-snippet";
 
 export const onGet: RequestHandler = async (event) => {
   const { cacheControl } = event;
