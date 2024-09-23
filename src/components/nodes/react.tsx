@@ -17,7 +17,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect, useMemo } from "react";
 import { createSupabaseClient } from "~/supabase";
-import Start from "./Start";
+import { Button } from "../brutalist/react/button";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -127,7 +127,7 @@ function WorkflowRun({
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodeTypes = useMemo(() => {
     return {
-      qwikComponent: Start,
+      qwikComponent: Button,
     };
   }, []);
 
