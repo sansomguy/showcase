@@ -6,6 +6,8 @@
   --default-text: #000;
   --default-text-light: #585858;
   --default-text-shadow-color: rgba(0, 0, 0, 0.3);
+  --white: #fff;
+  --black: #000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +19,8 @@
     --default-text: #f5f5f5;
     --default-text-light: rgba(255, 255, 255, 0.5);
     --default-text-shadow-color: rgba(255, 255, 255, 0.3);
+    --white: #000;
+    --black: #fff;
   }
 }
 
@@ -40,6 +44,7 @@ samp {
   --theme-text: #f5f5f5;
   --theme-text-light: rgba(255, 255, 255, 0.5);
   --theme-text-shadow-color: rgba(255, 255, 255, 0.3);
+  --white: #000;
 }
 
 .light {
@@ -48,6 +53,7 @@ samp {
   --theme-text: #000;
   --theme-text-light: #585858;
   --theme-text-shadow-color: rgba(0, 0, 0, 0.3);
+  --black: #fff;
 }
 
 :root,

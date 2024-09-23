@@ -17,7 +17,8 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect, useMemo } from "react";
 import { createSupabaseClient } from "~/supabase";
-import { Button } from "../brutalist/react/button";
+import { Process } from "../brutalist/react/process";
+import { Start } from "../brutalist/react/start";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -39,7 +40,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
 
   const actionNodes =
     runs.data?.workflow?.actions.map((action, i) => {
-      const type = action.name === "start" ? "qwikComponent" : "default";
+      const type = action.name === "start" ? "start" : "process";
 
       return {
         id: `${action.id}`,
@@ -63,7 +64,8 @@ export const useWorkflowLoader = routeLoader$(async () => {
         id: `${transition.id!}`,
         source: `${transition.from_action!}`,
         target: `${transition.to_action!}`,
-        animated: true,
+        markerEnd: "arrow",
+        markerStart: "arrow",
       })) ?? [];
 
   const conditionEdges: Edge[] =
@@ -127,8 +129,9 @@ function WorkflowRun({
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const nodeTypes = useMemo(() => {
     return {
-      qwikComponent: Button,
-    };
+      process: Process,
+      start: Start,
+    } as const;
   }, []);
 
   const onLayout = useCallback(
