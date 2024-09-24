@@ -27,6 +27,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
     .from("workflow_runs")
     .select(
       `*,
+      actions: workflow_runs_actions(*),
       workflow: workflows(
         *,
         transitions: workflow_transitions(*),
@@ -41,12 +42,17 @@ export const useWorkflowLoader = routeLoader$(async () => {
   const actionNodes =
     runs.data?.workflow?.actions.map((action, i) => {
       const type = action.name === "start" ? "start" : "process";
+      const run = runs.data.actions.find(
+        (x) => x.workflow_action_id === action.id,
+      );
+
+      console.log("run", run);
 
       return {
         id: `${action.id}`,
         type,
         position: { x: 200, y: 100 + i * 100 },
-        data: { label: action.name },
+        data: { label: action.name, status: run?.status.toLowerCase() },
       };
     }) ?? [];
 
@@ -64,8 +70,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
         id: `${transition.id!}`,
         source: `${transition.from_action!}`,
         target: `${transition.to_action!}`,
-        markerEnd: "arrow",
-        markerStart: "arrow",
+        type: "step",
       })) ?? [];
 
   const conditionEdges: Edge[] =
@@ -158,6 +163,7 @@ function WorkflowRun({
         nodes={nodes}
         edges={edges}
         colorMode="dark"
+        onLoad={() => onLayout({ nodes, edges })}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
