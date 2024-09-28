@@ -6,6 +6,23 @@
 - Leverages the serverless-http and qwik's nodeServerAdapter to deploy the QWIK app to AWS Lambda.
 - Deploys a CDN router in front of the lambda function for BLAZINGLY FAST qwik performance.
 
+## Folder Structure
+ src
+  - components
+    - theme (components to help with styling)
+      - [component] (folder for the component name)
+        - index.tsx (the component)
+        - style.css (the component's styles)
+          - [sub-component]
+            - index.tsx (the sub-component)
+            - style.css (the sub-component's styles)
+    - [experiment] (per experiment the components that are unique to it)
+      - [component] (folder for the component name)
+        - index.tsx (the component)
+        - style.css (the component's styles)
+  - routes (follows the standard qwik route structure)
+  - style.css (global styles)
+
 ## Features
 
 - Ability to define and deploy a serverless stack using `SST` framework.
