@@ -1,8 +1,9 @@
 # Showcase
 
-
 ## Technology Stack
-- Building a blog using `qwik` and `SST` framework to test out some of my favourite technologies at the moment.
+- QWIK
+- SST (for IAC and deployments)
+- Supabase for free postgres database and auth
 - Leverages the serverless-http and qwik's nodeServerAdapter to deploy the QWIK app to AWS Lambda.
 - Deploys a CDN router in front of the lambda function for BLAZINGLY FAST qwik performance.
 
@@ -22,11 +23,6 @@
         - style.css (the component's styles)
   - routes (follows the standard qwik route structure)
   - style.css (global styles)
-
-## Features
-
-- Ability to define and deploy a serverless stack using `SST` framework.
-- Ability to use the sst resouces during development & production.
 
 ## Local Development
 
