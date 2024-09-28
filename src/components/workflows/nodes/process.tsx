@@ -1,7 +1,6 @@
 /** @jsxImportSource react */
 
 import { Handle, Position } from "@xyflow/react";
-import styles from "./brutalist.module.css";
 
 export const Process = ({
   data,
@@ -9,15 +8,15 @@ export const Process = ({
   data: { label: string; status: "pending" | "active" | "error" };
 }) => {
   const statusStyle = {
-    pending: styles["workflow__process--pending"],
-    active: styles["workflow__process--active"],
-    error: styles["workflow__process--error"],
+    pending: "workflow__process--pending",
+    active: "workflow__process--active",
+    error: "workflow__process--error",
   };
 
   const statusBGStyle = {
-    pending: styles["workflow__process__background--pending"],
-    active: styles["workflow__process__background--success"],
-    error: styles["workflow__process__background--error"],
+    pending: "workflow__process__background--pending",
+    active: "workflow__process__background--success",
+    error: "workflow__process__background--error",
   };
 
   return (
@@ -35,9 +34,7 @@ export const Process = ({
             left: "-0.4rem",
           }}
         />
-        <div
-          className={`${styles.workflow__process} ${statusStyle[data.status]}`}
-        >
+        <div className={`workflow__process ${statusStyle[data.status]}`}>
           {data.label}
         </div>
         <Handle
@@ -49,7 +46,7 @@ export const Process = ({
           }}
         />
         <div
-          className={`${styles.workflow__process__background} ${statusBGStyle[data.status]}`}
+          className={`workflow__process__background ${statusBGStyle[data.status]}`}
         ></div>
       </div>
     </>

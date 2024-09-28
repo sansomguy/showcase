@@ -1,9 +1,8 @@
 /** @jsxImportSource react */
 
 import { Handle, Position } from "@xyflow/react";
-import styles from "./brutalist.module.css";
 
-export const Start = ({ data }: { data: any }) => {
+export const Start = () => {
   return (
     <>
       <div
@@ -11,7 +10,7 @@ export const Start = ({ data }: { data: any }) => {
           position: "relative",
         }}
       >
-        <div className={styles.workflow__start}></div>
+        <div className={`workflow__start`}></div>
         <Handle
           position={Position.Right}
           type="source"
@@ -20,7 +19,7 @@ export const Start = ({ data }: { data: any }) => {
             right: "-0.4rem",
           }}
         />
-        <div className={styles.workflow__start__background}></div>
+        <div className={`workflow__start__background`}></div>
       </div>
     </>
   );

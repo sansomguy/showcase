@@ -47,7 +47,7 @@ export default component$(() => {
       } else {
         store.isAtTop = true;
       }
-    })
+    }),
   );
 
   return (
@@ -65,6 +65,10 @@ export default component$(() => {
 
               <NavLink href={"/contact"} activeClass="current">
                 Contact
+              </NavLink>
+
+              <NavLink href={"/experiments"} activeClass="current">
+                Experiments
               </NavLink>
             </div>
             <div class="dynamic_menu__secondary-links">

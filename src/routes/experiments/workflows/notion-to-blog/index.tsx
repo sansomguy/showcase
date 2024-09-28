@@ -1,13 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import Nodes from "~/components/nodes/qwik";
+import WorkflowRun from "~/components/workflows/run/qwik";
 
-export { useWorkflowLoader } from "~/components/nodes/react";
+export { useWorkflowLoader } from "~/components/workflows/run/react";
 
 export default component$(() => {
   return (
     <div>
-      <Nodes />
+      <WorkflowRun />
     </div>
   );
 });

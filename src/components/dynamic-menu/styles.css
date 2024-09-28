@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .dynamic_menu nav::before {
@@ -32,6 +32,7 @@
   border: var(--standard-border-width) solid var(--border-color);
   box-shadow: 0 0.1rem 0.5rem var(--text-shadow-color);
   grid-template-columns: 0.5fr minmax(auto, 1280px) 0.5fr;
+  z-index: 1000; /* Ensure the nav also has a higher z-index */
 }
 .dynamic_menu nav .dynamic_menu__inner {
   grid-column: 2;

@@ -4,7 +4,13 @@ import { routeLoader$ } from "@builder.io/qwik-city";
 import { qwikify$ } from "@builder.io/qwik-react";
 import Dagre from "@dagrejs/dagre";
 import type { Edge, Node } from "@xyflow/react";
-import { Position, ReactFlowProvider, useReactFlow } from "@xyflow/react";
+import {
+  Position,
+  ReactFlowProvider,
+  useReactFlow,
+  EdgeMarker,
+  MarkerType,
+} from "@xyflow/react";
 import {
   Background,
   BackgroundVariant,
@@ -15,10 +21,11 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
+import "~/components/workflows/styles.css";
 import { useCallback, useEffect, useMemo } from "react";
 import { createSupabaseClient } from "~/supabase";
-import { Process } from "../brutalist/react/process";
-import { Start } from "../brutalist/react/start";
+import { Process } from "../nodes/process";
+import { Start } from "../nodes/start";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -71,6 +78,9 @@ export const useWorkflowLoader = routeLoader$(async () => {
         source: `${transition.from_action!}`,
         target: `${transition.to_action!}`,
         type: "step",
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+        } satisfies EdgeMarker,
       })) ?? [];
 
   const conditionEdges: Edge[] =
@@ -80,6 +90,9 @@ export const useWorkflowLoader = routeLoader$(async () => {
         id: `${transition.id!}`,
         source: `${transition.from_action!}`,
         target: `${transition.to_condition!}`,
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+        } satisfies EdgeMarker,
       })) ?? [];
 
   return {
@@ -167,6 +180,8 @@ function WorkflowRun({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
+        fitView
+        fitViewOptions={{ padding: 20 }}
       >
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
         <MiniMap />
