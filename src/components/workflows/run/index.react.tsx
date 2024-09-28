@@ -3,12 +3,11 @@
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { qwikify$ } from "@builder.io/qwik-react";
 import Dagre from "@dagrejs/dagre";
-import type { Edge, Node } from "@xyflow/react";
+import type { Edge, Node, EdgeMarker } from "@xyflow/react";
 import {
   Position,
   ReactFlowProvider,
   useReactFlow,
-  EdgeMarker,
   MarkerType,
 } from "@xyflow/react";
 import {

@@ -19,8 +19,9 @@
             - style.css (the sub-component's styles)
     - [experiment] (per experiment the components that are unique to it)
       - [component] (folder for the component name)
-        - index.tsx (the component)
+        - index.tsx (the qwik component)
         - style.css (the component's styles)
+        - index.react.tsx (if there is a react component that is "qwikifyed" with the "qwikify" function)
   - routes (follows the standard qwik route structure)
   - style.css (global styles)
 

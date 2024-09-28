@@ -9,10 +9,10 @@ import { routeAction$, type RequestHandler } from "@builder.io/qwik-city";
 import "@fontsource-variable/inter";
 import "@fontsource/ibm-plex-mono";
 
-import BreadCrumbs from "~/components/bread-crumbs";
-import DynamicMenu from "~/components/dynamic-menu";
-import FlyingSquares from "~/components/flying-squares";
-import { DarkThemeContext } from "~/components/theme-switcher";
+import BreadCrumbs from "~/components/theme/bread-crumbs";
+import DynamicMenu from "~/components/theme/dynamic-menu";
+import FlyingSquares from "~/components/theme/flying-squares";
+import { DarkThemeContext } from "~/components/theme/theme-switcher";
 import { createSupabaseClient } from "~/supabase";
 
 export const onGet: RequestHandler = async (event) => {
@@ -53,7 +53,7 @@ export const useSubscribe = routeAction$(async (form, requestEvent) => {
 export default component$(() => {
   useStyles$(/*css*/ `
     .layout__container {
-      --layout-padding: 1.5rem;  
+      --layout-padding: 1.5rem;
       display: flex;
       flex-direction: column;
       position: relative;

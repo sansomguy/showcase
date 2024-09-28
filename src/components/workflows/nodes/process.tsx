@@ -32,6 +32,7 @@ export const Process = ({
           id="leftSource"
           style={{
             left: "-0.4rem",
+            opacity: 0,
           }}
         />
         <div className={`workflow__process ${statusStyle[data.status]}`}>
@@ -43,6 +44,7 @@ export const Process = ({
           id="rightTarget"
           style={{
             right: "-0.4rem",
+            opacity: 0,
           }}
         />
         <div

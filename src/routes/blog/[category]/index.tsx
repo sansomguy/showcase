@@ -4,7 +4,7 @@ import {
   type StaticGenerateHandler,
   routeLoader$,
 } from "@builder.io/qwik-city";
-import PostsList from "~/components/posts-list";
+import PostsList from "~/components/theme/posts-list";
 import { capitalize } from "~/utils/capitalize";
 import { Blog } from "~/utils/db/blog";
 

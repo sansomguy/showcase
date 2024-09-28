@@ -5,7 +5,7 @@ import {
   type StaticGenerateHandler,
   routeLoader$,
 } from "@builder.io/qwik-city";
-import PostsList from "~/components/posts-list";
+import PostsList from "~/components/theme/posts-list";
 import { Blog } from "~/utils/db/blog";
 import { groupBy } from "~/utils/groupBy";
 
@@ -24,7 +24,7 @@ export const usePostsLoader = routeLoader$(async (event) => {
 
   const categories = groupBy((post) => post.category, posts);
   const topEntries = Array.from(categories.entries()).map(
-    ([category, posts]) => [category, posts.slice(0, 3)] as const
+    ([category, posts]) => [category, posts.slice(0, 3)] as const,
   );
   const topPosts = Object.fromEntries(topEntries);
 

@@ -1,4 +1,4 @@
-import { Database } from "~/supabase/types";
+import type { Database } from "~/supabase/types";
 import type { RequestEvent } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
 

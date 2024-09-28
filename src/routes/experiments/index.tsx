@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useContent } from "@builder.io/qwik-city";
-import PostsList from "~/components/posts-list";
+import PostsList from "~/components/theme/posts-list";
 import type { BlogPost } from "~/utils/db/blog";
 
 export default component$(() => {

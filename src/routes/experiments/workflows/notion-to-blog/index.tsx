@@ -1,8 +1,8 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import WorkflowRun from "~/components/workflows/run/qwik";
+import WorkflowRun from "~/components/workflows";
 
-export { useWorkflowLoader } from "~/components/workflows/run/react";
+export { useWorkflowLoader } from "~/components/workflows/run/index.react";
 
 export default component$(() => {
   return (
