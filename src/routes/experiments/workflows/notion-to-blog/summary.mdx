@@ -1,0 +1,51 @@
+
+
+import SchemaSVG from './workflows_schema.svg?inline'
+import WorkflowRun from '~/components/workflows'
+import RestartButton from './RestartWorkflowButton'
+import ExampleBrowserWorker from './ExampleBrowserWorker'
+
+
+# Overview
+Goal of this experiment is to assess the feasibility of building my own SUPER SIMPLE queue managing stack with Supabase such that I can leverage it for other projects where the cloud provider options are simply not worth the constraints.
+
+
+## Problem
+
+When running async tasks:
+- I don't have visibility into an individual workflow's progress
+- I don't have the ability to pause, resume, or cancel a workflow.
+- I don't have the ability to retry a failed workflow from a specific step where each step might describe actions taken in a step so I can make a sensible decision as to wether I SHOULD retry or not.
+- Traditional SAAS queue / async workflow tools don't allow me the flexibility of writing my own custom logic in ANY language in ANY architecture.
+- A queue should not cost me anything to run EVER.
+- Workflow tools like github actions are wildly constrained and don't allow me to have human's in the loop and optimise performance in the way I'd like.
+- I should be able to use polling, webhooks, or streaming to trigger workflow actions.
+
+
+## Solution
+A simple **database schema** and a client for interacting with the schema through a well defined abstraction by the workers (or frontend for performing retries).
+
+### Schema
+<img src={SchemaSVG} width={491} height={630} />
+- **workflows** - table that basically just defines a name and a description of the workflow.
+- **workflow_actions** - table that defines the steps of a workflow. Each step has a name, description, and a reference to the workflow it belongs to.
+- **workflow_conditions** - a special type of action that tests the result of the previous action in order to determin wether the next action can be performed.
+- **workflow_transitions** - table that defines the order of execution for actions within a worklow.
+- **workflow_runs** - table that defines the state of a workflow execution. This table is the most important as it defines the state of the workflow and the state of each action within the workflow.
+- **workflow_actions_runs** - Per workllow run action, records the status of the action.
+
+### Client
+- **listenForWorkflow** - in case there exists workers that need to perform some task whenever a new workflow starts or ends.
+- **listenForAction** - to be able to watch status changes on action.
+    - eg. When the action status goes to "pending" the worker can start processing the action IFF there either does not exist a transition for the action (start action OR the transition action's from action is in the correct status as defined in the condition status to continune to the next action).
+- **startAction** - Changes the status of the action from "pending" to "running".
+- **failAction** - changes the status of the action from "running" to "failed".
+- **completeAction** - changes the status of the action from "running" to "success".
+- **retryAction** - creates a new entry in workflow_runs_actions and set the status to pending.
+
+
+
+Example:
+<RestartButton />
+<ExampleBrowserWorker />
+<WorkflowRun />

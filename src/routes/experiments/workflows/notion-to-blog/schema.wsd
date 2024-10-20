@@ -1,0 +1,61 @@
+@startuml workflows_schema
+
+entity workflows {
+id: uuid
+name: string
+description: string
+}
+
+entity workflow_actions {
+    id: uuid
+    name: string
+    description: string
+    workflow_id: uuid
+}
+
+entity workflow_conditions {
+    id: uuid
+    name: string
+    description: string
+    workflow_id: uuid
+}
+
+entity workflow_runs {
+    id: uuid
+    workflow_id: uuid
+    status: string
+    created_at: datetime
+}
+
+entity workflow_transitions {
+    from_action_id: uuid
+    to_action_id: uuid
+    from_condition_id: uuid
+}
+
+entity workflow_runs_actions {
+    id: uuid
+    workflow_run_id: uuid
+    workflow_action_id: uuid
+    created_at: datetime
+}
+
+enum action_status {
+    PENDING
+    RUNNING
+    SUCCESS
+    FAILED
+}
+
+workflows ||--o workflow_transitions
+workflows ||--o workflow_runs
+
+workflow_transitions ||--o workflow_actions
+workflow_transitions ||--o workflow_conditions
+workflow_conditions ||--o workflow_actions
+
+workflow_runs_actions ||-- action_status
+
+workflow_runs ||--o workflow_runs_actions
+
+@enduml

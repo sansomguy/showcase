@@ -25,6 +25,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { createSupabaseClient } from "~/supabase";
 import { Process } from "../nodes/process";
 import { Start } from "../nodes/start";
+import { Database } from "~/supabase/types";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -34,31 +35,46 @@ export const useWorkflowLoader = routeLoader$(async () => {
     .select(
       `*,
       actions: workflow_runs_actions(*),
-      workflow: workflows(
+      workflow: workflows!inner(
         *,
-        transitions: workflow_transitions(*),
-        actions: workflow_actions(*),
+        transitions: workflow_transitions(*, to_action: workflow_actions!to_action_id(*)),
         conditions: workflow_conditions(*)
-      )`,
+      )`
     )
+    .eq("workflow.id", 1)
     .order("created_at", { ascending: false })
     .single()
     .throwOnError();
 
-  const actionNodes =
-    runs.data?.workflow?.actions.map((action, i) => {
-      const type = action.name === "start" ? "start" : "process";
-      const run = runs.data.actions.find(
-        (x) => x.workflow_action_id === action.id,
-      );
+  const runsData = runs.data!;
+  type WorkflowAction = Database["public"]["Tables"]["workflow_actions"]["Row"];
 
-      console.log("run", run);
+  const allWorkflowActions = (
+    runs.data?.workflow?.transitions?.flatMap((x) => x.to_action) ?? []
+  )
+    .filter((action) => !!action)
+    .reduce(
+      (acc, action) => {
+        return {
+          ...acc,
+          [`${action.id}`]: action!,
+        };
+      },
+      {} as Record<string, WorkflowAction>
+    );
+
+  const actionNodes =
+    Object.values(allWorkflowActions).map((action, i) => {
+      const type = action.name === "start" ? "start" : "process";
+      const runAction = runsData.actions.find(
+        (x) => x.workflow_action_id === action.id
+      );
 
       return {
         id: `${action.id}`,
         type,
         position: { x: 200, y: 100 + i * 100 },
-        data: { label: action.name, status: run?.status.toLowerCase() },
+        data: { label: action.name, status: runAction?.status.toLowerCase() },
       };
     }) ?? [];
 
@@ -71,11 +87,11 @@ export const useWorkflowLoader = routeLoader$(async () => {
 
   const actionEdges: Edge[] =
     runs.data?.workflow?.transitions
-      .filter((x) => x.to_action)
+      .filter((x) => x.to_action_id)
       .map((transition) => ({
         id: `${transition.id!}`,
-        source: `${transition.from_action!}`,
-        target: `${transition.to_action!}`,
+        source: `${transition.from_action_id!}`,
+        target: `${transition.to_action_id!}`,
         type: "step",
         markerEnd: {
           type: MarkerType.ArrowClosed,
@@ -87,7 +103,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
       .filter((x) => x.to_condition)
       .map((transition) => ({
         id: `${transition.id!}`,
-        source: `${transition.from_action!}`,
+        source: `${transition.from_action_id!}`,
         target: `${transition.to_condition!}`,
         markerEnd: {
           type: MarkerType.ArrowClosed,
@@ -110,7 +126,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
       ...node,
       width: node.measured?.width ?? 200,
       height: node.measured?.height ?? 50,
-    }),
+    })
   );
 
   Dagre.layout(g);
@@ -162,7 +178,7 @@ function WorkflowRun({
         fitView();
       });
     },
-    [fitView],
+    [fitView]
   );
 
   useEffect(() => {
