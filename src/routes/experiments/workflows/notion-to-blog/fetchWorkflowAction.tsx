@@ -2,7 +2,9 @@ import { server$ } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
 import { getLatestWorkflowRun } from "./getLatestWorkflowRun";
 
-export const fetchWorkflowAction = server$(async function (): Promise<{
+export const fetchWorkflowAction = server$(async function (
+  actionId: number
+): Promise<{
   status: string;
 } | null> {
   const db = createSupabaseClient();
@@ -13,9 +15,11 @@ export const fetchWorkflowAction = server$(async function (): Promise<{
     .from("workflow_runs_actions")
     .select("*")
     .eq("workflow_run_id", latestWorkflow!.id)
-    .eq("workflow_action_id", 3)
+    .eq("workflow_action_id", actionId)
+    .order("created_at", { ascending: false })
+    .limit(1)
     .maybeSingle()
     .throwOnError();
 
-  return latestBrowserWorkerAction;
+  return latestBrowserWorkerAction ?? { status: "pending" };
 });

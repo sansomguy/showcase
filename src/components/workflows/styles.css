@@ -22,6 +22,11 @@
   background-color: var(--default-accent-bg);
 }
 
+.workflow__process--success {
+  border-width: 2px;
+  background-color: #00aa00;
+}
+
 .workflow__process--active::after {
   content: "";
   display: block;

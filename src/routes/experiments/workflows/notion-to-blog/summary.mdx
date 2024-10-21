@@ -1,9 +1,8 @@
 
 
+import { $, inlinedQrl } from '@builder.io/qwik'
+import WorkflowController from './WorkflowController'
 import SchemaSVG from './workflows_schema.svg?inline'
-import WorkflowRun from '~/components/workflows'
-import RestartButton from './RestartWorkflowButton'
-import ExampleBrowserWorker from './ExampleBrowserWorker'
 
 
 # Overview
@@ -16,7 +15,7 @@ When running async tasks:
 - I don't have visibility into an individual workflow's progress
 - I don't have the ability to pause, resume, or cancel a workflow.
 - I don't have the ability to retry a failed workflow from a specific step where each step might describe actions taken in a step so I can make a sensible decision as to wether I SHOULD retry or not.
-- Traditional SAAS queue / async workflow tools don't allow me the flexibility of writing my own custom logic in ANY language in ANY architecture.
+- Traditional SAAS queue / async workflow **tools** don't allow me the flexibility of writing my own custom logic in ANY language in ANY architecture.
 - A queue should not cost me anything to run EVER.
 - Workflow tools like github actions are wildly constrained and don't allow me to have human's in the loop and optimise performance in the way I'd like.
 - I should be able to use polling, webhooks, or streaming to trigger workflow actions.
@@ -34,6 +33,35 @@ A simple **database schema** and a client for interacting with the schema throug
 - **workflow_runs** - table that defines the state of a workflow execution. This table is the most important as it defines the state of the workflow and the state of each action within the workflow.
 - **workflow_actions_runs** - Per workllow run action, records the status of the action.
 
+### State
+All workflows can take a serialized state called context. The workflow context can be accessed by any of workflow actions.
+Workflow context is completely immutable and can only be created when a new worker run is starting.
+
+Another part of the workflows state is the "previous_run_id". When a workflow is retried, a relationship is created between the new workflow and the parent workflow.
+
+### Statuses
+
+**Actions**
+
+- **pending** - The action is waiting
+- **running** - The action is currently being processed
+- **success** - The action has completed successfully
+- **failed** - The action has failed
+- **skipped** - The action was skipped
+- **cancelled** - The action was cancelled
+- **paused** - The action was paused
+
+**Workflows**
+- **active** - The actions within the workflow are being processed 
+- **failed** - One of the success required actions has failed
+- **success** - All requierd actions have completed successfully
+- **cancelled** - A required action has been cancelled
+- **paused** - A required action in the workflow has been paused
+
+Workflows also have a derived status called "terminal" which is a boolean that is true when the workflow is in a terminal state.
+
+
+
 ### Client
 - **listenForWorkflow** - in case there exists workers that need to perform some task whenever a new workflow starts or ends.
 - **listenForAction** - to be able to watch status changes on action.
@@ -42,10 +70,11 @@ A simple **database schema** and a client for interacting with the schema throug
 - **failAction** - changes the status of the action from "running" to "failed".
 - **completeAction** - changes the status of the action from "running" to "success".
 - **retryAction** - creates a new entry in workflow_runs_actions and set the status to pending.
+- **restartWorkflow** - create a new entry in the workflow_runs table and sets the status of the first action to pending.
+- **canRestartWorkflow** - Either there are no previous workflow runs OR the last workflow_run is in a terminal state.
+
 
 
 
 Example:
-<RestartButton />
-<ExampleBrowserWorker />
-<WorkflowRun />
+<WorkflowController />

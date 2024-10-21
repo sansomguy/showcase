@@ -22,6 +22,7 @@ entity workflow_conditions {
 
 entity workflow_runs {
     id: uuid
+    previous_run_id: uuid
     workflow_id: uuid
     status: string
     created_at: datetime
@@ -43,8 +44,19 @@ entity workflow_runs_actions {
 enum action_status {
     PENDING
     RUNNING
-    SUCCESS
+    PAUSED
+    SKIPPED
+    CANCELLED
     FAILED
+    SUCCESS
+}
+
+enum workflow_status {
+    ACTIVE
+    PAUSED
+    CANCELLED
+    FAILED
+    SUCCESS
 }
 
 workflows ||--o workflow_transitions
@@ -57,5 +69,7 @@ workflow_conditions ||--o workflow_actions
 workflow_runs_actions ||-- action_status
 
 workflow_runs ||--o workflow_runs_actions
+workflow_runs ||--o workflow_runs
+workflow_runs ||--o workflow_status
 
 @enduml

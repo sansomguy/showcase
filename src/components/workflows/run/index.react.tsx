@@ -3,29 +3,27 @@
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { qwikify$ } from "@builder.io/qwik-react";
 import Dagre from "@dagrejs/dagre";
-import type { Edge, Node, EdgeMarker } from "@xyflow/react";
-import {
-  Position,
-  ReactFlowProvider,
-  useReactFlow,
-  MarkerType,
-} from "@xyflow/react";
+import type { Edge, EdgeMarker, Node } from "@xyflow/react";
 import {
   Background,
   BackgroundVariant,
+  MarkerType,
   MiniMap,
+  Position,
   ReactFlow,
-  useNodesState,
+  ReactFlowProvider,
   useEdgesState,
+  useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import "~/components/workflows/styles.css";
 import { useCallback, useEffect, useMemo } from "react";
+import "~/components/workflows/styles.css";
 import { createSupabaseClient } from "~/supabase";
+import { Database } from "~/supabase/types";
 import { Process } from "../nodes/process";
 import { Start } from "../nodes/start";
-import { Database } from "~/supabase/types";
 
 // eslint-disable-next-line qwik/loader-location
 export const useWorkflowLoader = routeLoader$(async () => {
@@ -43,14 +41,14 @@ export const useWorkflowLoader = routeLoader$(async () => {
     )
     .eq("workflow.id", 1)
     .order("created_at", { ascending: false })
-    .single()
     .throwOnError();
 
   const runsData = runs.data!;
+  const latestWorkflowRun = runsData[0];
   type WorkflowAction = Database["public"]["Tables"]["workflow_actions"]["Row"];
 
   const allWorkflowActions = (
-    runs.data?.workflow?.transitions?.flatMap((x) => x.to_action) ?? []
+    latestWorkflowRun?.workflow?.transitions?.flatMap((x) => x.to_action) ?? []
   )
     .filter((action) => !!action)
     .reduce(
@@ -66,7 +64,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
   const actionNodes =
     Object.values(allWorkflowActions).map((action, i) => {
       const type = action.name === "start" ? "start" : "process";
-      const runAction = runsData.actions.find(
+      const runAction = latestWorkflowRun.actions.find(
         (x) => x.workflow_action_id === action.id
       );
 
@@ -79,14 +77,14 @@ export const useWorkflowLoader = routeLoader$(async () => {
     }) ?? [];
 
   const conditionNodes =
-    runs.data?.workflow?.conditions.map((condition, i) => ({
+    latestWorkflowRun?.workflow?.conditions.map((condition, i) => ({
       id: `${condition.id}`,
       position: { x: 200, y: 100 + i * 100 },
       data: { label: condition.name },
     })) ?? [];
 
   const actionEdges: Edge[] =
-    runs.data?.workflow?.transitions
+    latestWorkflowRun?.workflow?.transitions
       .filter((x) => x.to_action_id)
       .map((transition) => ({
         id: `${transition.id!}`,
@@ -99,7 +97,7 @@ export const useWorkflowLoader = routeLoader$(async () => {
       })) ?? [];
 
   const conditionEdges: Edge[] =
-    runs.data?.workflow?.transitions
+    latestWorkflowRun?.workflow?.transitions
       .filter((x) => x.to_condition)
       .map((transition) => ({
         id: `${transition.id!}`,

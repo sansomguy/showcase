@@ -1,6 +1,15 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  QRL,
+  useSignal,
+  useVisibleTask$,
+} from "@builder.io/qwik";
+import { server$ } from "@builder.io/qwik-city";
+import { createSupabaseClient } from "~/supabase";
 import { fetchWorkflowAction } from "./fetchWorkflowAction";
-import { canStartAction } from "./canStartAction";
+import { getLatestWorkflowRun } from "./getLatestWorkflowRun";
+import { startAction } from "./startAction";
 
 export type WorkflowActionRequest = {
   workflow_id: number;
@@ -8,56 +17,58 @@ export type WorkflowActionRequest = {
   action_id: number;
 };
 
+const humanAction = 4;
+
+const doHumanWork = server$(async () => {
+  const latestRun = await getLatestWorkflowRun();
+  const startedAction = await startAction({
+    run_id: latestRun!.id,
+    action_id: humanAction,
+    workflow_id: 1,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
+  const db = createSupabaseClient();
+  const successAction = await db
+    .from("workflow_runs_actions")
+    .update({ status: "success" })
+    .eq("id", startedAction!.id)
+    .select("*")
+    .single()
+    .throwOnError();
+
+  return successAction.data!;
+});
+
 /**
  * @description Given a workflow and action id, this component will wait for a workflow action to become "pending" and then it will run.
  */
-export default component$(() => {
+export default component$((props: { onWorkDone$: QRL<() => void> }) => {
   const action = useSignal<{ status: string } | null>({
-    status: "unknown",
+    status: "pending",
   });
-  const lastUpdate = useSignal<Date | undefined>(undefined);
-  const startingAction = useSignal(false);
+
+  const showConsole = $(() => {
+    props.onWorkDone$();
+  });
 
   useVisibleTask$(() => {
-    async function updateWorkerStatus() {
-      lastUpdate.value = new Date();
-      action.value = await fetchWorkflowAction();
-      const canStart = await canStartAction({
-        action_id: 3,
-        workflow_id: 1,
-        run_id: 1,
-      });
-
-      if (canStart) {
-        startingAction.value = true;
-        // a little bit so we can see that status change
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        // await startAction({
-        //   action_id: 3,
-        //   workflow_id: 1,
-        //   run_id: 1,
-        // });
-        startingAction.value = false;
-      }
-
+    async function pullStatus() {
+      action.value = await fetchWorkflowAction(4);
       setTimeout(async () => {
-        await updateWorkerStatus();
+        await pullStatus();
       }, 1000);
     }
 
-    updateWorkerStatus();
+    pullStatus();
   });
 
   return (
     <div>
-      <div>I'm a workflow worker</div>
-      <div>Last Poll: {lastUpdate.value?.toTimeString()}</div>
-      <div>
-        Current Status:{" "}
-        {(action.value?.status ?? startingAction.value)
-          ? "Starting action"
-          : "Action transition not satisfied"}
-      </div>
+      <div>Human Worker</div>
+      <button onClick$={showConsole}>Do work</button>
+      <div>Current Status: {action.value?.status}</div>
     </div>
   );
 });
