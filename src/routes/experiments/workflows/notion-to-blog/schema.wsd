@@ -38,6 +38,7 @@ entity workflow_runs_actions {
     id: uuid
     workflow_run_id: uuid
     workflow_action_id: uuid
+    workflow_condition_id: uuid
     created_at: datetime
 }
 
@@ -64,12 +65,15 @@ workflows ||--o workflow_runs
 
 workflow_transitions ||--o workflow_actions
 workflow_transitions ||--o workflow_conditions
-workflow_conditions ||--o workflow_actions
 
 workflow_runs_actions ||-- action_status
+
 
 workflow_runs ||--o workflow_runs_actions
 workflow_runs ||--o workflow_runs
 workflow_runs ||--o workflow_status
+
+workflow_action || --o workflow_runs_actions
+workflow_conditions || --o workflow_runs_actions
 
 @enduml

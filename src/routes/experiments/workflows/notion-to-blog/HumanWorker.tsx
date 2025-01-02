@@ -1,15 +1,10 @@
-import {
-  $,
-  component$,
-  QRL,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
+import { $, component$, useOnWindow, useSignal } from "@builder.io/qwik";
 import { server$ } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
-import { fetchWorkflowAction } from "./fetchWorkflowAction";
-import { getLatestWorkflowRun } from "./getLatestWorkflowRun";
-import { startAction } from "./startAction";
+import { getLatestWorkflowRun } from "./server.getLatestWorkflowRun";
+import { startAction } from "./server.startAction";
+import { getActionStatus } from "./server.getActionStatus";
 
 export type WorkflowActionRequest = {
   workflow_id: number;
@@ -44,31 +39,43 @@ const doHumanWork = server$(async () => {
 /**
  * @description Given a workflow and action id, this component will wait for a workflow action to become "pending" and then it will run.
  */
-export default component$((props: { onWorkDone$: QRL<() => void> }) => {
-  const action = useSignal<{ status: string } | null>({
-    status: "pending",
-  });
+export default component$(
+  ({ onWorkDone$ }: { onWorkDone$: QRL<() => void> }) => {
+    const action = useSignal<string | null>("unknown");
+    const lastUpdate = useSignal<Date | null>(null);
 
-  const showConsole = $(() => {
-    props.onWorkDone$();
-  });
+    const onClick = $(async () => {
+      await doHumanWork();
+      await onWorkDone$();
+    });
 
-  useVisibleTask$(() => {
-    async function pullStatus() {
-      action.value = await fetchWorkflowAction(4);
-      setTimeout(async () => {
-        await pullStatus();
+    const setupStatusCheck = $(async () => {
+      setInterval(async () => {
+        const result = await getActionStatus({
+          workflow_id: 1,
+          action_id: humanAction,
+        });
+        action.value = result ? result.status : null;
+        lastUpdate.value = new Date();
       }, 1000);
-    }
+    });
 
-    pullStatus();
-  });
+    useOnWindow(
+      "load",
+      $(() => {
+        setupStatusCheck();
+      }),
+    );
 
-  return (
-    <div>
-      <div>Human Worker</div>
-      <button onClick$={showConsole}>Do work</button>
-      <div>Current Status: {action.value?.status}</div>
-    </div>
-  );
-});
+    return (
+      <div>
+        <div>
+          <strong>Human Worker</strong>
+        </div>
+        <div>Current Status: {action.value}</div>
+        <div>Last Updated: {lastUpdate.value?.toLocaleTimeString()}</div>
+        <button onClick$={onClick}>Do work</button>
+      </div>
+    );
+  },
+);

@@ -1,70 +1,101 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
-import { getActionStatus } from "./getActionStatus";
-import { startAction } from "./startAction";
+import {
+  $,
+  component$,
+  useComputed$,
+  useSignal,
+  useTask$,
+} from "@builder.io/qwik";
+import type { WorkflowActionResponse } from "./server.getActionStatus";
+import { getActionStatus } from "./server.getActionStatus";
+import { startAction } from "./server.startAction";
 const actionId = 3;
 
 /**
  * @description Given a workflow and action id, this component will wait for a workflow action to become "pending" and then it will run.
  */
 export default component$(() => {
-  const action = useSignal<{ status: string } | null>({
-    status: "unknown",
-  });
+  const action = useSignal<Pick<
+    WorkflowActionResponse,
+    "workflow_run_id" | "status" | "dependenciesResolved"
+  > | null>(null);
   const lastUpdate = useSignal<Date | undefined>(undefined);
-  const startingAction = useSignal(false);
+  const runningCheckWorkerStatus = useSignal(false);
+  const runningPerformWorkAction = useSignal(false);
 
-  useVisibleTask$(() => {
-    async function updateWorkerStatus() {
-      const actionStatus = await getActionStatus({
-        action_id: 3,
-        workflow_id: 1,
-        run_id: undefined, // when not specified, will respond based on latest run
-      });
+  const checkWorkerStatus = $(async () => {
+    runningCheckWorkerStatus.value = true;
+    const actionStatus = await getActionStatus({
+      action_id: actionId,
+      workflow_id: 1,
+      run_id: undefined, // when not specified, will respond based on latest run
+    });
 
-      if (
-        actionStatus.dependenciesResolved &&
-        actionStatus.status === "pending"
-      ) {
-        startingAction.value = true;
-        // a little bit so we can see that status change
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        await startAction({
-          action_id: 3,
-          workflow_id: 1,
-          run_id: actionStatus.run_id,
-        });
-        action.value = {
-          status: "active",
-        };
-        startingAction.value = false;
-      } else {
-        startingAction.value = false;
+    action.value = actionStatus;
+
+    setTimeout(() => {
+      runningCheckWorkerStatus.value = false;
+    }, 3000);
+  });
+
+  useTask$(
+    async ({ track }) => {
+      track(runningCheckWorkerStatus);
+
+      if (runningCheckWorkerStatus.value) {
+        return;
       }
 
-      action.value = {
-        status: actionStatus.status,
-      };
+      try {
+        runningCheckWorkerStatus.value = true;
+        await checkWorkerStatus();
+      } finally {
+        lastUpdate.value = new Date();
+        runningCheckWorkerStatus.value = false;
+      }
+    },
+    {
+      eagerness: "visible",
+    },
+  );
 
-      lastUpdate.value = new Date();
+  useTask$(async ({ track }) => {
+    track(action);
 
-      setTimeout(async () => {
-        await updateWorkerStatus();
-      }, 1000);
+    if (runningPerformWorkAction.value) {
+      return;
     }
 
-    updateWorkerStatus();
+    const alreadyCompletedAction =
+      action.value?.status === "success" || action.value?.status === "failed";
+
+    if (alreadyCompletedAction) {
+      return;
+    }
+
+    const actionValue = action.value!;
+
+    if (actionValue.dependenciesResolved) {
+      try {
+        runningPerformWorkAction.value = true;
+        const startedAction = await startAction({
+          action_id: actionId,
+          workflow_id: 1,
+          run_id: actionValue.workflow_run_id,
+        });
+        action.value = startedAction!;
+      } finally {
+        runningPerformWorkAction.value = false;
+      }
+    }
   });
 
   return (
     <div>
-      <div>Browser Worker</div>
-      <div>Last Update: {lastUpdate.value?.toLocaleTimeString()}</div>
       <div>
-        Current Status:{" "}
-        {(action.value?.status ?? startingAction.value)
-          ? "Starting action"
-          : "Action transition not satisfied"}
+        <strong>Browser Worker</strong>
       </div>
+      <div>Current Status: {action.value?.status}</div>
+      <div>Last Updated: {lastUpdate.value?.toLocaleTimeString()}</div>
     </div>
   );
 });

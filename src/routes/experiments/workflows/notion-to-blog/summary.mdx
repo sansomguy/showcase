@@ -26,9 +26,13 @@ A simple **database schema** and a client for interacting with the schema throug
 
 ### Schema
 <img src={SchemaSVG} width={491} height={630} />
+
 - **workflows** - table that basically just defines a name and a description of the workflow.
 - **workflow_actions** - table that defines the steps of a workflow. Each step has a name, description, and a reference to the workflow it belongs to.
-- **workflow_conditions** - a special type of action that tests the result of the previous action in order to determin wether the next action can be performed.
+- **workflow_conditions** -
+    a special type of action that tests the output from the "from_action" in the workflow_transition to determine wether the next action can be performed.
+    When the condition is met, the workflow_condition action is marked as "success" and then next action will commence.
+    When the condition is not met, the workflow_condition action is marked as "failed" and the workflow is marked as "failed".
 - **workflow_transitions** - table that defines the order of execution for actions within a worklow.
 - **workflow_runs** - table that defines the state of a workflow execution. This table is the most important as it defines the state of the workflow and the state of each action within the workflow.
 - **workflow_actions_runs** - Per workllow run action, records the status of the action.
@@ -52,7 +56,7 @@ Another part of the workflows state is the "previous_run_id". When a workflow is
 - **paused** - The action was paused
 
 **Workflows**
-- **active** - The actions within the workflow are being processed 
+- **active** - The actions within the workflow are being processed
 - **failed** - One of the success required actions has failed
 - **success** - All requierd actions have completed successfully
 - **cancelled** - A required action has been cancelled
@@ -77,4 +81,5 @@ Workflows also have a derived status called "terminal" which is a boolean that i
 
 
 Example:
+
 <WorkflowController />

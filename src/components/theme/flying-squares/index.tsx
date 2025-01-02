@@ -20,14 +20,14 @@ export default component$(() => {
     function update(timestamp: number) {
       const timeUpdate = progressOverTime(timestamp);
       const latestDestinationPoint = destinationPointFromScroll(
-        scrollUpdate.value
+        scrollUpdate.value,
       );
       const updateDelta = timeUpdate + Math.abs(scrollUpdate.value);
       updateSquares(squares, updateDelta, controlPoint, latestDestinationPoint);
       scrollUpdate.value = 0;
-      requestAnimationFrame(update);
+      //requestAnimationFrame(update);
     }
-    requestAnimationFrame(update);
+    //requestAnimationFrame(update);
   });
 
   useOnDocument(
@@ -48,7 +48,7 @@ export default component$(() => {
       previousScroll.value = newScrollTop;
       const normalizedDiff = scrollDiff / scrollHeight;
       scrollUpdate.value = normalizedDiff;
-    })
+    }),
   );
 
   return (
@@ -105,7 +105,7 @@ function destinationPointFromScroll(scrollDelta: number) {
     x: DESTINATION_X,
     y: (currentDestinationY = Math.max(
       0,
-      Math.min(currentDestinationY - scrollDelta * 100, 100)
+      Math.min(currentDestinationY - scrollDelta * 100, 100),
     )),
     z: DESTINATION_Z,
   };
@@ -121,7 +121,7 @@ function updateSquares(
   squares: Record<string, Square>,
   normalizedDiff: number,
   latestControlPoint: { x: number; y: number },
-  latestDestinationPoint: { x: number; y: number; z: number }
+  latestDestinationPoint: { x: number; y: number; z: number },
 ) {
   for (const squareKey in squares) {
     const square = squares[squareKey];
@@ -130,7 +130,7 @@ function updateSquares(
     }
     square.progress = Math.min(
       square.progress + square.progressRate * normalizedDiff,
-      1
+      1,
     );
     const controlPoint = {
       x: latestControlPoint.x + square.initial.x,
@@ -148,13 +148,13 @@ function updateSquares(
       square.initial.x,
       controlPoint.x,
       destination.x,
-      square.progress
+      square.progress,
     );
     square.y = bezier(
       square.initial.y,
       controlPoint.y,
       destination.y,
-      square.progress
+      square.progress,
     );
 
     square.z =
@@ -191,7 +191,7 @@ function createInitialState() {
         ({
           id: i.toString(),
           initial: {},
-        }) as any
+        }) as any,
     )
     .map(resetSquare)
     .reduce(
@@ -199,7 +199,7 @@ function createInitialState() {
         acc[square.id] = square;
         return acc;
       },
-      {} as Record<string, Square>
+      {} as Record<string, Square>,
     );
 }
 
