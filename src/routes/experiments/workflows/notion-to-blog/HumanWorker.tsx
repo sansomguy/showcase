@@ -1,5 +1,11 @@
 import type { QRL } from "@builder.io/qwik";
-import { $, component$, useOnWindow, useSignal } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useOnWindow,
+  useSignal,
+  useTask$,
+} from "@builder.io/qwik";
 import { server$ } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
 import { getLatestWorkflowRun } from "./server.getLatestWorkflowRun";
@@ -49,22 +55,20 @@ export default component$(
       await onWorkDone$();
     });
 
-    const setupStatusCheck = $(async () => {
-      setInterval(async () => {
-        const result = await getActionStatus({
-          workflow_id: 1,
-          action_id: humanAction,
-        });
-        action.value = result ? result.status : null;
-        lastUpdate.value = new Date();
-      }, 1000);
-    });
-
-    useOnWindow(
-      "load",
-      $(() => {
-        setupStatusCheck();
-      }),
+    useTask$(
+      () => {
+        setInterval(async () => {
+          const result = await getActionStatus({
+            workflow_id: 1,
+            action_id: humanAction,
+          });
+          action.value = result ? result.status : null;
+          lastUpdate.value = new Date();
+        }, 1000);
+      },
+      {
+        eagerness: "idle",
+      },
     );
 
     return (

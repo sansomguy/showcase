@@ -1,13 +1,7 @@
-import {
-  $,
-  component$,
-  useComputed$,
-  useSignal,
-  useTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { WorkflowActionResponse } from "./server.getActionStatus";
 import { getActionStatus } from "./server.getActionStatus";
-import { startAction } from "./server.startAction";
+import { finishAction, startAction } from "./server.startAction";
 const actionId = 3;
 
 /**
@@ -22,21 +16,6 @@ export default component$(() => {
   const runningCheckWorkerStatus = useSignal(false);
   const runningPerformWorkAction = useSignal(false);
 
-  const checkWorkerStatus = $(async () => {
-    runningCheckWorkerStatus.value = true;
-    const actionStatus = await getActionStatus({
-      action_id: actionId,
-      workflow_id: 1,
-      run_id: undefined, // when not specified, will respond based on latest run
-    });
-
-    action.value = actionStatus;
-
-    setTimeout(() => {
-      runningCheckWorkerStatus.value = false;
-    }, 3000);
-  });
-
   useTask$(
     async ({ track }) => {
       track(runningCheckWorkerStatus);
@@ -47,14 +26,23 @@ export default component$(() => {
 
       try {
         runningCheckWorkerStatus.value = true;
-        await checkWorkerStatus();
+
+        const actionStatus = await getActionStatus({
+          action_id: actionId,
+          workflow_id: 1,
+        });
+
+        action.value = actionStatus;
       } finally {
         lastUpdate.value = new Date();
-        runningCheckWorkerStatus.value = false;
+        // wait a second before running again
+        setTimeout(() => {
+          runningCheckWorkerStatus.value = false;
+        }, 1000);
       }
     },
     {
-      eagerness: "visible",
+      eagerness: "idle",
     },
   );
 
@@ -65,10 +53,12 @@ export default component$(() => {
       return;
     }
 
-    const alreadyCompletedAction =
-      action.value?.status === "success" || action.value?.status === "failed";
+    const alreadyStartedAction =
+      action.value?.status === "active" ||
+      action.value?.status === "success" ||
+      action.value?.status === "failed";
 
-    if (alreadyCompletedAction) {
+    if (alreadyStartedAction) {
       return;
     }
 
@@ -78,13 +68,25 @@ export default component$(() => {
       try {
         runningPerformWorkAction.value = true;
         const startedAction = await startAction({
-          action_id: actionId,
           workflow_id: 1,
           run_id: actionValue.workflow_run_id,
+          action_id: actionId,
+        });
+        await new Promise<void>((resolve) => {
+          // do some fake work
+          setTimeout(() => {
+            resolve();
+          }, 3000);
+        });
+
+        await finishAction({
+          action_run_id: startedAction!.id,
         });
         action.value = startedAction!;
       } finally {
-        runningPerformWorkAction.value = false;
+        setTimeout(() => {
+          runningPerformWorkAction.value = false;
+        }, 1000);
       }
     }
   });

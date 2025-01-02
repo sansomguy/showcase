@@ -36,6 +36,7 @@ export const getActionStatus = server$(
       : await getLatestWorkflowRun();
 
     if (!workflowRun) {
+      console.warn("No workflow run found");
       return null;
     }
 

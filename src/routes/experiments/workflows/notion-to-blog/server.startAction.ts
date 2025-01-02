@@ -25,3 +25,23 @@ export const startAction = server$(async ({ run_id, action_id }) => {
     dependenciesResolved: true,
   } satisfies WorkflowStartActionResponse;
 });
+
+export const finishAction = server$(
+  async ({ action_run_id }: { action_run_id: number }) => {
+    const db = createSupabaseClient();
+    const result = await db
+      .from("workflow_runs_actions")
+      .update({ status: "success" })
+      .eq("id", action_run_id)
+      .select("*, workflow_action: workflow_actions!inner(*)")
+      .single()
+      .throwOnError();
+
+    return {
+      status: "success",
+      id: result.data!.id,
+      action_id: result.data!.workflow_action.id,
+      dependenciesResolved: true,
+    };
+  },
+);
