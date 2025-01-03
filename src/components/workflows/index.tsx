@@ -1,15 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import { useWorkflowLoader, WorkFlowRunQwikify } from "./run/index.react";
+import { QWorkflowVisualization } from "./run/index.react";
+import type { GetNodesAndEdgesForRunResponse } from "./server.getNodesAndEdges";
 
-export default component$(() => {
-  const loaderResult = useWorkflowLoader();
-
-  return (
-    <>
-      <WorkFlowRunQwikify
-        edges={loaderResult.value.edges}
-        nodes={loaderResult.value.nodes}
-      />
-    </>
-  );
-});
+export default component$(
+  ({ value }: { value: GetNodesAndEdgesForRunResponse }) => {
+    return <QWorkflowVisualization edges={value.edges} nodes={value.nodes} />;
+  },
+);

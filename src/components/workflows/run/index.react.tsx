@@ -1,13 +1,11 @@
 /** @jsxImportSource react */
 
-import { routeLoader$ } from "@builder.io/qwik-city";
 import { qwikify$ } from "@builder.io/qwik-react";
 import Dagre from "@dagrejs/dagre";
-import type { Edge, EdgeMarker, Node } from "@xyflow/react";
+import type { Edge, Node } from "@xyflow/react";
 import {
   Background,
   BackgroundVariant,
-  MarkerType,
   MiniMap,
   Position,
   ReactFlow,
@@ -20,99 +18,12 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect, useMemo } from "react";
 import "~/components/workflows/styles.css";
-import { createSupabaseClient } from "~/supabase";
-import { Database } from "~/supabase/types";
+
 import { Process } from "../nodes/process";
 import { Start } from "../nodes/start";
+import { GetNodesAndEdgesForRunResponse } from "../server.getNodesAndEdges";
 
 // eslint-disable-next-line qwik/loader-location
-export const useWorkflowLoader = routeLoader$(async () => {
-  const db = createSupabaseClient();
-  const runs = await db
-    .from("workflow_runs")
-    .select(
-      `*,
-      actions: workflow_runs_actions(*),
-      workflow: workflows!inner(
-        *,
-        transitions: workflow_transitions(*, to_action: workflow_actions!to_action_id(*)),
-        conditions: workflow_conditions(*)
-      )`
-    )
-    .eq("workflow.id", 1)
-    .order("created_at", { ascending: false })
-    .throwOnError();
-
-  const runsData = runs.data!;
-  const latestWorkflowRun = runsData[0];
-  type WorkflowAction = Database["public"]["Tables"]["workflow_actions"]["Row"];
-
-  const allWorkflowActions = (
-    latestWorkflowRun?.workflow?.transitions?.flatMap((x) => x.to_action) ?? []
-  )
-    .filter((action) => !!action)
-    .reduce(
-      (acc, action) => {
-        return {
-          ...acc,
-          [`${action.id}`]: action!,
-        };
-      },
-      {} as Record<string, WorkflowAction>
-    );
-
-  const actionNodes =
-    Object.values(allWorkflowActions).map((action, i) => {
-      const type = action.name === "start" ? "start" : "process";
-      const runAction = latestWorkflowRun.actions.find(
-        (x) => x.workflow_action_id === action.id
-      );
-
-      return {
-        id: `${action.id}`,
-        type,
-        position: { x: 200, y: 100 + i * 100 },
-        data: { label: action.name, status: runAction?.status.toLowerCase() },
-      };
-    }) ?? [];
-
-  const conditionNodes =
-    latestWorkflowRun?.workflow?.conditions.map((condition, i) => ({
-      id: `${condition.id}`,
-      position: { x: 200, y: 100 + i * 100 },
-      data: { label: condition.name },
-    })) ?? [];
-
-  const actionEdges: Edge[] =
-    latestWorkflowRun?.workflow?.transitions
-      .filter((x) => x.to_action_id)
-      .map((transition) => ({
-        id: `${transition.id!}`,
-        source: `${transition.from_action_id!}`,
-        target: `${transition.to_action_id!}`,
-        type: "step",
-        markerEnd: {
-          type: MarkerType.ArrowClosed,
-        } satisfies EdgeMarker,
-      })) ?? [];
-
-  const conditionEdges: Edge[] =
-    latestWorkflowRun?.workflow?.transitions
-      .filter((x) => x.to_condition)
-      .map((transition) => ({
-        id: `${transition.id!}`,
-        source: `${transition.from_action_id!}`,
-        target: `${transition.to_condition!}`,
-        markerEnd: {
-          type: MarkerType.ArrowClosed,
-        } satisfies EdgeMarker,
-      })) ?? [];
-
-  return {
-    nodes: [...actionNodes, ...conditionNodes],
-    edges: [...actionEdges, ...conditionEdges],
-  };
-});
 
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
@@ -124,7 +35,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
       ...node,
       width: node.measured?.width ?? 200,
       height: node.measured?.height ?? 50,
-    })
+    }),
   );
 
   Dagre.layout(g);
@@ -148,16 +59,18 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
   };
 };
 
-function WorkflowRun({
-  nodes: initialNodes,
-  edges: initialEdges,
-}: {
-  nodes: Node[];
-  edges: Edge[];
-}) {
+function WorkflowVisualization(props: { nodes: Node[]; edges: Edge[] }) {
   const { fitView } = useReactFlow();
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges);
+
+  useEffect(() => {
+    setNodes(props.nodes);
+    setEdges(props.edges);
+
+    onLayout({ nodes: props.nodes, edges: props.edges });
+  }, [props.nodes, props.edges]);
+
   const nodeTypes = useMemo(() => {
     return {
       process: Process,
@@ -176,12 +89,8 @@ function WorkflowRun({
         fitView();
       });
     },
-    [fitView]
+    [fitView],
   );
-
-  useEffect(() => {
-    onLayout({ nodes, edges });
-  }, []);
 
   return (
     <div style={{ width: "100%", height: "calc(100vh - calc(60px + 1.5rem))" }}>
@@ -203,14 +112,14 @@ function WorkflowRun({
   );
 }
 
-const WithProvider = (props: { edges: Edge[]; nodes: Node[] }) => {
+const WithProvider = (props: GetNodesAndEdgesForRunResponse) => {
   return (
     <ReactFlowProvider>
-      <WorkflowRun edges={props.edges} nodes={props.nodes} />
+      <WorkflowVisualization edges={props.edges} nodes={props.nodes} />
     </ReactFlowProvider>
   );
 };
 
-export const WorkFlowRunQwikify = qwikify$(WithProvider, {
+export const QWorkflowVisualization = qwikify$(WithProvider, {
   eagerness: "idle",
 });

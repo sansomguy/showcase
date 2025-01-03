@@ -16,7 +16,7 @@ export const Process = ({
 
   const statusBGStyle = {
     pending: "workflow__process__background--pending",
-    active: "workflow__process__background--success",
+    active: "workflow__process__background--pending",
     error: "workflow__process__background--error",
     success: "workflow__process__background--success",
   };

@@ -12,7 +12,7 @@ type WorkflowTransition =
 export type WorkflowActionRequest = {
   workflow_id: number;
   action_id: number;
-  run_id?: number; // when not specified, will respond based on latest run
+  workflow_run_id: number | null; // when not specified, will respond based on latest run
 };
 
 export type WorkflowActionResponse = {
@@ -27,7 +27,7 @@ export const getActionStatus = server$(
   async ({
     action_id,
     workflow_id,
-    run_id,
+    workflow_run_id: run_id,
   }: WorkflowActionRequest): Promise<WorkflowActionResponse | null> => {
     const db = createSupabaseClient();
 
