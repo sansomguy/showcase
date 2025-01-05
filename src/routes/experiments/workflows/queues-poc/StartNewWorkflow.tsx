@@ -36,9 +36,9 @@ export default component$(() => {
   } | null>(null);
 
   const buttonText = useComputed$(() => {
-    return workflowRunContext.value.workflow_run_id
-      ? "Restart Workflow"
-      : "Start Workflow";
+    const context = workflowRunContext.value;
+
+    return context?.workflow_run_id ? "Restart Workflow" : "Start Workflow";
   });
 
   return (
@@ -48,12 +48,15 @@ export default component$(() => {
 
         <button
           onClick$={async () => {
-            newRun.value = await startNewWorkflow();
+            const newWorkflowRun = await startNewWorkflow();
+
             workflowRunContext.value = {
-              workflow_run_id: newRun.value!.id,
-              workflow_id: newRun.value!.workflow_id,
+              workflow_id: newWorkflowRun.workflow_id,
+              workflow_run_id: newWorkflowRun.id,
               last_action_run_id: null,
             };
+
+            newRun.value = newWorkflowRun;
           }}
         >
           {buttonText}

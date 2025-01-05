@@ -7,4 +7,4 @@ export type WorkflowRunContextValue = {
   last_action_run_id: number | null;
 };
 export const WorkflowRunContext =
-  createContextId<Signal<WorkflowRunContextValue>>("workflows.run");
+  createContextId<Signal<WorkflowRunContextValue | null>>("workflows.run");

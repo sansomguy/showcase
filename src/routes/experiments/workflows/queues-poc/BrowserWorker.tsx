@@ -7,11 +7,31 @@ import {
   useTask$,
 } from "@builder.io/qwik";
 import type { WorkflowActionResponse } from "./server.getActionStatus";
-import { getActionStatus } from "./server.getActionStatus";
-import { finishAction, startAction } from "./server.startAction";
+import {
+  getActionMissingDependencies,
+  getActionStatus,
+} from "./server.getActionStatus";
+import { finishAction, startAction } from "./server.updateAction";
 import { WorkflowRunContext } from "~/components/workflows/run/context";
 
+const demoWorkflowId = 1;
 const browserWorkerActionId = 3;
+type ActionViewModel = Omit<
+  WorkflowActionResponse,
+  "workflow_run_id" | "id"
+> & {
+  id: number | null;
+  workflow_run_id: number | null;
+  dependenciesResolved: boolean;
+};
+
+const initialActionViewModel: ActionViewModel = {
+  id: null,
+  workflow_run_id: null,
+  action_id: browserWorkerActionId,
+  dependenciesResolved: false,
+  status: "pending",
+};
 
 /**
  * @description Given a workflow and action id,
@@ -19,54 +39,93 @@ const browserWorkerActionId = 3;
  */
 export default component$(() => {
   const workflowRunContext = useContext(WorkflowRunContext);
-  const action = useSignal<Pick<
-    WorkflowActionResponse,
-    "workflow_run_id" | "status" | "dependenciesResolved"
-  > | null>(null);
+  const action = useSignal<ActionViewModel>({
+    id: null,
+    workflow_run_id: null,
+    action_id: browserWorkerActionId,
+    dependenciesResolved: false,
+    status: "pending",
+  });
   const lastUpdate = useSignal<Date | undefined>(undefined);
   const runningPerformWorkAction = useSignal(false);
 
-  const refreshStatus = $(async () => {
-    const actionStatus = await getActionStatus({
-      action_id: browserWorkerActionId,
-      workflow_run_id: workflowRunContext.value.workflow_run_id,
-      workflow_id: 1,
-    });
+  const refreshStatus = $(
+    async (context: (typeof workflowRunContext)["value"]) => {
+      if (!context) {
+        console.warn("No workflow run context found");
+        return;
+      }
+      if (!context.workflow_run_id) {
+        console.warn("Missing workflow run id within human worker task");
+        return;
+      }
 
-    action.value = actionStatus!;
-    lastUpdate.value = new Date();
-  });
+      if (!context.workflow_id) {
+        console.warn("Missing workflow id within human worker task");
+        return;
+      }
+
+      const request = {
+        action_id: browserWorkerActionId,
+        workflow_run_id: context.workflow_run_id,
+        workflow_id: demoWorkflowId,
+      };
+      const actionStatusPromise = getActionStatus(request);
+
+      const dependenciesResolvedPromise = getActionMissingDependencies(request);
+
+      const [actionStatus, dependenciesResolved] = await Promise.all([
+        actionStatusPromise,
+        dependenciesResolvedPromise,
+      ]);
+
+      if (!actionStatus) {
+        action.value = { ...initialActionViewModel, dependenciesResolved };
+      } else {
+        action.value = {
+          ...actionStatus,
+          dependenciesResolved,
+        };
+      }
+      lastUpdate.value = new Date();
+    },
+  );
 
   useTask$(async ({ track }) => {
     track(() => workflowRunContext.value);
-    await refreshStatus();
+
+    const context = workflowRunContext.value;
+    await refreshStatus(context);
   });
 
   useTask$(async ({ track }) => {
     track(() => workflowRunContext.value);
     track(() => action.value);
+
     console.log("Workflow context updated, running tryStartBrowserWork");
 
-    if (!workflowRunContext.value.workflow_run_id) {
+    if (!workflowRunContext.value?.workflow_run_id) {
+      console.warn("No workflow run id found");
       return;
     }
 
-    const actionValue = action.value;
-
-    if (!actionValue?.dependenciesResolved) {
+    if (!action.value.dependenciesResolved) {
+      console.warn("Dependencies not resolved");
       return;
     }
-
+    const actionStatus = action.value.status;
     const startNotRequired =
-      actionValue.status === "active" ||
-      actionValue.status === "success" ||
-      actionValue.status === "failed";
+      actionStatus === "active" ||
+      actionStatus === "success" ||
+      actionStatus === "failed";
 
     if (startNotRequired) {
+      console.warn("Already started");
       return;
     }
 
     if (runningPerformWorkAction.value) {
+      console.warn("running browser worker already...");
       return;
     }
 
@@ -77,7 +136,9 @@ export default component$(() => {
         run_id: workflowRunContext.value.workflow_run_id,
       });
 
-      action.value = startedAction!; // update the action value so that we can see that the worker is running in the UI
+      // given this is a task,
+      // the signals will not be updated until the task is complete :(
+      action.value = startedAction!;
 
       await new Promise<void>((resolve) => {
         // do some fake work
@@ -93,7 +154,7 @@ export default component$(() => {
       action.value = finishedAction!;
 
       workflowRunContext.value = {
-        ...workflowRunContext.value,
+        workflow_id: finishedAction.workflow_id,
         workflow_run_id: finishedAction!.workflow_run_id,
         last_action_run_id: finishedAction!.id,
       };
@@ -103,7 +164,7 @@ export default component$(() => {
   });
 
   const statusText = useComputed$(() => {
-    if (action.value?.status === "success") {
+    if (action.value.status === "success") {
       return "Completed";
     }
     if (action.value?.status === "failed") {
@@ -136,7 +197,15 @@ export default component$(() => {
         <strong>Updated:</strong> {lastUpdate.value?.toLocaleTimeString()}
       </div>
       <br />
-      <button onClick$={refreshStatus}>🔃 Refresh</button>
+      <button
+        onClick$={async () => {
+          if (workflowRunContext.value?.workflow_run_id) {
+            await refreshStatus(workflowRunContext.value);
+          }
+        }}
+      >
+        🔃 Refresh
+      </button>
     </div>
   );
 });

@@ -1,81 +1,132 @@
 import {
   $,
   component$,
+  useComputed$,
   useContext,
   useSignal,
   useTask$,
 } from "@builder.io/qwik";
-import { server$ } from "@builder.io/qwik-city";
-import { createSupabaseClient } from "~/supabase";
 import { getActionStatus } from "./server.getActionStatus";
 import type { WorkflowActionResponse } from "./server.getActionStatus";
-import { getLatestWorkflowRun } from "./server.getLatestWorkflowRun";
-import { startAction } from "./server.startAction";
+import { finishAction, startAction } from "./server.updateAction";
 import { WorkflowRunContext } from "~/components/workflows/run/context";
 
 export type WorkflowActionRequest = {
   workflow_id: number;
   run_id: number;
-  action_id: number;
 };
 
 const humanAction = 4;
+type ActionViewModel = Omit<
+  WorkflowActionResponse,
+  "workflow_run_id" | "id"
+> & {
+  id: number | null;
+  workflow_run_id: number | null;
+};
 
-const doHumanWork = server$(async () => {
-  const latestRun = await getLatestWorkflowRun();
-  const startedAction = await startAction({
-    run_id: latestRun!.id,
-    action_id: humanAction,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  const db = createSupabaseClient();
-  const successAction = await db
-    .from("workflow_runs_actions")
-    .update({ status: "success" })
-    .eq("id", startedAction!.id)
-    .select("*")
-    .single()
-    .throwOnError();
-
-  return successAction.data!;
-});
+const initialActionViewModel: ActionViewModel = {
+  id: null,
+  workflow_run_id: null,
+  action_id: humanAction,
+  dependenciesResolved: false,
+  status: "pending",
+};
 
 /**
  * @description Given a workflow and action id, this component will wait for a workflow action to become "pending" and then it will run.
  */
 export default component$(() => {
   const workflowRunContext = useContext(WorkflowRunContext);
-  const action = useSignal<WorkflowActionResponse | null>(null);
-  const lastUpdate = useSignal<Date | null>(null);
+  const action = useSignal<ActionViewModel>(initialActionViewModel);
+  const lastUpdate = useSignal<Date>(new Date());
 
-  const onClick = $(async () => {
-    const updatedAction = await doHumanWork();
-    workflowRunContext.value = {
-      ...workflowRunContext.value,
-      workflow_run_id: updatedAction.workflow_run_id,
-      last_action_run_id: updatedAction.id,
-    };
-  });
+  const fetchLatestStatus = $(
+    async (context: (typeof workflowRunContext)["value"]) => {
+      console.log(
+        "workflowRunContext update. About to update human worker status",
+      );
 
-  const handleRefresh = $(async () => {
-    if (workflowRunContext.value.workflow_run_id) {
+      if (!context) {
+        console.warn("No workflow run context found");
+        return;
+      }
+
+      if (!context?.workflow_id) {
+        console.warn("Missing workflow id within human worker task");
+        return;
+      }
+
+      if (!context?.workflow_run_id) {
+        console.warn("Missing workflow run id within human worker task");
+        return;
+      }
+
       const result = await getActionStatus({
-        workflow_id: workflowRunContext.value.workflow_id,
         action_id: humanAction,
-        workflow_run_id: workflowRunContext.value.workflow_run_id,
+        workflow_id: context.workflow_id,
+        workflow_run_id: context.workflow_run_id,
       });
 
-      action.value = result;
-    }
+      if (result) {
+        action.value = result;
+      } else {
+        action.value = initialActionViewModel;
+      }
 
-    lastUpdate.value = new Date();
-  });
+      lastUpdate.value = new Date();
+    },
+  );
 
   useTask$(async ({ track }) => {
     track(() => workflowRunContext.value);
-    await handleRefresh();
+    await fetchLatestStatus(workflowRunContext.value);
+  });
+
+  const statusText = useComputed$(() => {
+    if (action.value.status === "success") {
+      return "Success";
+    }
+
+    if (action.value.status === "active") {
+      return "Active";
+    }
+
+    return "pending";
+  });
+
+  const doHumanWork = $(async (run_id: number) => {
+    const startedAction = await startAction({
+      run_id,
+      action_id: humanAction,
+    });
+
+    action.value = startedAction;
+
+    workflowRunContext.value = {
+      workflow_id: startedAction.workflow_id,
+      workflow_run_id: run_id,
+      last_action_run_id: startedAction.id,
+    };
+
+    console.log("Finished start action");
+    console.dir(workflowRunContext.value);
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    const finishedAction = await finishAction({
+      action_run_id: action.value.id!,
+    });
+
+    action.value = finishedAction;
+    workflowRunContext.value = {
+      workflow_id: finishedAction.workflow_id,
+      workflow_run_id: finishedAction.workflow_run_id,
+      last_action_run_id: finishedAction.id,
+    };
+
+    console.log("Finished finish action");
+    console.dir(workflowRunContext.value);
   });
 
   return (
@@ -91,16 +142,35 @@ export default component$(() => {
       </div>
       <br />
       <div>
-        <strong>Status:</strong> {action.value?.status}
+        <strong>Status:</strong> {statusText.value}
       </div>
       <div>
-        <strong>Updated:</strong> {lastUpdate.value?.toLocaleTimeString()}
+        <strong>Updated:</strong> {lastUpdate.value.toLocaleString()}
       </div>
       <br />
       <div>
-        <button onClick$={onClick}>✅ Perform Manual Action</button>
+        <button
+          onClick$={async () => {
+            const context = workflowRunContext.value;
+            if (!context?.workflow_run_id) {
+              console.warn(
+                "No workflow run instance was found. Start new workflow first.",
+              );
+              return;
+            }
+            await doHumanWork(context.workflow_run_id!);
+          }}
+        >
+          ✅ Perform Manual Action
+        </button>
         <span> </span>
-        <button onClick$={handleRefresh}>🔃 Refresh</button>
+        <button
+          onClick$={async () => {
+            await fetchLatestStatus(workflowRunContext.value);
+          }}
+        >
+          🔃 Refresh
+        </button>
       </div>
     </div>
   );

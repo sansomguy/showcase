@@ -1,15 +1,19 @@
 import { server$ } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
 
-export type WorkflowStartActionResponse = {
+export type WorkflowUpdateActionResponse = {
   id: number;
-  status: string;
+  status: number;
+  action_id: number;
+  workflow_id: number;
+  workflow_run_id: number;
   dependenciesResolved: boolean;
 };
 
 export const startAction = server$(
   async ({ run_id, action_id }: { run_id: number; action_id: number }) => {
     const db = createSupabaseClient();
+
     const result = await db
       .from("workflow_runs_actions")
       .upsert({
@@ -17,14 +21,20 @@ export const startAction = server$(
         workflow_action_id: action_id,
         status: "active",
       })
-      .select("*")
+      .select(
+        "*, workflow_action: workflow_actions!inner(*), workflow_run: workflow_runs!inner(*)",
+      )
       .single()
       .throwOnError();
 
     return {
-      ...result.data!,
+      id: result.data!.id,
+      status: result.data!.status,
+      action_id: result.data!.workflow_action_id,
+      workflow_id: result.data!.workflow_run.workflow_id,
+      workflow_run_id: result.data!.workflow_run_id!,
       dependenciesResolved: true,
-    } satisfies WorkflowStartActionResponse;
+    };
   },
 );
 
@@ -43,9 +53,10 @@ export const finishAction = server$(
 
     return {
       id: result.data!.id,
-      action_id: result.data!.workflow_action.id,
-      workflow_run_id: result.data!.workflow_run.id,
-      status: "success",
+      status: result.data!.status,
+      action_id: result.data!.workflow_action_id,
+      workflow_id: result.data!.workflow_run.workflow_id,
+      workflow_run_id: result.data!.workflow_run_id!,
       dependenciesResolved: true,
     };
   },

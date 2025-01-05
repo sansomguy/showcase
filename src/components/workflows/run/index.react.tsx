@@ -21,7 +21,7 @@ import "~/components/workflows/styles.css";
 
 import { Process } from "../nodes/process";
 import { Start } from "../nodes/start";
-import { GetNodesAndEdgesForRunResponse } from "../server.getNodesAndEdges";
+import type { GetNodesAndEdgesForRunResponse } from "../server.getNodesAndEdges";
 
 // eslint-disable-next-line qwik/loader-location
 

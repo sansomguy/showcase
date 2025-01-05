@@ -1,7 +1,6 @@
-import { server$ } from "@builder.io/qwik-city";
+import { server$, z } from "@builder.io/qwik-city";
 import { createSupabaseClient } from "~/supabase";
-import type { GetLatestWorkflowRunResponse } from "./server.getLatestWorkflowRun";
-import { getLatestWorkflowRun } from "./server.getLatestWorkflowRun";
+import type { GetWorkflowRunResponse } from "./server.getWorkflowRun";
 import { getWorkflowRun } from "./server.getWorkflowRun";
 import type { Database } from "~/supabase/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -9,46 +8,35 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 type WorkflowTransition =
   Database["public"]["Tables"]["workflow_transitions"]["Row"];
 
-export type WorkflowActionRequest = {
-  workflow_id: number;
-  action_id: number;
-  workflow_run_id: number | null; // when not specified, will respond based on latest run
-};
+const workflowActionStatusRequest = z.object({
+  action_id: z.number(),
+  workflow_id: z.number(),
+  workflow_run_id: z.number(),
+});
+
+export type WorkflowActionRequest = z.infer<typeof workflowActionStatusRequest>;
 
 export type WorkflowActionResponse = {
-  id?: number;
-  action_id: number;
+  id: number;
   workflow_run_id: number;
+  action_id: number;
   status: string;
-  dependenciesResolved: boolean;
 };
 
 export const getActionStatus = server$(
-  async ({
-    action_id,
-    workflow_id,
-    workflow_run_id: run_id,
-  }: WorkflowActionRequest): Promise<WorkflowActionResponse | null> => {
+  async (
+    request: WorkflowActionRequest,
+  ): Promise<WorkflowActionResponse | null> => {
     const db = createSupabaseClient();
 
-    const workflowRun = run_id
-      ? await getWorkflowRun({ run_id })
-      : await getLatestWorkflowRun();
+    const { action_id, workflow_run_id } =
+      workflowActionStatusRequest.parse(request);
 
-    if (!workflowRun) {
-      console.warn("No workflow run found");
-      return null;
+    const workflowRun = await getWorkflowRun({ run_id: workflow_run_id });
+
+    if (!workflowRun.id) {
+      throw new Error(`Workflow run not found with id: ${workflow_run_id}`);
     }
-
-    const transitions = await findRequiredActionTransitions({
-      workflow_id,
-      action_id,
-      db,
-    });
-
-    const dependenciesResolved = transitions.every((transition) =>
-      isTransitionComplete({ workflowRun, transition }),
-    );
 
     const { data: actionRun } = await db
       .from("workflow_runs_actions")
@@ -60,12 +48,15 @@ export const getActionStatus = server$(
       .maybeSingle()
       .throwOnError();
 
+    if (!actionRun) {
+      return null;
+    }
+
     return {
-      id: actionRun?.id,
+      id: actionRun!.id,
+      status: actionRun!.status,
       workflow_run_id: workflowRun.id,
       action_id: action_id,
-      status: actionRun?.status ?? "unknown",
-      dependenciesResolved: dependenciesResolved,
     };
   },
 );
@@ -74,9 +65,13 @@ function isTransitionComplete({
   workflowRun,
   transition,
 }: {
-  workflowRun: GetLatestWorkflowRunResponse;
+  workflowRun: GetWorkflowRunResponse | null;
   transition: Pick<WorkflowTransition, "from_action_id">;
 }) {
+  if (!workflowRun) {
+    return false;
+  }
+
   const matchingAction = workflowRun.actions.find(
     (x) => x.workflow_action_id === transition.from_action_id,
   );
@@ -107,3 +102,30 @@ async function findRequiredActionTransitions({
 
   return data ?? [];
 }
+
+export async function checkIsActionDependenciesResolved(
+  request: WorkflowActionRequest,
+): Promise<boolean> {
+  const db = createSupabaseClient();
+
+  const { action_id, workflow_id, workflow_run_id } =
+    workflowActionStatusRequest.parse(request);
+
+  const workflowRun = await getWorkflowRun({ run_id: workflow_run_id });
+
+  const transitions = await findRequiredActionTransitions({
+    workflow_id,
+    action_id,
+    db,
+  });
+
+  const dependenciesResolved = transitions.every((transition) =>
+    isTransitionComplete({ workflowRun, transition }),
+  );
+
+  return dependenciesResolved;
+}
+
+export const getActionMissingDependencies = server$(
+  checkIsActionDependenciesResolved,
+);

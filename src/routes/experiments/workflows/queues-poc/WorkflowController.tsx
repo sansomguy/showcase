@@ -14,12 +14,12 @@ import getNodesAndEdges from "~/components/workflows/server.getNodesAndEdges";
 import type { WorkflowRunContextValue } from "~/components/workflows/run/context";
 import { WorkflowRunContext } from "~/components/workflows/run/context";
 import { QWorkflowVisualization } from "~/components/workflows/run/index.react";
-import { getLatestWorkflowRun } from "./server.getLatestWorkflowRun";
+import { getLatestWorkflowRun } from "./server.getWorkflowRun";
 
 const demoWorkflowId = 1;
 
 export default component$(() => {
-  const workflowRunContext = useSignal<WorkflowRunContextValue>({
+  const workflowRunContext = useSignal<WorkflowRunContextValue | null>({
     workflow_id: 1,
     workflow_run_id: null,
     last_action_run_id: null,
@@ -28,7 +28,7 @@ export default component$(() => {
   const nodesAndEdges = useSignal<GetNodesAndEdgesForRunResponse | null>(null);
 
   const fetchLatestNodesAndEdges = $(async () => {
-    const workflow_run_id = workflowRunContext.value.workflow_run_id;
+    const workflow_run_id = workflowRunContext.value?.workflow_run_id;
 
     const workflowSpecifier = workflow_run_id
       ? { workflow_run_id }
@@ -41,7 +41,16 @@ export default component$(() => {
 
   const setupInitialContext = $(async () => {
     // fetch latest workflow if it exists for this user
-    const workflowRun = await getLatestWorkflowRun();
+    const workflowRun = await getLatestWorkflowRun(demoWorkflowId);
+
+    if (!workflowRun) {
+      workflowRunContext.value = {
+        last_action_run_id: null,
+        workflow_id: demoWorkflowId,
+        workflow_run_id: null,
+      };
+      return;
+    }
 
     const earliestDate = new Date(0);
     const nullSafeDate = (date: string | null) =>
@@ -68,7 +77,7 @@ export default component$(() => {
   });
 
   useTask$(async ({ track }) => {
-    track(workflowRunContext);
+    track(() => workflowRunContext.value);
     await fetchLatestNodesAndEdges();
   });
 
