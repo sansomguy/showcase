@@ -1,13 +1,11 @@
 import {
   $,
   component$,
-  useComputed$,
+  Resource,
   useContext,
-  useSignal,
-  useTask$,
+  useResource$,
 } from "@builder.io/qwik";
 import { getActionStatus } from "./server.getActionStatus";
-import type { WorkflowActionResponse } from "./server.getActionStatus";
 import { finishAction, startAction } from "./server.updateAction";
 import { WorkflowRunContext } from "~/components/workflows/run/context";
 
@@ -17,82 +15,44 @@ export type WorkflowActionRequest = {
 };
 
 const humanAction = 4;
-type ActionViewModel = Omit<
-  WorkflowActionResponse,
-  "workflow_run_id" | "id"
-> & {
-  id: number | null;
-  workflow_run_id: number | null;
-};
-
-const initialActionViewModel: ActionViewModel = {
-  id: null,
-  workflow_run_id: null,
-  action_id: humanAction,
-  dependenciesResolved: false,
-  status: "pending",
-};
 
 /**
  * @description Given a workflow and action id, this component will wait for a workflow action to become "pending" and then it will run.
  */
 export default component$(() => {
   const workflowRunContext = useContext(WorkflowRunContext);
-  const action = useSignal<ActionViewModel>(initialActionViewModel);
-  const lastUpdate = useSignal<Date>(new Date());
 
-  const fetchLatestStatus = $(
-    async (context: (typeof workflowRunContext)["value"]) => {
-      console.log(
-        "workflowRunContext update. About to update human worker status",
-      );
-
-      if (!context) {
-        console.warn("No workflow run context found");
-        return;
-      }
-
-      if (!context?.workflow_id) {
-        console.warn("Missing workflow id within human worker task");
-        return;
-      }
-
-      if (!context?.workflow_run_id) {
-        console.warn("Missing workflow run id within human worker task");
-        return;
-      }
-
-      const result = await getActionStatus({
-        action_id: humanAction,
-        workflow_id: context.workflow_id,
-        workflow_run_id: context.workflow_run_id,
-      });
-
-      if (result) {
-        action.value = result;
-      } else {
-        action.value = initialActionViewModel;
-      }
-
-      lastUpdate.value = new Date();
-    },
-  );
-
-  useTask$(async ({ track }) => {
+  const fetchLatestStatusResource = useResource$(async ({ track }) => {
     track(() => workflowRunContext.value);
-    await fetchLatestStatus(workflowRunContext.value);
-  });
+    console.log(
+      "workflowRunContext update. About to update human worker status",
+    );
 
-  const statusText = useComputed$(() => {
-    if (action.value.status === "success") {
-      return "Success";
+    const context = workflowRunContext.value;
+
+    if (!context) {
+      console.warn("No workflow run context found");
+      return;
     }
 
-    if (action.value.status === "active") {
-      return "Active";
+    if (!context.workflow_id) {
+      console.warn("Missing workflow id within human worker task");
+      return;
     }
 
-    return "pending";
+    if (!context.workflow_run_id) {
+      console.warn("Missing workflow run id within human worker task");
+      return;
+    }
+
+    const result = await getActionStatus({
+      action_id: humanAction,
+      workflow_id: context.workflow_id,
+      workflow_run_id: context.workflow_run_id,
+    });
+    if (result) {
+      return result;
+    }
   });
 
   const doHumanWork = $(async (run_id: number) => {
@@ -101,32 +61,25 @@ export default component$(() => {
       action_id: humanAction,
     });
 
-    action.value = startedAction;
-
     workflowRunContext.value = {
       workflow_id: startedAction.workflow_id,
       workflow_run_id: run_id,
       last_action_run_id: startedAction.id,
+      last_action_update: new Date(),
     };
 
-    console.log("Finished start action");
-    console.dir(workflowRunContext.value);
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const finishedAction = await finishAction({
-      action_run_id: action.value.id!,
+      action_run_id: startedAction.id!,
     });
 
-    action.value = finishedAction;
     workflowRunContext.value = {
       workflow_id: finishedAction.workflow_id,
       workflow_run_id: finishedAction.workflow_run_id,
       last_action_run_id: finishedAction.id,
+      last_action_update: new Date(),
     };
-
-    console.log("Finished finish action");
-    console.dir(workflowRunContext.value);
   });
 
   return (
@@ -141,13 +94,26 @@ export default component$(() => {
         </div>
       </div>
       <br />
-      <div>
-        <strong>Status:</strong> {statusText.value}
-      </div>
-      <div>
-        <strong>Updated:</strong> {lastUpdate.value.toLocaleString()}
-      </div>
+      <Resource
+        value={fetchLatestStatusResource}
+        onPending={() => "...loading"}
+        onResolved={(action) => {
+          return (
+            <>
+              <div>
+                <strong>Status:</strong> {action?.status ?? "Pending"}
+              </div>
+              <div>
+                <strong>Updated:</strong>{" "}
+                {workflowRunContext.value?.last_action_update?.toLocaleTimeString()}
+              </div>
+            </>
+          );
+        }}
+      />
+
       <br />
+
       <div>
         <button
           onClick$={async () => {
@@ -166,7 +132,12 @@ export default component$(() => {
         <span> </span>
         <button
           onClick$={async () => {
-            await fetchLatestStatus(workflowRunContext.value);
+            workflowRunContext.value = workflowRunContext.value
+              ? {
+                  ...workflowRunContext.value,
+                  last_action_update: new Date(),
+                }
+              : workflowRunContext.value;
           }}
         >
           🔃 Refresh

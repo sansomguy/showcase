@@ -23,6 +23,7 @@ export default component$(() => {
     workflow_id: 1,
     workflow_run_id: null,
     last_action_run_id: null,
+    last_action_update: new Date(),
   });
   useContextProvider(WorkflowRunContext, workflowRunContext);
   const nodesAndEdges = useSignal<GetNodesAndEdgesForRunResponse | null>(null);
@@ -48,6 +49,7 @@ export default component$(() => {
         last_action_run_id: null,
         workflow_id: demoWorkflowId,
         workflow_run_id: null,
+        last_action_update: new Date(),
       };
       return;
     }
@@ -69,6 +71,7 @@ export default component$(() => {
       workflow_id: workflowRun.workflow_id,
       workflow_run_id: workflowRun.id,
       last_action_run_id,
+      last_action_update: new Date(),
     };
   });
 
