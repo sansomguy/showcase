@@ -11,7 +11,13 @@ export type WorkflowUpdateActionResponse = {
 };
 
 export const startAction = server$(
-  async ({ run_id, action_id }: { run_id: number; action_id: number }) => {
+  async ({
+    workflow_run_id: run_id,
+    action_id,
+  }: {
+    workflow_run_id: number;
+    action_id: number;
+  }) => {
     const db = createSupabaseClient();
 
     const result = await db
