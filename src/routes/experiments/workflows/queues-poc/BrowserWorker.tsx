@@ -57,7 +57,7 @@ export default component$(() => {
   useVisibleTask$(async ({ track, cleanup }) => {
     track(() => workflowRunContext.value);
     const abortController = new AbortController();
-    cleanup(() => abortController.abort());
+    cleanup(() => abortController.abort("retriggered"));
     const context = workflowRunContext.value;
 
     if (!context) {
