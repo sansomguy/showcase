@@ -11,12 +11,15 @@ importers:
       '@dagrejs/dagre':
         specifier: ^1.1.4
         version: 1.1.4
+      '@tsconfig/node20':
+        specifier: ^20.1.4
+        version: 20.1.4
       '@xyflow/react':
         specifier: ^12.3.0
         version: 12.3.0(@types/react@18.3.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       sst:
-        specifier: ^3.1.31
-        version: 3.1.31
+        specifier: 3.5.7
+        version: 3.5.7
       supabase:
         specifier: ^1.192.5
         version: 1.192.5
@@ -42,9 +45,6 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.44.4
         version: 2.45.3
-      '@tsconfig/node18':
-        specifier: ^18.2.4
-        version: 18.2.4
       '@types/compression':
         specifier: ^1.7.2
         version: 1.7.5
@@ -633,8 +633,8 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
-  '@tsconfig/node18@18.2.4':
-    resolution: {integrity: sha512-5xxU8vVs9/FNcvm3gE07fPbn9tl6tqGGWA9tSlwsUEkBxtRnTsNmwrV8gasZ9F/EobaSv9+nu8AxUKccw77JpQ==}
+  '@tsconfig/node20@20.1.4':
+    resolution: {integrity: sha512-sqgsT69YFeLWf5NtJ4Xq/xAF8p4ZQHlmGW74Nu2tD4+g5fAsposc4ZfaaPixVu4y01BEiDCWLRDCvDM5JOsRxg==}
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -2229,42 +2229,34 @@ packages:
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
 
-  sst-darwin-arm64@3.1.31:
-    resolution: {integrity: sha512-cXm0ql/6mqqzxhYu6vri6XHGfNXHXgo/lKV3T1mqZmlaNA0+3D3+BySRwkKgDNrzVqwrTz332YuMXSlhKp0xpA==}
+  sst-darwin-arm64@3.5.7:
+    resolution: {integrity: sha512-wrWiOyp/gJQFmKhYgcqXP06SQlksVIFXzFK8x7F+67nJ/TmTXBy4VU8fyHAeQHRUcAI4daVmkz+0gsuxRW3oGQ==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.1.31:
-    resolution: {integrity: sha512-b8pD1vGkD9OylWquHuXDwo+t/xOy1QtAyR7iVjatc8T4EfPTQP1pst64jgqZnYWbKtvigRmpwKthZpg3zXQqgQ==}
+  sst-darwin-x64@3.5.7:
+    resolution: {integrity: sha512-+R+mwqeGGNNTn5o5iKBER9lCug2FtcrBwyfyHOYR3nv9kzR9zyEgs7ca0jXM8Il9iT75+n7P46dnCg7Gti5sdw==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.1.31:
-    resolution: {integrity: sha512-AsGvLNbKrhXbp/mu3uKcWHxISHKvuKmphDUW04RTk6G7LlOKhh81fw+Q1u40tDsoHJKCPTddXCDvNRp0CzIXBQ==}
+  sst-linux-arm64@3.5.7:
+    resolution: {integrity: sha512-7AFVeC/b/kove5Bnu1FZKnPaXpBpz5fnMdqdXImw1Wdl0LHnC2yQBPNOtyS8IaVNts0ybmbeUNbT9OXV0ko0gg==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.1.31:
-    resolution: {integrity: sha512-moPIJ5OqkaOwXrWnzvBwLo+srR7+CWrmmyylBQs7n+fwTnQF+RySy2+RnguUicNXbBXhCvO6gIBXt8jpY36m9A==}
+  sst-linux-x64@3.5.7:
+    resolution: {integrity: sha512-5tB52rhbe5qCXop7Y1ihhIVcjwJSBHzXexBId8AXRdEbhYovolVsvY2HMDDnHplFgh2L3dEYpszj4y5297Gplw==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.1.31:
-    resolution: {integrity: sha512-VUEpqY7XJY8dvyKfDi+l6WffYSDISIzQJhYB6FjKi9uTRbqy4LulzR1ldntFunFJhrXIFYgW2ZKnX13WOAwtmg==}
+  sst-linux-x86@3.5.7:
+    resolution: {integrity: sha512-dLOZEKu5Kdf9FTvWrdaqQ9w5yBm632VlxqL4iQ5Fah4lpHLOrL7ia/4H/NrFiUjSTESYZOzvp8ddpQMP5MzmAg==}
     cpu: [x86]
     os: [linux]
 
-  sst@3.1.31:
-    resolution: {integrity: sha512-ncHsE1zSXcPh/cuFU6VfCeZEsJ8o3QRHzZbVIpVSm9a0vbGuRq3yE+TC3+9Y3dTfh+IddbkOIeoFQA8x6FDUiw==}
+  sst@3.5.7:
+    resolution: {integrity: sha512-fBgSMFyV1NeDlfix7YqiI9PJzOGF2ObsTs7bTkNswqzRzuoGZILxnvxYGmMKX+371DvKKnb9LbgKCHX0c+GmUA==}
     hasBin: true
-    peerDependencies:
-      hono: 4.x
-      valibot: 0.30.x
-    peerDependenciesMeta:
-      hono:
-        optional: true
-      valibot:
-        optional: true
 
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
@@ -3114,7 +3106,7 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
-  '@tsconfig/node18@18.2.4': {}
+  '@tsconfig/node20@20.1.4': {}
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -5155,32 +5147,32 @@ snapshots:
 
   space-separated-tokens@2.0.2: {}
 
-  sst-darwin-arm64@3.1.31:
+  sst-darwin-arm64@3.5.7:
     optional: true
 
-  sst-darwin-x64@3.1.31:
+  sst-darwin-x64@3.5.7:
     optional: true
 
-  sst-linux-arm64@3.1.31:
+  sst-linux-arm64@3.5.7:
     optional: true
 
-  sst-linux-x64@3.1.31:
+  sst-linux-x64@3.5.7:
     optional: true
 
-  sst-linux-x86@3.1.31:
+  sst-linux-x86@3.5.7:
     optional: true
 
-  sst@3.1.31:
+  sst@3.5.7:
     dependencies:
       aws4fetch: 1.0.20
       jose: 5.2.3
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.1.31
-      sst-darwin-x64: 3.1.31
-      sst-linux-arm64: 3.1.31
-      sst-linux-x64: 3.1.31
-      sst-linux-x86: 3.1.31
+      sst-darwin-arm64: 3.5.7
+      sst-darwin-x64: 3.5.7
+      sst-linux-arm64: 3.5.7
+      sst-linux-x64: 3.5.7
+      sst-linux-x86: 3.5.7
 
   stackback@0.0.2: {}
 

@@ -103,28 +103,28 @@ async function findRequiredActionTransitions({
   return data ?? [];
 }
 
-export async function checkIsActionDependenciesResolved(
-  request: WorkflowActionRequest,
-): Promise<boolean> {
-  const db = createSupabaseClient();
+export const checkIsActionDependenciesResolved = server$(
+  async (request: WorkflowActionRequest) => {
+    const db = createSupabaseClient();
 
-  const { action_id, workflow_id, workflow_run_id } =
-    workflowActionStatusRequest.parse(request);
+    const { action_id, workflow_id, workflow_run_id } =
+      workflowActionStatusRequest.parse(request);
 
-  const workflowRun = await getWorkflowRun({ run_id: workflow_run_id });
+    const workflowRun = await getWorkflowRun({ run_id: workflow_run_id });
 
-  const transitions = await findRequiredActionTransitions({
-    workflow_id,
-    action_id,
-    db,
-  });
+    const transitions = await findRequiredActionTransitions({
+      workflow_id,
+      action_id,
+      db,
+    });
 
-  const dependenciesResolved = transitions.every((transition) =>
-    isTransitionComplete({ workflowRun, transition }),
-  );
+    const dependenciesResolved = transitions.every((transition) =>
+      isTransitionComplete({ workflowRun, transition }),
+    );
 
-  return dependenciesResolved;
-}
+    return dependenciesResolved;
+  },
+);
 
 export const getActionMissingDependencies = server$(
   checkIsActionDependenciesResolved,

@@ -31,5 +31,5 @@ export const handler = serverless(
   {
     handle,
   },
-  { binary: true, provider: "aws" }
+  { binary: true, provider: "aws" },
 );

@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
-import { Resource } from "sst";
 import type { Database } from "./types";
+import { Resource } from "sst";
 
 export function createSupabaseClient() {
   const supabaseUrl = "https://rzoqdvamntfrabpvvnsp.supabase.co";

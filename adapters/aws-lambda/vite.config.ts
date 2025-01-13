@@ -8,7 +8,7 @@ export default extendConfig(baseConfig, () => {
   return {
     ssr: {
       // This configuration will bundle all dependencies, except the node builtins (path, fs, etc.)
-      external: [...builtinModules],
+      external: ['sst', ...builtinModules],
       noExternal: /./
     },
     build: {
@@ -22,7 +22,7 @@ export default extendConfig(baseConfig, () => {
 
         ssg: {
           origin: Resource.App.stage === "production" ? "https://www.joshs.au" : "https://dev.joshs.au",
-          include: ["/*/posts/*", "/experiments/caching/ssg"],
+          include: ["/blog/*", "/experiments/caching/ssg"],
         },
       }),
     ],

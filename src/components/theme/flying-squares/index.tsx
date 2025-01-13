@@ -25,9 +25,9 @@ export default component$(() => {
       const updateDelta = timeUpdate + Math.abs(scrollUpdate.value);
       updateSquares(squares, updateDelta, controlPoint, latestDestinationPoint);
       scrollUpdate.value = 0;
-      //requestAnimationFrame(update);
+      requestAnimationFrame(update);
     }
-    //requestAnimationFrame(update);
+    requestAnimationFrame(update);
   });
 
   useOnDocument(

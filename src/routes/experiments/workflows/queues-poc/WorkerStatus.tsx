@@ -24,9 +24,21 @@ export default component$(
     const workflowRunContext = useContext(WorkflowRunContext);
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(async ({ track, cleanup }) => {
+    useVisibleTask$(({ track }) => {
       track(manualUpdate);
-      track(workflowRunContext);
+      const current = workflowRunContext.value;
+
+      if (!current) return;
+
+      workflowRunContext.value = {
+        ...current,
+        last_action_update: new Date(),
+      };
+    });
+
+    // eslint-disable-next-line qwik/no-use-visible-task
+    useVisibleTask$(async ({ track, cleanup }) => {
+      track(() => workflowRunContext.value);
 
       console.log("Running resource: " + manualUpdate.value);
 

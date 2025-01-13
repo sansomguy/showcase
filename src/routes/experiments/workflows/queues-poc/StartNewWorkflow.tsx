@@ -53,6 +53,8 @@ export default component$(() => {
             workflowRunContext.value = {
               workflow_id: newWorkflowRun.workflow_id,
               workflow_run_id: newWorkflowRun.id,
+              last_action_update:
+                workflowRunContext.value?.last_action_update ?? null,
               last_action_run_id: null,
             };
 

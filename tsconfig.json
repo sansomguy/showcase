@@ -1,25 +1,24 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "lib": ["es2022", "DOM", "WebWorker", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "jsxImportSource": "@builder.io/qwik",
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "target": "ES2018",
+    "jsxImportSource": "@builder.io/qwik",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "incremental": true,
-    "isolatedModules": true,
+    "moduleResolution": "bundler",
     "outDir": "tmp",
-    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": true,
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": [
+        "./src/*",
+        "./src/*.d.ts",
+        "./src/*.{ts,tsx}",
+        "./src/*/index.{ts,tsx}"
+      ]
     }
   },
-  "include": ["./src", "./*.d.ts", "./*.config.ts"]
+  "include": ["./src", "./sst-env.d.ts", "./qwik.env.d.ts"]
 }

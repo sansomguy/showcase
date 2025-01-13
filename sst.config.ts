@@ -1,9 +1,11 @@
+/// <reference path="./.sst/platform/config.d.ts" />
+
 export default $config({
   app(input) {
     return {
       name: "showcase-qwik",
       home: "aws",
-      removal: input?.stage === "production" ? "retain" : "remove",
+      removal: input.stage === "production" ? "retain" : "remove",
       providers: {
         aws: {
           region: "ap-southeast-2",
