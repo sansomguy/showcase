@@ -8,7 +8,7 @@ export default extendConfig(baseConfig, () => {
   return {
     ssr: {
       // This configuration will bundle all dependencies, except the node builtins (path, fs, etc.)
-      external: ['sst', ...builtinModules],
+      external: [...builtinModules],
       noExternal: /./
     },
     build: {
