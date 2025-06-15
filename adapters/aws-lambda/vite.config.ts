@@ -19,7 +19,6 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [
       nodeServerAdapter({
-
         ssg: {
           origin: Resource.App.stage === "production" ? "https://www.joshs.au" : "https://dev.joshs.au",
           include: ["/blog/*", "/experiments/caching/ssg"],

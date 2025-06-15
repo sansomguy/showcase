@@ -81,3 +81,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .build
+
+# AWS-lambda
+.serverless

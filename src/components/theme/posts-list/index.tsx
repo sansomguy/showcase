@@ -21,13 +21,13 @@ export default component$((props: { posts: Array<BlogPost> }) => {
         <article
           key={post.id}
           onClick$={() => {
-            if (canNavigate(post)) {
+            if (isLive(post)) {
               navigate(post.href);
             }
           }}
         >
           <strong>
-            {canNavigate(post) ? (
+            {isLive(post) ? (
               <div class="posts-list__title">
                 <NavLink href={post.href} activeClass="current">
                   {post.title}
@@ -47,6 +47,6 @@ export default component$((props: { posts: Array<BlogPost> }) => {
   );
 });
 
-function canNavigate(post: BlogPost) {
+function isLive(post: BlogPost) {
   return post.status === "LIVE";
 }

@@ -26,13 +26,14 @@ export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
       qwikCity({
-        rewriteRoutes: [
-          {
-            paths: {
-              "/": "/blog/"
-            }
+        // This is the entry point for the server-side rendering (SSR) build.
+        // It is used to generate the HTML for the initial page load.
+        rewriteRoutes: [{
+          paths: {
+            "/": "/blog/"
           }
-        ]
+        }],
+        trailingSlash: true
       }),
       qwikVite(),
       tsconfigPaths(),
