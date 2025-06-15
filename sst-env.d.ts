@@ -18,6 +18,10 @@ declare module "sst" {
       "type": "sst.aws.Function"
       "url": string
     }
+    "showcaseBlogPosts": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "showcaseRouter": {
       "type": "sst.aws.Router"
       "url": string

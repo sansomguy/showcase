@@ -38,13 +38,13 @@
     "build.types": "tsc --incremental --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.828.0",
     "@dagrejs/dagre": "^1.1.4",
     "@xyflow/react": "^12.3.0",
-    "sst": "3.5.7",
+    "sst": "3.17.5",
     "supabase": "^1.192.5"
   },
   "devDependencies": {
-    "@tsconfig/node20": "^20.1.4",
     "@builder.io/qwik": "^1.9.0",
     "@builder.io/qwik-city": "^1.9.0",
     "@builder.io/qwik-react": "^0.5.5",
@@ -52,6 +52,7 @@
     "@fontsource/ibm-plex-mono": "^5.0.13",
     "@notionhq/client": "^2.2.15",
     "@supabase/supabase-js": "^2.44.4",
+    "@tsconfig/node20": "^20.1.4",
     "@types/compression": "^1.7.2",
     "@types/eslint": "^8.56.10",
     "@types/node": "^18.0.0",

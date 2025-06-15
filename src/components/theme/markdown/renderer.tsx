@@ -1,12 +1,23 @@
 import { marked } from "marked";
-import { type BuiltinLanguage, createHighlighter } from "shiki";
+import type {
+  BuiltinLanguage,
+  BundledLanguage,
+  BundledTheme,
+  HighlighterGeneric,
+} from "shiki";
+import { createHighlighter } from "shiki";
 import theme from "shiki/themes/dark-plus.mjs";
 
+let highlighter: HighlighterGeneric<BundledLanguage, BundledTheme>;
+
 export async function renderToHtml(markdown: string) {
-  const highlighter = await createHighlighter({
-    themes: [theme],
-    langs: ["javascript", "typescript", "html", "python"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!highlighter) {
+    highlighter = await createHighlighter({
+      themes: [theme],
+      langs: ["typescript", "javascript", "html", "css", "json"],
+    });
+  }
 
   marked.use({
     renderer: {

@@ -8,7 +8,7 @@ export const NavLink = component$(({ activeClass, ...props }: NavLinkProps) => {
   const linkPathName =
     (props.href &&
       ensureConsistentStructure(
-        new URL(props.href, location.url.origin).pathname
+        new URL(props.href, location.url.origin).pathname,
       )) ||
     "";
 
@@ -20,27 +20,27 @@ export const NavLink = component$(({ activeClass, ...props }: NavLinkProps) => {
   return (
     <Link
       {...props}
-      class={`${props.class || ""} ${isActive || isParentLink ? activeClass ?? "current" : ""} ${!isActive && isParentLink ? "parent" : ""}`}
+      class={`${props.class || ""} ${isActive || isParentLink ? (activeClass ?? "current") : ""} ${!isActive && isParentLink ? "parent" : ""}`}
     >
       <Slot />
     </Link>
   );
 });
 
-function removeStartingSlash(pathname: string) {
+function ensureStartingSlash(pathname: string) {
   if (!pathname.startsWith("/")) {
     return `/${pathname}`;
   }
   return pathname;
 }
 
-function removeTrailingSlash(pathname: string) {
+function ensureTrailingSlash(pathname: string) {
   if (!pathname.endsWith("/")) {
-    return pathname;
+    return `${pathname}/`;
   }
-  return pathname.slice(0, -1);
+  return pathname;
 }
 
 function ensureConsistentStructure(pathname: string) {
-  return removeTrailingSlash(removeStartingSlash(pathname));
+  return ensureTrailingSlash(ensureStartingSlash(pathname));
 }

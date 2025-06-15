@@ -21,6 +21,7 @@ export default component$(() => {
     }
     .get-in-touch button {
       color: var(--color-text);
+      width: 100%;
     }
   `);
   const subscribeAction = useSubscribe();
@@ -66,9 +67,9 @@ export default component$(() => {
           <br />
           <hr />
 
-          {subscribeAction.value?.error ? (
+          {/* {subscribeAction.value?.error ? (
             <div class="notice">{subscribeAction.value.error}</div>
-          ) : null}
+          ) : null} */}
           <Form action={subscribeAction}>
             <input name="email" type="email" placeholder="Your email address" />
             <label for="email">

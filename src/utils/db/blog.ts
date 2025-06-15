@@ -1,6 +1,11 @@
-import type { Database } from "~/supabase/types";
 import type { RequestEvent } from "@builder.io/qwik-city";
-import { createSupabaseClient } from "~/supabase";
+import type { AttributeValue } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBClient,
+  QueryCommand,
+  ScanCommand,
+} from "@aws-sdk/client-dynamodb";
+import { Resource } from "sst";
 
 export const categories = [
   "Projects",
@@ -40,34 +45,30 @@ export class Blog {
     private readonly context: Pick<RequestEvent, "env" | "sharedMap">,
   ) {}
   async getPosts(category?: BlogCategory): Promise<Array<BlogPost>> {
-    const request = this.fetch();
-    if (category) {
-      request.eq("category", category);
-    }
-    request.order("order", { ascending: false });
-    request.throwOnError();
+    console.group("getPosts");
+    const posts = await getBlogPostsFromDynamoDB();
+    console.log(`Returned ${posts.length} from DB`);
+    const result = posts.map(this.mapToBlogPost);
+    const filteredByCategory = result
+      .filter((blogs) => blogs.status === "LIVE")
+      .filter((x) => !category || x.category === category);
 
-    const { data: pages } = await request;
-    return pages?.map(this.mapToBlogPost) ?? [];
+    console.log(`Filtered ${result.length} posts for category ${category}`);
+    console.groupEnd();
+    return filteredByCategory;
   }
 
-  async getPost(id: string): Promise<BlogPost> {
-    const { data: page } = await this.fetch()
-      .eq("id", id)
-      .eq("status", "LIVE")
-      .single()
-      .throwOnError();
+  async getPost(id: string): Promise<BlogPost | null> {
+    const page = await getBlobPostFromDynamoDB(id);
 
-    return this.mapToBlogPost(page!);
+    return page ? this.mapToBlogPost(page as any) : null;
   }
 
   getCategories() {
     return Promise.resolve(["Projects", "Thoughts"]);
   }
 
-  private mapToBlogPost(
-    post: Database["public"]["Tables"]["notion_pages"]["Row"],
-  ): BlogPost {
+  private mapToBlogPost(post: DBBlogPost): BlogPost {
     return {
       ...post!,
       status: post.status as BlogStatus,
@@ -76,12 +77,50 @@ export class Blog {
       summary: post.summary || "",
       content: post.content || "",
       category: post.category! as BlogCategory,
-      href: `/blog/${post.category!.toLowerCase()}/posts/${post.id}`,
+      href: `/blog/${post.category!.toLowerCase()}/posts/${post.id}/`, // trailiing slashe is important for routing
     };
   }
+}
 
-  private fetch() {
-    const db = createSupabaseClient();
-    return db.from("notion_pages").select("*").throwOnError();
+async function getBlogPostsFromDynamoDB() {
+  const client = new DynamoDBClient();
+  const posts = await client.send(
+    new ScanCommand({
+      TableName: Resource.showcaseBlogPosts.name,
+    }),
+  );
+
+  if (!posts.Items) {
+    return [];
   }
+
+  const result = posts.Items.map(mapFromDynamoRow).filter(
+    (x) => x.status === "LIVE",
+  );
+
+  return result;
+}
+
+async function getBlobPostFromDynamoDB(id: string) {
+  const client = new DynamoDBClient();
+  const command = new QueryCommand({
+    TableName: Resource.showcaseBlogPosts.name,
+    KeyConditionExpression: "id = :id",
+    ExpressionAttributeValues: {
+      ":id": { S: id },
+    },
+  });
+  const result = await client.send(command);
+
+  const itemForId = result.Items?.map(mapFromDynamoRow) ?? [];
+
+  return itemForId.length > 0 ? itemForId[0] : null;
+}
+
+function mapFromDynamoRow(row: Record<string, AttributeValue>): DBBlogPost {
+  const result = Object.fromEntries(
+    Object.entries(row).map(([key, value]) => [key, value.S] as const),
+  ) as DBBlogPost;
+
+  return result;
 }

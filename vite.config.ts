@@ -25,7 +25,15 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
-      qwikCity(),
+      qwikCity({
+        rewriteRoutes: [
+          {
+            paths: {
+              "/": "/blog/"
+            }
+          }
+        ]
+      }),
       qwikVite(),
       tsconfigPaths(),
       imagetools(),

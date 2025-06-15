@@ -4,6 +4,7 @@ import {
   type DocumentHead,
   type StaticGenerateHandler,
 } from "@builder.io/qwik-city";
+import { ServerError } from "@builder.io/qwik-city/middleware/request-handler";
 import { renderToHtml } from "~/components/theme/markdown/renderer";
 import { Blog } from "~/utils/db/blog";
 import { formatDate } from "~/utils/format-date";
@@ -18,9 +19,15 @@ export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   };
 };
 
-export const usePostLoader = routeLoader$(async function (event) {
-  const blog = new Blog(event);
-  const page = await blog.getPost(event.params.id);
+export const usePostLoader = routeLoader$(async function (request) {
+  const blog = new Blog(request);
+  const page = await blog.getPost(request.params.id);
+  if (!page)
+    throw new ServerError(
+      404,
+      `Could not find blog post with id ${request.params.id}`,
+    );
+
   return {
     ...page!,
     content: page.content.length ? await renderToHtml(page.content) : "",
@@ -55,7 +62,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     description: page.summary,
     frontmatter: {
       breadcrumbs: [
-        { name: "Blog", link: "/" },
+        { name: "Blog", link: "/blog/" },
         {
           name: page.category,
           link: `/blog/${page.category.toLowerCase()}`,

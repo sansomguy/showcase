@@ -21,7 +21,7 @@ export default component$(() => {
     "resize",
     $(() => {
       navOpen.value = false;
-    })
+    }),
   );
 
   const toggleNavigation = $(() => {
@@ -62,7 +62,7 @@ export default component$(() => {
             </span>
           </NavLink>
           <NavLink
-            href={"/blog/projects"}
+            href={"/blog/projects/"}
             onClick$={handleNavigationClick}
             activeClass="current"
           >
@@ -74,7 +74,7 @@ export default component$(() => {
             </span>
           </NavLink>
           <NavLink
-            href={"/blog/thoughts"}
+            href={"/blog/thoughts/"}
             onClick$={handleNavigationClick}
             activeClass="current"
           >
