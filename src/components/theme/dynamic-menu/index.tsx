@@ -59,15 +59,15 @@ export default component$(() => {
         <nav>
           <div class="dynamic_menu__inner">
             <div class="dynamic_menu__main-links">
-              <NavLink href={"/"} accessKey="current">
+              <NavLink href={"/blog/"} accessKey="current">
                 Blog
               </NavLink>
 
-              <NavLink href={"/contact"} activeClass="current">
+              <NavLink href={"/contact/"} activeClass="current">
                 Contact
               </NavLink>
 
-              <NavLink href={"/experiments"} activeClass="current">
+              <NavLink href={"/experiments/"} activeClass="current">
                 Experiments
               </NavLink>
             </div>

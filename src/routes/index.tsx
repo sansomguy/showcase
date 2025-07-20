@@ -5,11 +5,9 @@ import { isDev } from "@builder.io/qwik";
 export const onGet: RequestHandler = async ({ redirect, url }) => {
   if (isDev) {
     // In development, redirect to the blog using the local URL
-    throw redirect(308, new URL("/blog/", url).toString());
+    redirect(308, new URL("/blog/", url).toString());
+    return;
   }
 
-  throw redirect(
-    308,
-    new URL("/blog/", Resource.showcaseRouter.url).toString(),
-  );
+  redirect(308, new URL("/blog/", Resource.showcaseRouter.url).toString());
 };
