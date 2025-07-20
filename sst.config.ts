@@ -18,6 +18,14 @@ export default $config({
     const supabaseKey = new sst.Secret("SupabaseKey"); // supabase account has been shutdown and using dynamodb instead
     const notionApiKey = new sst.Secret("NotionApiKey");
 
+    const email = new sst.aws.Email("showcaseEmailer", {
+      sender: "joshs.au",
+      dmarc: "v=DMARC1; p=quarantine; adkim=s; aspf=s;",
+      dns: sst.aws.dns({
+        zone: "Z045780229AFK28DHDD2",
+      }),
+    });
+
     const dynamoDbBlogPosts = new sst.aws.Dynamo("showcaseBlogPosts", {
       fields: {
         id: "string",
@@ -32,14 +40,7 @@ export default $config({
     // series: "string",
     // created: "string",
     // last_edited: "string",
-
-    const api = new sst.aws.Function("showcaseApi", {
-      link: [supabaseKey, notionApiKey, dynamoDbBlogPosts],
-      bundle: "./.build",
-      handler: "index.handler",
-      url: true,
-      live: false,
-    });
+    //
 
     const router = new sst.aws.Router("showcaseRouter", {
       domain:
@@ -51,16 +52,27 @@ export default $config({
               name: "joshs.au",
               redirects: ["www.joshs.au"],
             },
-
-      routes: {
-        "/*": api.url,
+      invalidation: {
+        paths: ["/*"],
       },
-      invalidation: true,
     });
+
+    const api = new sst.aws.Function("showcaseApi", {
+      link: [supabaseKey, notionApiKey, dynamoDbBlogPosts, router, email],
+      bundle: "./.build",
+      handler: "index.handler",
+      url: {
+        router: {
+          instance: router,
+        },
+      },
+      dev: false,
+    });
+
     return {
       outputs: {
-        api: api.url,
         router: router.url,
+        api: api.url,
       },
     };
   },

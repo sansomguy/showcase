@@ -50,7 +50,7 @@ export default component$(() => {
         </div>
         <nav>
           <NavLink
-            href={"/"}
+            href={"/blog/"}
             onClick$={handleNavigationClick}
             activeClass="current"
           >

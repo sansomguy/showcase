@@ -7,7 +7,7 @@ import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikReact } from "@builder.io/qwik-react/vite";
 import { FontaineTransform } from "fontaine";
 import { defineConfig, type UserConfig } from "vite";
-import {imagetools} from "vite-imagetools";
+import { imagetools } from "vite-imagetools";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 
@@ -26,14 +26,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
       qwikCity({
-        // This is the entry point for the server-side rendering (SSR) build.
-        // It is used to generate the HTML for the initial page load.
-        rewriteRoutes: [{
-          paths: {
-            "/": "/blog/"
-          }
-        }],
-        trailingSlash: true
+        trailingSlash: true,
       }),
       qwikVite(),
       tsconfigPaths(),

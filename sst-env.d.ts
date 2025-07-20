@@ -22,6 +22,11 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "showcaseEmailer": {
+      "configSet": string
+      "sender": string
+      "type": "sst.aws.Email"
+    }
     "showcaseRouter": {
       "type": "sst.aws.Router"
       "url": string
