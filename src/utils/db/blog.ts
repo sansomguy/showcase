@@ -45,9 +45,7 @@ export class Blog {
     private readonly context: Pick<RequestEvent, "env" | "sharedMap">,
   ) {}
   async getPosts(category?: BlogCategory): Promise<Array<BlogPost>> {
-    console.group("getPosts");
     const posts = await getBlogPostsFromDynamoDB();
-    console.log(`Returned ${posts.length} from DB`);
     const result = posts.map(this.mapToBlogPost);
     const filteredByCategory = result
       .filter((blogs) => blogs.status === "LIVE")
