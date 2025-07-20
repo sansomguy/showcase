@@ -9,7 +9,8 @@ export default extendConfig(baseConfig, () => {
     ssr: {
       // This configuration will bundle all dependencies, except the node builtins (path, fs, etc.)
       external: [...builtinModules],
-      noExternal: /./
+      noExternal: /./,
+      origin: Resource.App.stage === "prod" ? "https://www.joshs.au" : "https://dev.joshs.au",
     },
     build: {
       ssr: true,
@@ -20,7 +21,7 @@ export default extendConfig(baseConfig, () => {
     plugins: [
       nodeServerAdapter({
         ssg: {
-          origin: Resource.App.stage === "production" ? "https://www.joshs.au" : "https://dev.joshs.au",
+          origin: Resource.App.stage === "prod" ? "https://www.joshs.au" : "https://dev.joshs.au",
           include: ["/blog/*", "/experiments/caching/ssg"],
         },
       }),

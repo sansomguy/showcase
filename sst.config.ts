@@ -5,7 +5,7 @@ export default $config({
     return {
       name: "showcase-qwik",
       home: "aws",
-      removal: input.stage === "production" ? "retain" : "remove",
+      removal: input.stage === "prod" ? "retain" : "remove",
       providers: {
         aws: {
           region: "ap-southeast-2",
@@ -46,12 +46,13 @@ export default $config({
       domain:
         $app.stage === "sansomguy" // personal dev stage
           ? {
-              name: "dev.joshs.au",
-            }
+            name: "dev.joshs.au",
+          }
           : {
-              name: "joshs.au",
-              redirects: ["www.joshs.au"],
-            },
+            name: "joshs.au",
+            redirects: ['www.joshs.au'],
+            aliases: ["*.joshs.au"]
+          },
       invalidation: {
         paths: ["/*"],
       },
@@ -64,6 +65,7 @@ export default $config({
       url: {
         router: {
           instance: router,
+          domain: 'joshs.au'
         },
       },
       dev: false,
