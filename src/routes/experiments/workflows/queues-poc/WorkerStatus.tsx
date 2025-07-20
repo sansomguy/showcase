@@ -40,8 +40,6 @@ export default component$(
     useVisibleTask$(async ({ track, cleanup }) => {
       track(() => workflowRunContext.value);
 
-      console.log("Running resource: " + manualUpdate.value);
-
       const abortController = new AbortController();
       cleanup(() => {
         console.log("cleanup");
@@ -86,7 +84,6 @@ export default component$(
         <Slot />
         <button
           onClick$={() => {
-            console.log("running manu update of value");
             manualUpdate.value = manualUpdate.value + 1;
           }}
         >

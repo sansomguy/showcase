@@ -5,7 +5,7 @@ import {
   useSignal,
   useStyles$,
 } from "@builder.io/qwik";
-import { routeAction$ } from "@builder.io/qwik-city";
+import { type RequestHandler, routeAction$ } from "@builder.io/qwik-city";
 import "@fontsource-variable/inter";
 import "@fontsource/ibm-plex-mono";
 
@@ -14,17 +14,16 @@ import DynamicMenu from "~/components/theme/dynamic-menu";
 import FlyingSquares from "~/components/theme/flying-squares";
 import { DarkThemeContext } from "~/components/theme/theme-switcher";
 
-// export const onGet: RequestHandler = async (event) => {
-//   const { cacheControl } = event;
-//   cacheControl({
-//     public: true,
-//     // Always serve a cached response by default, up to a week stale
-//     staleWhileRevalidate: 60 * 60 * 24 * 7,
-//     // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
-//     maxAge: 10 * 60 * 1000,
-//     sMaxAge: 10 * 60 * 1000,
-//   });
-// };
+export const onGet: RequestHandler = async (event) => {
+  const { cacheControl } = event;
+  cacheControl({
+    public: true,
+    // Always serve a cached response by default, up to a week stale
+    staleWhileRevalidate: 60 * 60 * 24 * 7,
+    // Max once every 10 minutes, revalidate on the server to get a fresh version of this page
+    maxAge: 10 * 60 * 1000,
+  });
+};
 
 export const useSubscribe = routeAction$(async () => {
   // TODO

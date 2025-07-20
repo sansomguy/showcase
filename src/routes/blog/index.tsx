@@ -1,5 +1,13 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import { type DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
+
+export const head: DocumentHead = {
+  title: "Blog",
+  frontmatter: {
+    breadcrumbs: false,
+  },
+};
+
 import PostsList from "~/components/theme/posts-list";
 import { Blog } from "~/utils/db/blog";
 import { groupBy } from "~/utils/groupBy";
@@ -42,10 +50,3 @@ export default component$(() => {
     </div>
   );
 });
-
-export const head: DocumentHead = {
-  title: "Blog",
-  frontmatter: {
-    breadcrumbs: false,
-  },
-};

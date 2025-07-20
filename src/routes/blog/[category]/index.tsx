@@ -8,6 +8,16 @@ import PostsList from "~/components/theme/posts-list";
 import { capitalize } from "~/utils/capitalize";
 import { Blog } from "~/utils/db/blog";
 
+export const head: DocumentHead = ({ resolveValue }) => {
+  const loader = resolveValue(usePostsLoader);
+  return {
+    title: loader.category,
+    frontmatter: {
+      breadcrumbs: [{ name: "Blog", link: "/blog" }],
+    },
+  };
+};
+
 export const onStaticGenerate: StaticGenerateHandler = async (context) => {
   const blog = new Blog({ env: context.env, sharedMap: new Map() });
   const categories = await blog.getCategories();
@@ -41,13 +51,3 @@ export default component$(() => {
     </div>
   );
 });
-
-export const head: DocumentHead = ({ resolveValue }) => {
-  const loader = resolveValue(usePostsLoader);
-  return {
-    title: loader.category,
-    frontmatter: {
-      breadcrumbs: [{ name: "Blog", link: "/" }],
-    },
-  };
-};
